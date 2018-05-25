@@ -5,9 +5,12 @@ import './SignUp.css'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
+const buttonStyle = {
+  color: "white"
+
+};
+
 class SignUp extends Component{
-
-
 
 
 constructor(props){
@@ -48,7 +51,11 @@ confirmPassword(){
 
     <div class = "password1">
 
-      <TextField label = "Password" placeholder = "Password" type = "password" onChange = {this.updatePassword}/>
+      <TextField
+        label = "Password"
+        placeholder = "Password"
+        type = "password"
+        onChange = {this.updatePassword}/>
     </div>
     <div class = "password2">
       <TextField
@@ -60,7 +67,12 @@ confirmPassword(){
       onChange = {this.updatePassword2}/>
     </div>
     <div class = "password2">
-      <Button type = "rasied" color = "black" onClick = {this.confirmPassword}> Submit </Button>
+      <Button
+        variant = "raised"
+        color = "black"
+        onClick = {this.confirmPassword}
+        style = {buttonStyle}>
+        Sign Up </Button>
     </div>
   </div>
 );

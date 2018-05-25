@@ -15,16 +15,12 @@ const theme = createMuiTheme({
   palette: {
         primary: { main: '#1b3b77' }, // Purple and green play nicely together.
         secondary: { main: '#ffffff' }, // This is just green.A700 as hex.
+        },
+      });
 
-  },
-  // container: {
-  //   display: 'flex',
-  //   flexWrap: 'wrap',
-  // },
-  // input: {
-  // },
-
-});
+const buttonStyle = {
+    color: '10px'
+};
 
 
 
@@ -65,9 +61,7 @@ const signUp = <SignUp />;
             currentForm: signUp
           };
         });
-    }
-
-
+      }
 
     render(){
       return (
@@ -75,13 +69,17 @@ const signUp = <SignUp />;
             <div>
                 {/* <HelloUser name = "Spencer"/> */}
                 {/* <FriendsContainer/> */}
-                <h1 class = "App-header">Welcome to <span className = "color">Bud</span>Blocks</h1>
+                <h1 class = "SULI-header">Welcome to <span className = "color">Bud</span>Blocks</h1>
                 <br/>
-                <div class = "button">
-                  <Button variant = "outlined" color = "primary" onClick = {this.changePageSignUp}> Sign Up </Button>
+                  <div className = "buttons">
+                    <div className = "signupbut">
+                      <Button variant = "outlined" color = "primary" onClick = {this.changePageSignUp}> Sign Up </Button>
+                    </div>
+                    <div className = "loginbut">
+                      <Button  variant = "outlined" color = "secondary" onClick = {this.changePageLogIn}> Log In </Button>
+                    </div>
+                  </div>
 
-                  <Button variant = "outlined" color = "secondary" onClick = {this.changePageLogIn}> Log In </Button>
-                </div>
 
                 <div>
                   {this.state.currentForm}

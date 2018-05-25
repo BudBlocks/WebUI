@@ -1,23 +1,11 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 0.5s linear;
-  height: 80px;
-  background-color: red;
-}
-
-.App-header {
+.SULI-header {
   text-align: center;
   color: #1b3b77;
   height: 100px;
   padding-top: 10px;
 }
 
-.App-title {
-  font-size: 1.5em;
-}
+
 
 .color{
   color: white;
@@ -26,7 +14,7 @@
 .App-intro {
   font-size: large;
 }
-body{
+.SULI{
   background-image: url("Images/bluepic2.jpg");
   width: 100%;
   height: 100%;
@@ -34,9 +22,19 @@ body{
   background-attachment: inherit;
 }
 
-.button{
-  text-align: center;
-  margin-top:8%;
+
+.button1{
+  padding-left: 80px;
+}
+
+.loginbut{
+  padding-left: 30px;
+  display: inline;
+}
+
+.signupbut{
+
+  display: inline;
 }
 
 div{
