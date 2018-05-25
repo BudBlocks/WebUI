@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button } from '@material-ui/core';
 import SULI from './SULI';
 import DashboardHeader from './DashboardHeader';
+import NoteToggle from './NoteToggle';
 
 const styles = {
   StretchButton: {
@@ -13,6 +14,7 @@ const styles = {
 
 const loginPage = <SULI/>;
 const dashboardHeader = <DashboardHeader/>;
+const noteToggle = <NoteToggle/>;
 let dirPage = undefined;
 
 class Directory extends Component {
@@ -23,11 +25,13 @@ class Directory extends Component {
     this.changeTo = this.changeTo.bind(this);
     this.signUp = this.signUp.bind(this);
     this.dashboard = this.dashboard.bind(this);
+    this.noteToggle = this.noteToggle.bind(this);
 
     dirPage = (
       <div>
         <Button style={styles.StretchButton} onClick={this.signUp}>Sign Up</Button>
         <Button style={styles.StretchButton} onClick={this.dashboard}>Dashboard</Button>
+        <Button style={styles.StretchButton} onClick={this.noteToggle}>Note Toggle</Button>
       </div>
     );
 
@@ -42,6 +46,10 @@ class Directory extends Component {
 
   dashboard() {
     this.changeTo(dashboardHeader);
+  }
+
+  noteToggle() {
+    this.changeTo(noteToggle);
   }
 
   changeTo(form) {
