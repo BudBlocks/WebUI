@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { IconButton, Icon, Grid, Button } from '@material-ui/core';
 import { Add, Delete, AccountBalance } from '@material-ui/icons';
-import FriendsContainer from './FriendsContainer';
 
 const styles = {
   Right: {
     textAlign: 'right',
+  },
+  Left: {
+    textAlign: 'left',
   },
   Balance: {
     paddingLeft: 30,
@@ -38,7 +40,7 @@ class DashboardHeader extends Component {
     return (
       <div>
         <Grid container>
-          <Grid item xs={6}>
+          <Grid item xs={6} style={styles.Left}>
             <IconButton>
               <Add/>
             </IconButton>
