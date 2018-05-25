@@ -1,0 +1,49 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 0.5s linear;
+  height: 80px;
+  background-color: red;
+}
+
+.App-header {
+  text-align: center;
+  color: #1b3b77;
+  height: 100px;
+  padding-top: 10px;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.color{
+  color: white;
+}
+
+.App-intro {
+  font-size: large;
+}
+body{
+  background-image: url("Images/bluepic2.jpg");
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-attachment: inherit;
+}
+
+.button{
+  text-align: center;
+  margin-top:8%;
+}
+
+div{
+  text-align: center;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
