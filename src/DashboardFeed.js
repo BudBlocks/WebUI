@@ -1,15 +1,40 @@
-import React from 'react';
+import React, {Component} from 'react';
+import Button from '@material-ui/core/Button';
+import {ArrowDownward, ArrowUpward} from '@material-ui/icons';
+import {IconButton, Icon} from '@material-ui/core';
 
-const styles = {
-  spacing: {
-    padding: "20px"
-  }
+let incoming = false;
+
+class DashboardFeed extends Component {
+constructor(props) {
+  super(props)
+
+  this.setState{
+    infoList: incoming
+  )
+
+  this.showIncoming = this.showIncoming.bind(this);
+  this.showOutgoing = this.showOutgoing.bind(this);
 }
 
-function DashboardFeed() {
-  return (
-    <p style={styles.spacing}>This is where the dashboard feed goes.</p>
-  )
+showIncoming() {
+  this.setState( {
+    infoList: incoming
+  })
+}
+
+showOutgoing() {
+  this.setState( {
+    infoList: outgoing
+  })
+}
+
+render() {
+  return (<div>
+    <IconButton onClick = {this.showIncoming}> <ArrowDownward/> </IconButton>
+    <IconButton onClick = {this.showOutgoing}> <ArrowUpward/> </IconButton>
+  </div>)
+}
 }
 
 export default DashboardFeed;
