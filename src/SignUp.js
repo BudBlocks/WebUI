@@ -13,6 +13,9 @@ const buttonStyle = createMuiTheme({
   },
 });
 
+const bStyle = {
+    borderRadius: '40px'
+};
 
 class SignUp extends Component{
 
@@ -75,7 +78,7 @@ confirmPassword(){
       <Button
         variant = "raised"
         onClick = {this.confirmPassword}
-        style = {buttonStyle}>
+        style = {bStyle}>
         Sign Up </Button>
       </MuiThemeProvider>
     </div>
