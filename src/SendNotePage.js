@@ -9,9 +9,15 @@ class SendNotePage extends Component {
     super(props)
 
     this.state = {
-      name: (typeof props.name === undefined) ? '' : props.name,
-      amount: (typeof props.amount === undefined) ? '0.00' : props.amount,
-      message: (typeof props.message === undefined) ? '' : props.message
+      name: (typeof props.name === undefined)
+        ? ''
+        : props.name,
+      amount: (typeof props.amount === undefined)
+        ? '0.00'
+        : props.amount,
+      message: (typeof props.message === undefined)
+        ? ''
+        : props.message
     }
 
     this.handleChangeName = this.handleChangeName.bind(this);
@@ -21,9 +27,7 @@ class SendNotePage extends Component {
   }
 
   handleChangeName(e) {
-    this.setState({
-      name: e.target.value
-    })
+    this.setState({name: e.target.value})
   }
 
   handleChangeAmount(e) {
@@ -33,9 +37,7 @@ class SendNotePage extends Component {
   }
 
   handleChangeMessage(e) {
-    this.setState({
-      message: e.target.value
-    })
+    this.setState({message: e.target.value})
   }
 
   getProps(e) {
@@ -51,33 +53,39 @@ class SendNotePage extends Component {
   render() {
 
     return (
-      // if sending note, render this:
-      <div>
-      <div className = 'info'>
-        <h2> Send To: <input type = 'text' name = 'name' value = {this.state.name} onChange = {this.handleChangeName.bind(this)}/> </h2>
-        <h2> Dollar Amount: <input type = 'Number' step = '.01' name = 'amount' value = {formatMoney(this.state.amount)} onChange = {this.handleChangeAmount.bind(this)}/> </h2>
-        <h2> Message: <input type = 'text' name = 'message' value = {this.state.message} onChange = {this.handleChangeMessage.bind(this)}/></h2>
+    // if sending note, render this:
+    <div>
+      <div className='info'>
+        <h2>
+          Send To:
+          <input type='text' name='name' value={this.state.name} onChange={this.handleChangeName.bind(this)}/>
+        </h2>
+        <h2>
+          Dollar Amount:
+          <input type='Number' step='.01' name='amount' value={formatMoney(this.state.amount)} onChange={this.handleChangeAmount.bind(this)}/>
+        </h2>
+        <h2>
+          Message:
+          <input type='text' name='message' value={this.state.message} onChange={this.handleChangeMessage.bind(this)}/></h2>
       </div>
       <div>
-        <Button variant = 'outlined' color = 'secondary' onClick = {this.getProps}> Send Note </Button>
+        <Button variant='outlined' color='secondary' onClick={this.getProps}>
+          Send Note
+        </Button>
       </div>
-      </div>
-
-    )
+    </div>)
   }
 }
 
-
 function formatMoney(n) {
-  let new_n = (Number) (n);
+  let new_n = (Number)(n);
   if (isNaN(new_n)) {
     return n;
   }
   new_n = new_n.toFixed(2);
   if (new_n.length < n.length) {
     return new_n;
-  }
-  else {
+  } else {
     return n;
   }
 }
