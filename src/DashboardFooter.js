@@ -22,7 +22,7 @@ class DashboardFooter extends Component {
   render() {
     return (
       <div>
-    <Button style = {bStyle} variant = 'raised color' color = 'primary'>
+    <Button style = {bStyle} variant = 'raised' color = 'primary'>
       <span style = {sStyle}> Send Note </span>
       <Send/>
     </Button>
