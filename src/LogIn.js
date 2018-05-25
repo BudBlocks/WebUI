@@ -8,7 +8,9 @@ import TextField from '@material-ui/core/TextField';
 
 class LogIn extends Component{
 
-
+  updateEmail(e){
+    this.setState({email: e.target.value})
+  }
 
 
 constructor(props){
