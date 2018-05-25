@@ -1,14 +1,18 @@
 import React, {Component} from 'react';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import './SignUp.css'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-const buttonStyle = {
-  color: "white"
+const buttonStyle = createMuiTheme({
+  palette: {
+    primary: {main: '#000000'},
 
-};
+  },
+});
+
 
 class SignUp extends Component{
 
@@ -67,12 +71,13 @@ confirmPassword(){
       onChange = {this.updatePassword2}/>
     </div>
     <div class = "password2">
+      <MuiThemeProvider theme = {buttonStyle}>
       <Button
         variant = "raised"
-        color = "black"
         onClick = {this.confirmPassword}
         style = {buttonStyle}>
         Sign Up </Button>
+      </MuiThemeProvider>
     </div>
   </div>
 );

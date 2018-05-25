@@ -10,6 +10,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import LogIn from './LogIn';
 import SignUp from './SignUp'
+import Background from './Images/bluepic2.jpg';
 
 const theme = createMuiTheme({
   palette: {
@@ -18,9 +19,24 @@ const theme = createMuiTheme({
         },
       });
 
-const buttonStyle = {
-    color: '10px'
+  var h = window.innerHeight;
+  var w = window.innerWidth;
+
+const backGround = {
+  backgroundImage: "url(" + (Background) + ")",
+  width: "100%",
+  height: "100%",
+  margin: "0",
+  padding: "0",
+  backgroundRepeat: "no-repeat",
+  backgroundAttachment: "inherit"
 };
+
+const buttonColor = {
+  white: "#ffffff"
+
+};
+
 
 
 
@@ -28,7 +44,6 @@ const logIn = <LogIn />;
 const signUp = <SignUp />;
 
   class SULI extends Component{
-
     constructor(props){
       super(props)
 
@@ -66,9 +81,7 @@ const signUp = <SignUp />;
     render(){
       return (
         <MuiThemeProvider theme = {theme}>
-            <div>
-                {/* <HelloUser name = "Spencer"/> */}
-                {/* <FriendsContainer/> */}
+              <body style = {backGround}>
                 <h1 class = "SULI-header">Welcome to <span className = "color">Bud</span>Blocks</h1>
                 <br/>
                   <div className = "buttons">
@@ -79,16 +92,15 @@ const signUp = <SignUp />;
                       <Button  variant = "outlined" color = "secondary" onClick = {this.changePageLogIn}> Log In </Button>
                     </div>
                   </div>
-
-
                 <div>
                   {this.state.currentForm}
                 </div>
+              </body>
+              </MuiThemeProvider>
 
-              </div>
-        </MuiThemeProvider>
       );
     }
+
 }
 
 export default SULI;

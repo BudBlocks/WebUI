@@ -2,8 +2,18 @@
   text-align: center;
   color: #1b3b77;
   height: 100px;
-  padding-top: 10px;
+  padding-top: 40px;
+  margin: 0px;
 }
+
+html{
+  height: 100%
+}
+body{
+  height: 100%
+}
+
+
 
 
 
@@ -30,6 +40,7 @@
 .loginbut{
   padding-left: 30px;
   display: inline;
+  color: white;
 }
 
 .signupbut{
