@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from '@material-ui/core';
 import SULI from './SULI';
-import DashboardHeader from './DashboardHeader';
+import Dashboard from './Dashboard';
 import NoteToggle from './NoteToggle';
 
 const styles = {
@@ -13,7 +13,7 @@ const styles = {
 }
 
 const loginPage = <SULI/>;
-const dashboardHeader = <DashboardHeader/>;
+const dashboard = <Dashboard/>;
 const noteToggle = <NoteToggle/>;
 let dirPage = undefined;
 
@@ -45,7 +45,7 @@ class Directory extends Component {
   }
 
   dashboard() {
-    this.changeTo(dashboardHeader);
+    this.changeTo(dashboard);
   }
 
   noteToggle() {
