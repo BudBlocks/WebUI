@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import HelloUser from './HelloUser'
 import './App.css';
-import FriendsContainer from './FriendsContainer';
 import Button from '@material-ui/core/Button';
 import purple from '@material-ui/core/colors/purple';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
