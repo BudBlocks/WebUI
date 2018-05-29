@@ -1,9 +1,18 @@
+.thePage{
+  text-align: center;
+}
+
+
 .SULI-header {
   text-align: center;
+  position: relative;
+  left:0;
+  right:0;
+  margin-top:0;
+  top:7%;
   color: #1b3b77;
-  height: 100px;
-  padding-top: 40px;
-  margin: 0px;
+
+margin:0px;
 }
 
 html{
@@ -12,18 +21,15 @@ html{
 body{
   height: 100%
 }
-
-
-
-
+h1{
+  margin: 0;
+}
 
 .color{
   color: white;
 }
 
-.App-intro {
-  font-size: large;
-}
+
 .SULI{
   background-image: url("Images/bluepic2.jpg");
   width: 100%;
@@ -33,26 +39,36 @@ body{
 }
 
 
-.button1{
-  padding-left: 80px;
+.buttons{
+  position: relative;
+  text-align: center;
+  left:0;
+  right:0;
+  top:10%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 10px;
+
+
 }
 
 .loginbut{
-  padding-left: 30px;
   display: inline;
-  color: white;
+  position: relative;
 }
 
 .signupbut{
-
   display: inline;
+  position: relative;
 }
 
-div{
-  text-align: center;
-}
+
+
+
+
+
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  to { transform: rotate(359deg); }
 }

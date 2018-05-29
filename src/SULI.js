@@ -82,10 +82,15 @@ const signUp = <SignUp />;
 
     render(){
       return (
+
         <MuiThemeProvider theme = {theme}>
-              <body style = {backGround}>
-                <h1 class = "SULI-header">Welcome to <span className = "color">Bud</span>Blocks</h1>
-                <br/>
+            <body style = {backGround}>
+
+                <div className = "SULI-header">
+                  <h1>Welcome to <span className = "color">Bud</span>Blocks</h1>
+                  </div>
+
+
                   <div className = "buttons">
                     <div className = "signupbut">
                       <Button variant = "outlined" color = "primary" onClick = {this.changePageSignUp}> Sign Up </Button>
@@ -94,11 +99,16 @@ const signUp = <SignUp />;
                       <Button  variant = "outlined" color = "secondary" onClick = {this.changePageLogIn}> Log In </Button>
                     </div>
                   </div>
-                <div>
-                  {this.state.currentForm}
-                </div>
-              </body>
-              </MuiThemeProvider>
+
+                  <div className = "thePage">
+                    {this.state.currentForm}
+                  </div>
+
+
+            </body>
+          </MuiThemeProvider>
+
+
 
       );
     }
