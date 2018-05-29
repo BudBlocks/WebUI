@@ -15,9 +15,9 @@ const styles = {
 
 const Directory = () => (
     <div>
-      <Button style={styles.StretchButton} onClick={this.signUp} component={Link} to='/login'>Sign Up</Button>
-      <Button style={styles.StretchButton} onClick={this.dashboard} component={Link} to='/dashboard'>Dashboard</Button>
-      <Button style={styles.StretchButton} onClick={this.noteToggle} component={Link} to='/sendnote'>Note Toggle</Button>
+      <Button style={styles.StretchButton} component={Link} to='/login'>Sign Up</Button>
+      <Button style={styles.StretchButton} component={Link} to='/dashboard'>Dashboard</Button>
+      <Button style={styles.StretchButton} component={Link} to='/sendnote'>Note Toggle</Button>
     </div>
   )
 

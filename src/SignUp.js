@@ -5,6 +5,8 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import './SignUp.css'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import { friends } from './App';
+import { Redirect } from 'react-router-dom';
 
 const buttonStyle = createMuiTheme({
   palette: {
@@ -22,7 +24,14 @@ class SignUp extends Component{
 
 constructor(props){
   super(props)
-  this.state = {email: '', password: '', password2: '', passwordMatch: true, passwordError: true}
+  this.state = {
+    email: '',
+    password: '',
+    password2: '',
+    passwordMatch: true,
+    passwordError: true,
+    toDashboard: false,
+  }
 
   this.updateEmail = this.updateEmail.bind(this);
   this.updatePassword = this.updatePassword.bind(this);
@@ -41,6 +50,8 @@ updatePassword2(e){
 }
 confirmPassword(){
   if(this.state.password === this.state.password2){
+    friends.push(this.state.email);
+    this.setState({ toDashboard: true });
     return
   }
   else{
@@ -49,6 +60,9 @@ confirmPassword(){
 }
 
   render(){
+    if(this.state.toDashboard){
+      return <Redirect to='/dashboard'/>
+    }
 
     return(
   <div>

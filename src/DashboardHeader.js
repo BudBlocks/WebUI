@@ -25,7 +25,7 @@ class DashboardHeader extends Component {
 
     this.state = {
       balance: 65498.593408,
-      rating: 6.9,
+      rating: 9.9,
     }
 
     this.formatMoney = this.formatMoney.bind(this);

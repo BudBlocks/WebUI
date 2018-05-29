@@ -1,7 +1,8 @@
-import React, {Component} from 'react';
+import React, {Component } from 'react';
 import ReactDOM from 'react-dom';
 import Button from '@material-ui/core/Button';
 import {Send} from '@material-ui/icons';
+import { Link } from 'react-router-dom';
 
 const bStyle = {
   fontSize: '20px',
@@ -16,16 +17,17 @@ const bStyle = {
 
 const sStyle = {
   marginRight: '10px',
+
 }
 class DashboardFooter extends Component {
 
   render() {
     return (
       <div>
-    <Button style = {bStyle} variant = 'raised' color = 'primary'>
-      <span style = {sStyle}> Send Note </span>
-      <Send/>
-    </Button>
+        <Button style = {bStyle} variant = 'raised' color = 'primary' component={Link} to='/sendnote'>
+          <span style = {sStyle}> Send Note </span>
+          <Send/>
+        </Button>
       </div>
     )
   }
