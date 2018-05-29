@@ -14,7 +14,7 @@ class NoteToggle extends Component {
     this.handleNoteChange = this.handleNoteChange.bind(this);
     this.handleNoteEdit = this.handleNoteEdit.bind(this);
 
-    sendNote = <SendNotePage stateChange={this.handleNoteChange}/>
+    sendNote = <SendNotePage stateChange={this.handleNoteChange} />
 
     this.state = {
       currentComponent: sendNote
@@ -22,11 +22,11 @@ class NoteToggle extends Component {
   }
 
   handleNoteChange(info) {
-    this.setState({currentComponent: <NotePageConfirmation stateChange={this.handleNoteEdit} name={info.name} amount={info.amount} message={info.message}/>})
+    this.setState({currentComponent: <NotePageConfirmation stateChange={this.handleNoteEdit} name={info.name} amount={info.amount} message={info.message} deadline={info.deadline}/>})
   }
 
   handleNoteEdit(info) {
-    this.setState({currentComponent: <SendNotePage stateChange={this.handleNoteChange} name={info.name} amount={info.amount} message={info.message}/>})
+    this.setState({currentComponent: <SendNotePage stateChange={this.handleNoteChange} name={info.name} amount={info.amount} message={info.message} deadline={info.deadline}/>})
   }
 
   render() {

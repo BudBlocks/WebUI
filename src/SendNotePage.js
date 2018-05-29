@@ -5,24 +5,38 @@ import NotePageConfirmation from './NotePageConfirmation.js';
 import NoteToggle from './NoteToggle.js';
 
 class SendNotePage extends Component {
+
   constructor(props) {
     super(props)
 
+    let d = new Date()
+    d = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 3)
+    let year = d.getFullYear().toString()
+    let month = (d.getMonth()+1).toString()
+    let day = d.getDate().toString()
+    month = month.length == 1 ? '0'.concat(month) : month
+    day = day.length == 1 ? '0'.concat(day) : day
+
     this.state = {
-      name: (typeof props.name === undefined)
+      name:(props.name === undefined)
         ? ''
         : props.name,
-      amount: (typeof props.amount === undefined)
-        ? '0.00'
-        : props.amount,
-      message: (typeof props.message === undefined)
+      amount: (props.amount === undefined)
         ? ''
-        : props.message
+        : props.amount,
+      message: (props.message === undefined)
+        ? ''
+        : props.message,
+      deadline: (props.deadline === undefined)
+        ? year.concat('-').concat(month).concat('-').concat(day)
+        : props.deadline
     }
 
     this.handleChangeName = this.handleChangeName.bind(this);
     this.handleChangeAmount = this.handleChangeAmount.bind(this);
     this.handleChangeMessage = this.handleChangeMessage.bind(this);
+    this.handleChangeDeadline = this.handleChangeDeadline.bind(this);
+
     this.getProps = this.getProps.bind(this);
   }
 
@@ -40,11 +54,17 @@ class SendNotePage extends Component {
     this.setState({message: e.target.value})
   }
 
+  handleChangeDeadline(e) {
+    this.setState({deadline: e.target.value})
+    console.log(e.target.value);
+  }
+
   getProps(e) {
     var info = {
       name: this.state.name,
       message: this.state.message,
-      amount: formatMoney(this.state.amount)
+      amount: formatMoney(this.state.amount),
+      deadline: this.state.deadline
     }
 
     this.props.stateChange(info);
@@ -66,7 +86,12 @@ class SendNotePage extends Component {
         </h2>
         <h2>
           Message:
-          <input type='text' name='message' value={this.state.message} onChange={this.handleChangeMessage.bind(this)}/></h2>
+          <input type='text' name='message' value={this.state.message} onChange={this.handleChangeMessage.bind(this)}/>
+        </h2>
+        <h2>
+          Deadline:
+          <input type='date' name='deadline' value={this.state.deadline} onChange={this.handleChangeDeadline.bind(this)}/>
+        </h2>
       </div>
       <div>
         <Button variant='outlined' color='secondary' onClick={this.getProps}>
@@ -76,7 +101,6 @@ class SendNotePage extends Component {
     </div>)
   }
 }
-
 function formatMoney(n) {
   let new_n = (Number)(n);
   if (isNaN(new_n)) {

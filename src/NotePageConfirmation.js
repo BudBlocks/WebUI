@@ -10,7 +10,8 @@ class NotePageConfirmation extends Component {
     this.state = {
       name: props.name,
       amount: props.amount,
-      message: props.message
+      message: props.message,
+      deadline: props.deadline
     }
 
     this.handleSendNote = this.handleSendNote.bind(this);
@@ -26,7 +27,8 @@ class NotePageConfirmation extends Component {
     var info = {
       name: this.state.name,
       message: this.state.message,
-      amount: this.state.amount
+      amount: this.state.amount,
+      deadline: this.state.deadline
     }
 
     this.props.stateChange(info);
@@ -42,6 +44,8 @@ class NotePageConfirmation extends Component {
           Amount: ${this.state.amount}</ul>
         <ul>
           Message: {this.state.message}</ul>
+        <ul>
+          Deadline: {this.state.deadline}</ul>
       </div>
       <div>
         <Button variant='outlined' color='secondary' onClick={this.handleSendNote}>
