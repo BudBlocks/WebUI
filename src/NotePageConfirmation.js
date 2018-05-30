@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import Button from '@material-ui/core/Button';
 import NoteToggle from './NoteToggle.js';
+import Logo from './Images/BudblockLogo.png';
 
 class NotePageConfirmation extends Component {
   constructor(props) {
@@ -35,7 +36,14 @@ class NotePageConfirmation extends Component {
   }
 
   render() {
-    return (<div>
+    return (
+      <div className = "everythingAgain">
+      <div className = 'URMOM'>
+        <div className = "image">
+          <img src = {Logo} width = "40px"></img>
+        </div>
+      </div>
+      <div>
       <div>
         <h3>Confirm Your Note:</h3>
         <ul>
@@ -55,7 +63,9 @@ class NotePageConfirmation extends Component {
           Edit Note
         </Button>
       </div>
-    </div>)
+    </div>
+  </div>
+)
   }
 }
 

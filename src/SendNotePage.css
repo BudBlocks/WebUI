@@ -1,51 +1,51 @@
-.everything{
-  padding-top:50px;
+.everything {
+  padding-top: 50px;
 }
 
-.URMOM{
+.URMOM {
   width: 100%;
-  height:70px;
+  height: 70px;
   background-color: #1b3b77;
-
 }
-.image{
+
+.image {
   padding-top: 7px;
   text-align: center;
 }
 
-.friendText{
+.friendText {
   padding-top: 15px;
   position: absolute;
-  top:20%;
+  top: 20%;
   left: 0;
   right: 0;
 }
 
-.amountText{
+.amountText {
   padding-top: 15px;
   position: absolute;
   top: 30%;
   left: 0;
-  right:0;
-
+  right: 0;
 }
 
-.messageField{
+.messageField {
   position: absolute;
-  top:40%;
+  top: 40%;
   left: 0;
-  right:0;
-  padding-top:15px;
+  right: 0;
+  padding-top: 15px;
 }
-.date{
+
+.date {
   padding-top: 30px;
   position: absolute;
-  top:50%;
+  top: 50%;
   left: 0;
   right: 0;
 }
 
-.SNButton{
+.SNButton {
   position: absolute;
   top: 80%;
   left: 0;
