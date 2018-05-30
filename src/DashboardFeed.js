@@ -7,9 +7,16 @@ import ListItem from '@material-ui/core/ListItem';
 import {ArrowDownward, ArrowUpward} from '@material-ui/icons';
 import {IconButton, Icon} from '@material-ui/core';
 import { friends } from './App';
+import { formatMoney } from './Utils';
 
-let outgoing = [];
-let incoming = [];
+let unresolved = []
+
+for(let i = 0; i < 20; i++) {
+  unresolved.push({
+    id: i,
+    amount: Math.random() * 50,
+  });
+}
 
 class DashboardFeed extends Component {
 
@@ -17,19 +24,15 @@ class DashboardFeed extends Component {
     super(props)
 
     this.state = {
-      infoList: friends
+      infoList: unresolved
     }
-
-    this.showIncoming = this.showIncoming.bind(this);
-    this.showOutgoing = this.showOutgoing.bind(this);
   }
 
-  showIncoming() {
-    this.setState({infoList: incoming})
-  }
-
-  showOutgoing() {
-    this.setState({infoList: outgoing})
+  handleResolve(resolveNote) {
+    this.setState((prevState) => ({
+      infoList: prevState.infoList.filter(note => note.id != resolveNote.id)
+    }));
+    this.props.removeBalance(resolveNote.amount);
   }
 
   render() {
@@ -38,14 +41,14 @@ class DashboardFeed extends Component {
         <List style={{height:'inherit', overflow:'auto'}}>
           {
             this.state.infoList.map((note) =>
-              <ListItem>
+              <ListItem key={note.id}>
                 <div styles={{alignItems: 'left'}}>
                   <ListItemText>
-                    {note}
+                    ${formatMoney(note.amount)}
                   </ListItemText>
                 </div>
                 <ListItemSecondaryAction>
-                  <Button>
+                  <Button onClick={this.handleResolve.bind(this, note)}>
                     Resolve
                   </Button>
                 </ListItemSecondaryAction>
