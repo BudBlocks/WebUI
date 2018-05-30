@@ -131,7 +131,7 @@ class SendNotePage extends Component {
       </div>
       <div className = "SNButton">
         <Button variant='outlined' color='secondary' onClick={this.getProps}>
-          Send Note
+          Submit Note
         </Button>
       </div>
     </div>

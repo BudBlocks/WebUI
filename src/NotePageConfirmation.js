@@ -49,7 +49,7 @@ class NotePageConfirmation extends Component {
       </div>
       <div>
         <Button variant='outlined' color='secondary' onClick={this.handleSendNote}>
-          Submit Note
+          Confirm Note
         </Button>
         <Button variant='outlined' color='primary' onClick={this.getProps}>
           Edit Note
