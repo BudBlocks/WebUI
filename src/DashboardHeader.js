@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { IconButton, Icon, Grid, Button } from '@material-ui/core';
 import { Add, Delete, AccountBalance } from '@material-ui/icons';
 import { formatMoney } from './Utils';
+import { Link } from 'react-router-dom';
 
 const styles = {
   Right: {
@@ -41,7 +42,7 @@ class DashboardHeader extends Component {
       <div>
         <Grid container>
           <Grid item xs={6} style={styles.Left}>
-            <IconButton>
+            <IconButton component={Link} to='/friends'>
               <Add/>
             </IconButton>
           </Grid>
