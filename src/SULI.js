@@ -50,7 +50,7 @@ const signUp = <SignUp />;
       super(props)
 
       this.state = {
-        currentForm: signUp
+        currentForm: logIn
       }
 
       this.changePageLogIn = this.changePageLogIn.bind(this);

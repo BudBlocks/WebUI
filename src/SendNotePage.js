@@ -5,14 +5,15 @@ import NotePageConfirmation from './NotePageConfirmation.js';
 import NoteToggle from './NoteToggle.js';
 import TextField from '@material-ui/core/TextField';
 import './SendNotePage.css';
+import Logo from './Images/BudblockLogo.png';
+
 
 const styles = {
     texts: {
       display: 'inline',
-      textAlign: 'center',
-      marginLeft: '0',
-      marginRight: '0',
-      width: '100px',
+      width: '100%',
+      margin: 'auto',
+      float: 'right',
     },
     divs: {
       display: 'inline',
@@ -94,58 +95,48 @@ class SendNotePage extends Component {
 
     return (
     // if sending note, render this:
-    <div>
+    <div className = "everythingAgain">
+    <div className = 'URMOM'>
+      <div className = "image">
+        <img src = {Logo} width = "40px"></img>
+      </div>
+    </div>
+
+    <div className = "everything">
       <div className='info'>
 
-        <div>
 
-          <div style = {styles.divs}>
-          <p className = 'notePageHeader'>Send To:</p>
+          <div className = "friendText">
+            <TextField label = 'Username of Friend'  fullWidth className = 'field' type='text'  value= {this.state.name} onChange={this.handleChangeName.bind(this)}/>
           </div>
 
-          <div style = {styles.texts}>
-            <TextField label = 'Username of Friend'  className = 'notePageHeader2' type='text'  value= {this.state.name} onChange={this.handleChangeName.bind(this)}/>
+
+
+
+          <div className = "amountText">
+            <TextField  className='field' fullWidth label = "Amount" style = {styles.texts} type='Number' step='.01' name='amount' value={formatMoney(this.state.amount)} onChange={this.handleChangeAmount.bind(this)}/>
           </div>
 
-        </div>
 
 
-        <div>
 
-          <div style = {styles.divs}>
-          <p className = 'notePageHeader'>Dollar Amount:</p>
+          <div className = "messageField">
+            <TextField className='field' fullWidth label = "Message" type='text' name='message' value={this.state.message} onChange={this.handleChangeMessage.bind(this)}/>
           </div>
 
-          <div style = {styles.texts}>
-          <TextField  style = {styles.texts} type='Number' step='.01' name='amount' value={formatMoney(this.state.amount)} onChange={this.handleChangeAmount.bind(this)}/>
+
+          <div className = "date">
+          <TextField className='field' fullWidth type='date' name='deadline' value={this.state.deadline} onChange={this.handleChangeDeadline.bind(this)}/>
           </div>
-
-        </div>
-
-
-        <div>
-
-        <div style = {styles.divs}>
-        <p className = 'notePageHeader'>Message:</p>
-        </div>
-
-        <div style = {styles.texts}>
-          <TextField label = "Message" type='text' name='message' value={this.state.message} onChange={this.handleChangeMessage.bind(this)}/>
-        </div>
-
-        </div>
-
-        <p className = 'notePageHeader'>
-          Deadline:
-          <TextField type='date' name='deadline' value={this.state.deadline} onChange={this.handleChangeDeadline.bind(this)}/>
-        </p>
       </div>
-      <div>
+      <div className = "SNButton">
         <Button variant='outlined' color='secondary' onClick={this.getProps}>
           Send Note
         </Button>
       </div>
-    </div>)
+    </div>
+    </div>
+  )
   }
 }
 function formatMoney(n) {

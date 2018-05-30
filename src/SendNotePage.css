@@ -1,9 +1,53 @@
-.notePageHeader{
-    display: inline;
-    position: relative;
+.everything{
+  padding-top:50px;
 }
-.notePageHeader2{
-    position: relative;
-    display: inline;
 
+.URMOM{
+  width: 100%;
+  height:70px;
+  background-color: #1b3b77;
+
+}
+.image{
+  padding-top: 7px;
+  text-align: center;
+}
+
+.friendText{
+  padding-top: 15px;
+  position: absolute;
+  top:20%;
+  left: 0;
+  right: 0;
+}
+
+.amountText{
+  padding-top: 15px;
+  position: absolute;
+  top: 30%;
+  left: 0;
+  right:0;
+
+}
+
+.messageField{
+  position: absolute;
+  top:40%;
+  left: 0;
+  right:0;
+  padding-top:15px;
+}
+.date{
+  padding-top: 30px;
+  position: absolute;
+  top:50%;
+  left: 0;
+  right: 0;
+}
+
+.SNButton{
+  position: absolute;
+  top: 80%;
+  left: 0;
+  right: 0;
 }

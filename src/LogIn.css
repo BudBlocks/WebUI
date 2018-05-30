@@ -1,4 +1,9 @@
 .App-logo{
+  animation-name: App-logo-spin;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  width: 150px;
   position: absolute;
   left:0;
   right: 0;

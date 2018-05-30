@@ -5,7 +5,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import './LogIn.css'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import Logo from './Images/BudblockLogo.jpg';
+import Logo from './Images/BudblockLogo.png';
 
 const buttonStyle = createMuiTheme({
   palette: {
