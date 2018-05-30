@@ -18,6 +18,7 @@ const Directory = () => (
       <Button style={styles.StretchButton} component={Link} to='/login'>Sign Up</Button>
       <Button style={styles.StretchButton} component={Link} to='/dashboard'>Dashboard</Button>
       <Button style={styles.StretchButton} component={Link} to='/sendnote'>Note Toggle</Button>
+      <Button style={styles.StretchButton} component={Link} to='/friends'>Friends</Button>
     </div>
   )
 
