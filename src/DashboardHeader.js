@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { IconButton, Icon, Grid, Button } from '@material-ui/core';
 import { Add, Delete, AccountBalance } from '@material-ui/icons';
+import { formatMoney } from './Utils';
 
 const styles = {
   Right: {
@@ -24,16 +25,15 @@ class DashboardHeader extends Component {
     super(props);
 
     this.state = {
-      balance: 65498.593408,
+      balance: 65.593408,
       rating: 9.9,
     }
-
-    this.formatMoney = this.formatMoney.bind(this);
   }
 
-  formatMoney(n) {
-    if(n == undefined) return;
-    return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+  removeBalance(amount) {
+    this.setState((prevState) => ({
+      balance: prevState.balance - amount
+    }))
   }
 
   render() {
@@ -54,7 +54,7 @@ class DashboardHeader extends Component {
           </Grid>
 
           <Grid item xs={8} style={styles.Balance}>
-            <h1>${this.formatMoney(this.state.balance)}</h1>
+            <h1 style={ this.state.balance < 0 ? {color:'red'} : {color:'green'}}>${formatMoney(this.state.balance)}</h1>
           </Grid>
           <Grid item xs={4} style={styles.Rating}>
             <h4>Rating <br/>{this.state.rating}</h4>
