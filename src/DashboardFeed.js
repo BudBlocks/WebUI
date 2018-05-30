@@ -1,7 +1,12 @@
 import React, {Component} from 'react';
 import Button from '@material-ui/core/Button';
+import List from '@material-ui/core/List';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItem from '@material-ui/core/ListItem';
 import {ArrowDownward, ArrowUpward} from '@material-ui/icons';
 import {IconButton, Icon} from '@material-ui/core';
+import { friends } from './App';
 
 let outgoing = [];
 let incoming = [];
@@ -12,7 +17,7 @@ class DashboardFeed extends Component {
     super(props)
 
     this.state = {
-      infoList: incoming
+      infoList: friends
     }
 
     this.showIncoming = this.showIncoming.bind(this);
@@ -28,13 +33,34 @@ class DashboardFeed extends Component {
   }
 
   render() {
-    return (<div>
+    return (
+    <div>
       <IconButton onClick={this.showIncoming}>
         <ArrowDownward/>
       </IconButton>
       <IconButton onClick={this.showOutgoing}>
         <ArrowUpward/>
       </IconButton>
+      <div>
+        <List style={{height:'inherit', overflow:'hidden'}}>
+          {
+            this.state.infoList.map((note) =>
+              <ListItem>
+                <div styles={{alignItems: 'left'}}>
+                  <ListItemText>
+                    {note}
+                  </ListItemText>
+                </div>
+                <ListItemSecondaryAction>
+                  <Button>
+                    Resolve
+                  </Button>
+                </ListItemSecondaryAction>
+              </ListItem>
+            )
+          }
+        </List>
+      </div>
     </div>)
   }
 }

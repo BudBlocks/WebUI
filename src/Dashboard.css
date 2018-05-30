@@ -1,0 +1,25 @@
+.dashboard-container {
+  flex-direction: column;
+  display: flex;
+  height: 100vh;
+  max-height: 100vh;
+}
+
+.dashboard-header {
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: auto;
+}
+
+.dashboard-feed {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto;
+  overflow: auto;
+}
+
+.dashboard-footer {
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: 40px;
+}

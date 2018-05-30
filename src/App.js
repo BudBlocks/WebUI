@@ -15,4 +15,10 @@ const App = () => (
   </Switch>
 )
 
+let friends = ['Scott', 'Eric'];
+for(let i = 0; i < 100; i++) {
+  friends.push(i);
+}
+export {friends};
+
 export default App;
