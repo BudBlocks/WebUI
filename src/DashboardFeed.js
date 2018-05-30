@@ -42,7 +42,7 @@ class DashboardFeed extends Component {
         <ArrowUpward/>
       </IconButton>
       <div>
-        <List style={{overflow:'auto'}}>
+        <List style={{height:'inherit', overflow:'hidden'}}>
           {
             this.state.infoList.map((note) =>
               <ListItem>

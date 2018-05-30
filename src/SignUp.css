@@ -1,15 +1,43 @@
 .email{
-  text-align: center;
-  margin-top: 10%;
+  padding-top: 30px;
+  position: absolute;
+  left: 0;
+  right:0;
+  margin:0;
+  top: 25%;
+}
+.username{
+  padding-top: 30px;
+  position: absolute;
+  left: 0;
+  right:0;
+  margin:0;
+  top: 35%;
 }
 
-
 .password1{
-  text-align: center;
-  margin-top: 40px;
+  padding-top: 30px;
+  position: absolute;
+  left: 0;
+  right:0;
+  margin:0;
+  top: 45%;
 }
 
 .password2{
-  text-align: center;
-  margin-top: 40px;
+  padding-top: 30px;
+  position: absolute;
+  left: 0;
+  right:0;
+  margin:0;
+  top: 55%;
+}
+
+.createAccountButton{
+  padding-top: 30px;
+  position: absolute;
+  left: 0;
+  right:0;
+  margin:0;
+  top: 70%;
 }
