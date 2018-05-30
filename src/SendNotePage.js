@@ -3,6 +3,26 @@ import ReactDOM from 'react-dom';
 import Button from '@material-ui/core/Button';
 import NotePageConfirmation from './NotePageConfirmation.js';
 import NoteToggle from './NoteToggle.js';
+import TextField from '@material-ui/core/TextField';
+import './SendNotePage.css';
+
+const styles = {
+    texts: {
+      display: 'inline',
+      textAlign: 'center',
+      marginLeft: '0',
+      marginRight: '0',
+      width: '100px',
+    },
+    divs: {
+      display: 'inline',
+      position: 'relative',
+    },
+    spacing: {
+      paddingTop: '30%',
+    }
+
+};
 
 class SendNotePage extends Component {
 
@@ -76,22 +96,49 @@ class SendNotePage extends Component {
     // if sending note, render this:
     <div>
       <div className='info'>
-        <h2>
-          Send To:
-          <input type='text' name='name' value={this.state.name} onChange={this.handleChangeName.bind(this)}/>
-        </h2>
-        <h2>
-          Dollar Amount:
-          <input type='Number' step='.01' name='amount' value={formatMoney(this.state.amount)} onChange={this.handleChangeAmount.bind(this)}/>
-        </h2>
-        <h2>
-          Message:
-          <input type='text' name='message' value={this.state.message} onChange={this.handleChangeMessage.bind(this)}/>
-        </h2>
-        <h2>
+
+        <div>
+
+          <div style = {styles.divs}>
+          <p className = 'notePageHeader'>Send To:</p>
+          </div>
+
+          <div style = {styles.texts}>
+            <TextField label = 'Username of Friend'  className = 'notePageHeader2' type='text'  value= {this.state.name} onChange={this.handleChangeName.bind(this)}/>
+          </div>
+
+        </div>
+
+
+        <div>
+
+          <div style = {styles.divs}>
+          <p className = 'notePageHeader'>Dollar Amount:</p>
+          </div>
+
+          <div style = {styles.texts}>
+          <TextField  style = {styles.texts} type='Number' step='.01' name='amount' value={formatMoney(this.state.amount)} onChange={this.handleChangeAmount.bind(this)}/>
+          </div>
+
+        </div>
+
+
+        <div>
+
+        <div style = {styles.divs}>
+        <p className = 'notePageHeader'>Message:</p>
+        </div>
+
+        <div style = {styles.texts}>
+          <TextField label = "Message" type='text' name='message' value={this.state.message} onChange={this.handleChangeMessage.bind(this)}/>
+        </div>
+
+        </div>
+
+        <p className = 'notePageHeader'>
           Deadline:
-          <input type='date' name='deadline' value={this.state.deadline} onChange={this.handleChangeDeadline.bind(this)}/>
-        </h2>
+          <TextField type='date' name='deadline' value={this.state.deadline} onChange={this.handleChangeDeadline.bind(this)}/>
+        </p>
       </div>
       <div>
         <Button variant='outlined' color='secondary' onClick={this.getProps}>
