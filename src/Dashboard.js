@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import DashboardHeader from './DashboardHeader'
-import DashboardFeed from './DashboardFeed'
+import DashboardFeed, { DashboardFeedHeader } from './DashboardFeed'
 import DashboardFooter from './DashboardFooter';
 import './Dashboard.css';
 
@@ -12,6 +12,9 @@ class Dashboard extends Component {
         <div className='dashboard-container'>
           <div className='dashboard-header'>
             <DashboardHeader />
+          </div>
+          <div className='dashboard-feed-header'>
+            <DashboardFeedHeader />
           </div>
           <div className='dashboard-feed'>
             <DashboardFeed />

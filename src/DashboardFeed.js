@@ -34,15 +34,8 @@ class DashboardFeed extends Component {
 
   render() {
     return (
-    <div>
-      <IconButton onClick={this.showIncoming}>
-        <ArrowDownward/>
-      </IconButton>
-      <IconButton onClick={this.showOutgoing}>
-        <ArrowUpward/>
-      </IconButton>
       <div>
-        <List style={{height:'inherit', overflow:'hidden'}}>
+        <List style={{height:'inherit', overflow:'auto'}}>
           {
             this.state.infoList.map((note) =>
               <ListItem>
@@ -61,8 +54,19 @@ class DashboardFeed extends Component {
           }
         </List>
       </div>
-    </div>)
+    )
   }
 }
+
+export const DashboardFeedHeader = () => (
+  <div style={{textAlign:'center'}}>
+    <IconButton onClick={this.showIncoming}>
+      <ArrowDownward/>
+    </IconButton>
+    <IconButton onClick={this.showOutgoing}>
+      <ArrowUpward/>
+    </IconButton>
+  </div>
+)
 
 export default DashboardFeed;

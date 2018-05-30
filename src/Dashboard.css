@@ -18,6 +18,12 @@
   overflow: auto;
 }
 
+.dashboard-feed-header {
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: auto;
+}
+
 .dashboard-footer {
   flex-grow: 0;
   flex-shrink: 1;

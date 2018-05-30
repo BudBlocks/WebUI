@@ -23,7 +23,7 @@ class DashboardFooter extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{textAlign:'center'}}>
         <Button style = {bStyle} variant = 'raised' color = 'primary' component={Link} to='/sendnote'>
           <span style = {sStyle}> Send Note </span>
           <Send/>
