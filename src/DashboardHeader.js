@@ -51,7 +51,7 @@ class DashboardHeader extends Component {
           </Grid>
           <Grid item xs={6}>
             <div style={styles.Right}>
-              <IconButton>
+              <IconButton component={Link} to='/bank'>
 							  <AccountBalance/>
               </IconButton>
             </div>
