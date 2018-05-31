@@ -7,7 +7,7 @@ import LogoHeader from './LogoHeader.js';
 import store from './UserStore';
 import { observer } from 'mobx-react';
 import {inputMoneyFormat} from './Utils';
-import {formatMoney} from './Utils';
+import {formatMoney, clampInput, addBalance, removeBalance } from './Utils';
 
 @observer
 class Bank extends Component {
@@ -25,24 +25,26 @@ class Bank extends Component {
 
     depositMoney(e) {
       if (e.which === 13) {
-      store.balance += Number(e.target.value);
-      this.setState({depositShow: ''});
-        }
+        store.balance += Number(e.target.value);
+        this.setState({depositShow: ''});
+        addBalance(store.username, Number(e.target.value));
+      }
     }
 
     withdrawMoney(e) {
       if (e.which === 13) {
-      store.balance -= Number(e.target.value);
-      this.setState({withdrawShow: ''});
+        store.balance -= Number(e.target.value);
+        this.setState({withdrawShow: ''});
+        removeBalance(store.username, Number(e.target.value));
       }
     }
 
     handleWithdrawChange(e) {
-      this.setState({withdrawShow: e.target.value})
+      this.setState({withdrawShow: clampInput(e.target.value, 0, store.balance)})
     }
 
     handleDepositChange(e) {
-      this.setState({depositShow: e.target.value})
+      this.setState({depositShow: clampInput(e.target.value, 0, 999)})
     }
 
   render() {

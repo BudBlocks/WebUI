@@ -6,7 +6,9 @@ import NoteToggle from './NoteToggle.js';
 import TextField from '@material-ui/core/TextField';
 import './SendNotePage.css';
 import LogoHeader from './LogoHeader.js';
-import {inputMoneyFormat} from './Utils';
+import { inputMoneyFormat } from './Utils';
+import { Redirect } from 'react-router-dom';
+import store from './UserStore';
 
 const styles = {
     texts: {
@@ -50,7 +52,8 @@ class SendNotePage extends Component {
         : props.message,
       deadline: (props.deadline === undefined)
         ? year.concat('-').concat(month).concat('-').concat(day)
-        : props.deadline
+        : props.deadline,
+      toDashboard: false
     }
 
     this.handleChangeName = this.handleChangeName.bind(this);
@@ -58,7 +61,7 @@ class SendNotePage extends Component {
     this.handleChangeMessage = this.handleChangeMessage.bind(this);
     this.handleChangeDeadline = this.handleChangeDeadline.bind(this);
 
-    this.getProps = this.getProps.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChangeName(e) {
@@ -80,7 +83,7 @@ class SendNotePage extends Component {
     console.log(e.target.value);
   }
 
-  getProps(e) {
+  handleSubmit(e) {
     var info = {
       name: this.state.name,
       message: this.state.message,
@@ -92,7 +95,6 @@ class SendNotePage extends Component {
   }
 
   render() {
-
     return (
     // if sending note, render this:
     <div className = "everythingAgain">
@@ -117,7 +119,7 @@ class SendNotePage extends Component {
           </div>
       </div>
       <div className = "SNButton">
-        <Button variant='outlined' color='secondary' onClick={this.getProps}>
+        <Button variant='outlined' color='secondary' onClick={this.handleSubmit}>
           Submit Note
         </Button>
       </div>
