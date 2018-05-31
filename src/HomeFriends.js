@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
+import LogoHeader from './LogoHeader.js';
 
 let databaseUsername = ['Wellesly', 'Scooter', 'Spender', 'CoalMan', 'Eric'];
 
@@ -86,11 +87,14 @@ class HomeFriends extends Component {
   render() {
     let one = (
       <div>
+        <LogoHeader/>
+        <div>
         {this.state.usernameList.toString()}
       <br/>
         {this.state.nameList.toString()}
       <br/>
         {this.state.ratingsList.toString()}
+      </div>
         <div>
           <Button variant='outlined' color='secondary' onClick={this.handleClick}> Search For Friend </Button>
         </div>

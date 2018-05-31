@@ -5,8 +5,7 @@ import NotePageConfirmation from './NotePageConfirmation.js';
 import NoteToggle from './NoteToggle.js';
 import TextField from '@material-ui/core/TextField';
 import './SendNotePage.css';
-import Logo from './Images/BudblockLogo.png';
-
+import LogoHeader from './LogoHeader.js';
 
 const styles = {
     texts: {
@@ -96,34 +95,21 @@ class SendNotePage extends Component {
     return (
     // if sending note, render this:
     <div className = "everythingAgain">
-    <div className = 'URMOM'>
-      <div className = "image">
-        <img src = {Logo} width = "40px"></img>
-      </div>
-    </div>
-
+      <LogoHeader/>
     <div className = "everything">
       <div className='info'>
-
 
           <div className = "friendText">
             <TextField label = 'Username of Friend'  fullWidth className = 'field' type='text'  value= {this.state.name} onChange={this.handleChangeName.bind(this)}/>
           </div>
 
-
-
-
           <div className = "amountText">
             <TextField  className='field' fullWidth label = "Amount" style = {styles.texts} type='Number' step='.01' name='amount' value={formatMoney(this.state.amount)} onChange={this.handleChangeAmount.bind(this)}/>
           </div>
 
-
-
-
           <div className = "messageField">
             <TextField className='field' fullWidth label = "Message" type='text' name='message' value={this.state.message} onChange={this.handleChangeMessage.bind(this)}/>
           </div>
-
 
           <div className = "date">
           <TextField className='field' fullWidth type='date' name='deadline' value={this.state.deadline} onChange={this.handleChangeDeadline.bind(this)}/>
