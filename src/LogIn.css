@@ -1,8 +1,8 @@
 .App-logo {
   animation-name: App-logo-spin;
-  animation-duration: 3s;
+  animation-duration: 5s;
   animation-iteration-count: infinite;
-  animation-timing-function: linear;
+  animation-timing-function: ease;
   width: 200px;
   position: absolute;
   left: 0;
@@ -22,10 +22,13 @@
 }
 
 @keyframes App-logo-spin {
-  from {
+  0% {
     transform: rotate(0deg);
   }
-  to {
+  85% {
+    transform: rotate(360deg);
+  }
+  100% {
     transform: rotate(360deg);
   }
 }
