@@ -29,15 +29,8 @@ class DashboardHeader extends Component {
     super(props);
 
     this.state = {
-      balance: 65.593408,
       rating: 9.9,
     }
-  }
-
-  removeBalance(amount) {
-    this.setState((prevState) => ({
-      balance: prevState.balance - amount
-    }))
   }
 
   render() {
@@ -58,7 +51,7 @@ class DashboardHeader extends Component {
           </Grid>
 
           <Grid item xs={8} style={styles.Balance}>
-            <h1 style={ this.state.balance < 0 ? {color:'red'} : {color:'green'}}>${formatMoney(store.balance)}</h1>
+            <h1 style={ store.balance < 0 ? {color:'red'} : {color:'green'}}>${formatMoney(store.balance)}</h1>
           </Grid>
           <Grid item xs={4} style={styles.Rating}>
             <h4>Rating <br/>{this.state.rating}</h4>

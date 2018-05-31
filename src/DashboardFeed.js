@@ -8,6 +8,7 @@ import {ArrowDownward, ArrowUpward} from '@material-ui/icons';
 import {IconButton, Icon} from '@material-ui/core';
 import { friends } from './App';
 import { formatMoney } from './Utils';
+import store from './UserStore';
 
 let unresolved = []
 
@@ -32,7 +33,7 @@ class DashboardFeed extends Component {
     this.setState((prevState) => ({
       infoList: prevState.infoList.filter(note => note.id != resolveNote.id)
     }));
-    this.props.removeBalance(resolveNote.amount);
+    store.balance -= resolveNote.amount;
   }
 
   render() {
