@@ -7,6 +7,7 @@ import HomeFriends from './HomeFriends';
 import './App.css';
 import { Switch, Route } from 'react-router-dom';
 import Bank from './Bank';
+import store from './UserStore'
 
 const App = () => (
   <Switch>
