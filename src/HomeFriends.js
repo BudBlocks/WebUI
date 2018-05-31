@@ -4,14 +4,13 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 import LogoHeader from './LogoHeader.js';
+import './HomeFriends.css';
 
 let databaseUsername = ['Wellesly', 'Scooter', 'Spender', 'CoalMan', 'Eric'];
 
 let databaseName = ['Wesley Ford', 'Scott Bass', 'Spencer Lowitz', 'Coleman Smith', 'Eric Doppelt'];
 
 let databaseRating = ['4.3', '8.2', '9.9', '6.7', '4.4'];
-
-
 
 class HomeFriends extends Component {
   constructor(props) {
@@ -32,22 +31,7 @@ class HomeFriends extends Component {
     //this.submitFriend = this.submitFriend.bind(this);
   }
 
-  componentDidMount() {
-    const userData = {
-      $class: "org.budblocks.Buddy",
-      username: "rickydicky",
-      name: "Eric Doppelt",
-      notes_received: [],
-      notes_owed: [],
-      time_over: [],
-      amount_over: [],
-    }
-
-    axios.post('https://composer-rest-server-budblocks-network.mybluemix.net/api/buddy', userData)
-      .then(res => {
-        console.log(res);
-      });
-  }
+  
 
   loadFriend(username) {
     for (let i = 0; i < databaseUsername.length; i++) {
