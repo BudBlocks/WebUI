@@ -31,7 +31,7 @@ class HomeFriends extends Component {
     //this.submitFriend = this.submitFriend.bind(this);
   }
 
-  
+
 
   loadFriend(username) {
     for (let i = 0; i < databaseUsername.length; i++) {
@@ -88,7 +88,7 @@ class HomeFriends extends Component {
     let two = (
       <div>
         <div>
-          <TextField placeholder='Username' type='text' onChange={this.handleChange}/>
+          <TextField placeholder='Username' type='text' onSubmit={this.handleChange}/>
         </div>
       </div>
     );

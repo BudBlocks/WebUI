@@ -3,8 +3,11 @@ import axios from 'axios';
 const API_URL = 'http://composer-rest-server-budblocks-network.mybluemix.net/api/';
 
 export function formatMoney(n) {
-    if(n == undefined) return;
-    return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+    let new_n = (Number)(n);
+    if (isNaN(new_n)) {
+      return n;
+    }
+    return new_n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
 }
 
 // {
@@ -55,6 +58,19 @@ export function createUser(username, email) {
         console.log(error.config);
     });
 }
+
+export function inputMoneyFormat(n) {
+    let new_n = (Number)(n);
+    if (isNaN(new_n)) {
+      return n;
+    }
+    new_n = new_n.toFixed(2);
+    if (new_n.length < n.length) {
+      return new_n;
+    } else {
+      return n;
+    }
+  }
 
 export async function getAllUsers() {
   let response = await axios.get(API_URL + 'buddy');

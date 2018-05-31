@@ -6,6 +6,7 @@ import NoteToggle from './NoteToggle.js';
 import TextField from '@material-ui/core/TextField';
 import './SendNotePage.css';
 import LogoHeader from './LogoHeader.js';
+import {inputMoneyFormat} from './Utils';
 
 const styles = {
     texts: {
@@ -83,7 +84,7 @@ class SendNotePage extends Component {
     var info = {
       name: this.state.name,
       message: this.state.message,
-      amount: formatMoney(this.state.amount),
+      amount: inputMoneyFormat(this.state.amount),
       deadline: this.state.deadline
     }
 
@@ -104,7 +105,7 @@ class SendNotePage extends Component {
           </div>
 
           <div className = "amountText">
-            <TextField  className='field' fullWidth label = "Amount" style = {styles.texts} type='Number' step='.01' name='amount' value={formatMoney(this.state.amount)} onChange={this.handleChangeAmount.bind(this)}/>
+            <TextField  className='field' fullWidth label = "Amount" style = {styles.texts} type='Number' step='.01' name='amount' value={inputMoneyFormat(this.state.amount)} onChange={this.handleChangeAmount.bind(this)}/>
           </div>
 
           <div className = "messageField">
@@ -123,18 +124,6 @@ class SendNotePage extends Component {
     </div>
     </div>
   )
-  }
-}
-function formatMoney(n) {
-  let new_n = (Number)(n);
-  if (isNaN(new_n)) {
-    return n;
-  }
-  new_n = new_n.toFixed(2);
-  if (new_n.length < n.length) {
-    return new_n;
-  } else {
-    return n;
   }
 }
 
