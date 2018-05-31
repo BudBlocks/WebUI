@@ -1,7 +1,7 @@
 import { autorun, observable } from 'mobx';
 
 class UserStore {
-  @observable balance = 100;
+  @observable balance = 0;
   @observable username = '';
   @observable password = '';
 }
