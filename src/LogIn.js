@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
-import './LogIn.css'
+import './LogIn.css';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Logo from './Images/BudblockLogo.png';
@@ -70,6 +70,7 @@ class LogIn extends Component {
       return <Redirect to='/dashboard'/>
     }
     return (<div>
+
       <div class="email">
         <TextField label="Email" placeholder="example@email.com" onChange={this.updateEmail.bind(this)}/>
         <br/>
@@ -79,18 +80,16 @@ class LogIn extends Component {
         <TextField label="Password" placeholder="password"/>
       </div>
 
-      <div className="App-logo">
-        <img src={Logo} width="20%"></img>
-      </div>
-
-      <div className="createAccountButton">
+      <div id="logInButton">
         <MuiThemeProvider theme={buttonStyle}>
           <Button variant="raised" onClick={this.confirmPassword.bind(this)} style={bStyle}>
             Log In
           </Button>
         </MuiThemeProvider>
       </div>
-
+      <div className="App-logo">
+        <img src={Logo} width="20%"></img>
+      </div>
     </div>);
   }
 }

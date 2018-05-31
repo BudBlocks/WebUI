@@ -82,7 +82,7 @@ class SULI extends Component {
 
         <div className="SULI-header">
           <h1>Welcome to
-            <span className="color">Bud</span>Blocks</h1>
+            <span className="color"> Bud</span>Blocks</h1>
         </div>
 
         <div className="buttons">
