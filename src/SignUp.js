@@ -5,8 +5,9 @@ import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import './SignUp.css'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import {friends} from './App';
 import {Redirect} from 'react-router-dom';
+import store from './UserStore';
+import { createUser } from './Utils';
 
 const buttonStyle = createMuiTheme({
   palette: {
@@ -43,7 +44,7 @@ class SignUp extends Component {
     }
 
     this.updateEmail = this.updateEmail.bind(this);
-    this.updateUsername = this.updateEmail.bind(this);
+    this.updateUsername = this.updateUsername.bind(this);
     this.updatePassword = this.updatePassword.bind(this);
     this.updatePassword2 = this.updatePassword2.bind(this);
     this.confirmPassword = this.confirmPassword.bind(this);
@@ -53,6 +54,7 @@ class SignUp extends Component {
     this.setState({email: e.target.value})
   }
   updateUsername(e) {
+    console.log(e.target.value);
     this.setState({username: e.target.value})
   }
   updatePassword(e) {
@@ -63,7 +65,9 @@ class SignUp extends Component {
   }
   confirmPassword() {
     if (this.state.password === this.state.password2) {
-      friends.push(this.state.email);
+      store.username = this.state.username;
+      store.password = this.state.password;
+      createUser(this.state.username, this.state.email);
       this.setState({toDashboard: true});
       return
     } else {}
@@ -79,7 +83,7 @@ class SignUp extends Component {
         <TextField label="Email" placeholder="Enter Email Here" onChange={this.updateEmail}/>
       </div>
       <div className="username">
-        <TextField label="Username" placeholder="Username" onChange={this.updateEmail}/>
+        <TextField label="Username" placeholder="Username" onChange={this.updateUsername}/>
       </div>
       <div className="password1">
         <TextField label="Password" placeholder="Password" type="password" onChange={this.updatePassword}/>

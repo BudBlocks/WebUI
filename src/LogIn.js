@@ -6,6 +6,9 @@ import './LogIn.css'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Logo from './Images/BudblockLogo.png';
+import { getAllUsers } from './Utils';
+import { Redirect } from 'react-router-dom';
+import store from './UserStore';
 
 const buttonStyle = createMuiTheme({
   palette: {
@@ -22,24 +25,53 @@ const bStyle = {
 };
 
 class LogIn extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      email: '',
+      password: '',
+      toDashboard: false
+    }
+  }
 
   updateEmail(e) {
     this.setState({email: e.target.value})
   }
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      email: '',
-      password: ''
+  async confirmPassword() {
+    let users = await getAllUsers();
+    console.log(users);
+    let found = false;
+    let foundUser = undefined;
+
+    for(let i = 0; i < users.length; i++){
+      let user = users[i];
+      if(user.email == this.state.email) {
+        found = true;
+        foundUser = user;
+        break;
+      }
     }
 
-  }
-  render() {
+    if(!found) {
+      console.log("Error! No user created with this email: " + this.state.email);
+      return;
+    }
 
+    store.username = foundUser.username;
+    store.password = this.state.password;
+    store.balance = foundUser.balance / 100;
+
+    this.setState({ toDashboard: true });
+  }
+
+  render() {
+    if(this.state.toDashboard) {
+      return <Redirect to='/dashboard'/>
+    }
     return (<div>
       <div class="email">
-        <TextField label="Email" placeholder="example@email.com"/>
+        <TextField label="Email" placeholder="example@email.com" onChange={this.updateEmail.bind(this)}/>
         <br/>
       </div>
 
@@ -53,7 +85,7 @@ class LogIn extends Component {
 
       <div className="createAccountButton">
         <MuiThemeProvider theme={buttonStyle}>
-          <Button variant="raised" onClick={this.confirmPassword} style={bStyle}>
+          <Button variant="raised" onClick={this.confirmPassword.bind(this)} style={bStyle}>
             Log In
           </Button>
         </MuiThemeProvider>

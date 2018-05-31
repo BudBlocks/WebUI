@@ -2,6 +2,8 @@ import { autorun, observable } from 'mobx';
 
 class UserStore {
   @observable balance = 100;
+  @observable username = '';
+  @observable password = '';
 }
 
 var store = window.store = new UserStore();
