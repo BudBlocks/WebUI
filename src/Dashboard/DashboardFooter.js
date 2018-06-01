@@ -15,8 +15,8 @@ const bStyle = {
   marginRight: '40px',
   marginLeft: '40px',
   borderRadius: '10px',
-  marginTop: '10px',
-  marginBottom: '10px'
+  marginTop: '30px',
+  marginBottom: '30px'
 }
 
 const sStyle = {

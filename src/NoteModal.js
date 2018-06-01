@@ -18,38 +18,11 @@ const customStyles = {
 };
 
 class NoteModal extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      modalIsOpen: true
-    };
-
-    this.openModal = this.openModal.bind(this);
-    this.afterOpenModal = this.afterOpenModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
-  }
-
-  openModal() {
-    this.setState({modalIsOpen: true});
-  }
-
-  afterOpenModal() {
-    // references are now sync'd and can be accessed.
-  }
-
-  closeModal() {
-    this.setState({modalIsOpen: false});
-  }
-
   render() {
     return (
       <div>
-        <button onClick={this.openModal}>Open Modal</button>
         <Modal
-          isOpen={this.state.modalIsOpen}
-          onAfterOpen={this.afterOpenModal}
-          onRequestClose={this.closeModal}
+          isOpen={this.props.open}
           style={customStyles}
           contentLabel="Example Modal"
           shouldCloseOnOverlayClick={false}
@@ -59,8 +32,8 @@ class NoteModal extends Component {
             <div>${formatMoney(this.props.note.amount)} from {this.props.note.sender}</div>
             <p>{this.props.note.message}</p>
             <form>
-              <Button color='primary' onClick={this.closeModal}>Accept</Button>
-              <Button color='secondary' onClick={this.closeModal}>Reject</Button>
+              <Button color='primary' onClick={() => {this.props.onAccept()}}>{this.props.confirm}</Button>
+              <Button color='secondary' onClick={() => {this.props.onReject()}}>{this.props.reject}</Button>
             </form>
           </div>
         </Modal>
