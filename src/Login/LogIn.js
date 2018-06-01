@@ -61,6 +61,9 @@ class LogIn extends Component {
     store.username = foundUser.username;
     store.password = this.state.password;
     store.balance = foundUser.balance / 100;
+    store.notes_owed = foundUser.notes_owed;
+    store.notes_received = foundUser.notes_received;
+    store.notes_pending = foundUser.notes_pending;
 
     this.setState({ toDashboard: true });
   }
