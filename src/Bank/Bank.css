@@ -1,0 +1,35 @@
+.balanceHeader {
+  text-align: center;
+  position: relative;
+  margin-top: 0;
+  top: 1%;
+  color: #1b3b77;
+  margin: 0px;
+  left: 0;
+  right: 0;
+}
+
+.deposit {
+  text-align: center;
+  position: relative;
+  margin-top: 0;
+  top: 15px;
+  color: #2c81b5;
+  margin: 0px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.withdraw {
+  text-align: center;
+  position: relative;
+  margin-top: 0;
+  top: 40px;
+  color: #2c81b5;
+  margin: 0px;
+  margin-left: auto;
+  margin-right: auto;
+}
+body {
+  height: 100%
+}
