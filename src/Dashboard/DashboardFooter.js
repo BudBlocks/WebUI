@@ -12,11 +12,11 @@ const bStyle = {
   fontSize: '20px',
   textAlign: 'center',
   border: '1px solid white',
-  marginRight: '40px',
-  marginLeft: '40px',
-  borderRadius: '10px',
-  marginTop: '30px',
-  marginBottom: '30px'
+  //marginRight: '40px',
+  //marginLeft: '40px',
+  //borderRadius: '10px',
+  marginTop: '20px',
+  // marginBottom: '30px'
 }
 
 const sStyle = {
@@ -41,7 +41,7 @@ class DashboardFooter extends Component {
         return (
         <MuiThemeProvider theme={theme}>
         <div style={{textAlign:'center'}}>
-          <Button style = {bStyle} variant = 'raised' color='secondary'>
+          <Button style = {bStyle} variant = 'raised' color='secondary' fullWidth>
             <span style = {sStyle}> Account Locked </span>
             <Lock/>
           </Button>
@@ -52,7 +52,7 @@ class DashboardFooter extends Component {
     return (
       <MuiThemeProvider theme={theme}>
         <div style={{textAlign:'center'}}>
-          <Button style = {bStyle} variant = 'raised' color='primary' component={Link} to='/sendnote'>
+          <Button style = {bStyle} variant = 'raised' color='primary' component={Link} to='/sendnote' fullWidth>
             <span style = {sStyle}> Send Note </span>
             <Send/>
           </Button>
