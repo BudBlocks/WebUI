@@ -2,7 +2,11 @@ import React, {Component } from 'react';
 import ReactDOM from 'react-dom';
 import Button from '@material-ui/core/Button';
 import {Send} from '@material-ui/icons';
+import {Lock} from '@material-ui/icons';
 import { Link } from 'react-router-dom';
+import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
+import { observer } from 'mobx-react';
+import store from '../UserStore';
 
 const bStyle = {
   fontSize: '20px',
@@ -19,21 +23,45 @@ const sStyle = {
   marginRight: '10px',
 }
 
-class DashboardFooter extends Component {
+const theme = createMuiTheme({
+    palette: {
+      primary: {
+        main: '#1b3b77'
+      },
+     secondary: {
+       main: '#d64949'
+     }
+        }
+      });
 
+@observer
+class DashboardFooter extends Component {
   render() {
+      if (store.balance < 0) {
+        return (
+        <MuiThemeProvider theme={theme}>
+        <div style={{textAlign:'center'}}>
+          <Button style = {bStyle} variant = 'raised' color='secondary'>
+            <span style = {sStyle}> Account Locked </span>
+            <Lock/>
+          </Button>
+        </div>
+      </MuiThemeProvider>);
+
+  } else {
     return (
-      <div style={{textAlign:'center'}}>
-        <Button style = {bStyle} variant = 'raised' color='primary' component={Link} to='/sendnote'>
-          <span style = {sStyle}> Send Note </span>
+      <MuiThemeProvider theme={theme}>
+        <div style={{textAlign:'center'}}>
+          <Button style = {bStyle} variant = 'raised' color='primary' component={Link} to='/sendnote'>
+            <span style = {sStyle}> Send Note </span>
             <Send/>
-            {/*<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-              <path fill='#ffffff' d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
-            </svg>*/}
-        </Button>
-      </div>
-    )
+          </Button>
+        </div>
+      </MuiThemeProvider>);
+
+    }
   }
 }
+
 
 export default DashboardFooter;
