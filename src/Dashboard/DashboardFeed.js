@@ -5,14 +5,40 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import {ArrowDownward, ArrowUpward} from '@material-ui/icons';
-import {IconButton, Icon} from '@material-ui/core';
+import {IconButton, Icon, Grid} from '@material-ui/core';
 import { friends } from '../App';
 import { formatMoney } from '../Utils';
 import { getAllNotes } from '../Utils';
 import store from '../UserStore';
 import NoteModal from '../NoteModal';
+import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
+import { ExitToApp } from '@material-ui/icons';
+import './DashboardFeed.css';
+import Typography from '@material-ui/core/Typography';
 
 let unresolved = []
+
+const theme = createMuiTheme({
+    palette: {
+      primary: {
+        main: '#2c81b5'
+      },
+     secondary: {
+       main: '#d64949'
+     }
+        }
+      });
+
+const texttheme = createMuiTheme({
+    palette: {
+      primary: {
+        main: '#1b3b77'
+      },
+     secondary: {
+       main: '#d64949'
+     }
+        }
+      });
 
 for(let i = 0; i < 20; i++) {
   unresolved.push({
@@ -108,24 +134,53 @@ class DashboardFeed extends Component {
             this.setState({ resolvingNote: false });
           }}
         />
-        <List style={{height:'inherit', overflow:'auto'}}>
+        {
+          this.state.infoList.map((note) =>
+            <Grid container>
+              <Grid item xs={2}>
+                ${formatMoney(note.amount)}
+              </Grid>
+              <Grid item xs={3}>
+                {note.sender}
+              </Grid>
+              <Grid item xs={5}>
+                {note.expirationDate.toDateString()}
+              </Grid>
+              <Grid item xs={2}>
+                <MuiThemeProvider theme={theme}>
+                  <IconButton onClick={this.handleResolve.bind(this, note)} >
+                    <ExitToApp color = 'primary'/>
+                  </IconButton>
+                </MuiThemeProvider>
+              </Grid>
+            </Grid>
+          )
+        }
+      {/*<List style={{height:'inherit', overflow:'auto'}}>
           {
             this.state.infoList.map((note) =>
               <ListItem key={note.id}>
-                <div styles={{alignItems: 'left'}}>
+                <div className = 'amount' styles={{alignItems: 'left'}}>
                   <ListItemText>
-                    ${formatMoney(note.amount) + ' - ' + note.sender + ' - ' + note.expirationDate.toDateString()}
+                    <MuiThemeProvider theme={texttheme}>
+                      <Typography variant='body' color='primary'>
+                        {if ()}
+                        ${formatMoney(note.amount) + ' - ' + note.sender + ' - ' + note.expirationDate.toDateString()}
+                      </Typography>
+                    </MuiThemeProvider>
                   </ListItemText>
                 </div>
                 <ListItemSecondaryAction>
-                  <Button onClick={this.handleResolve.bind(this, note)}>
-                    Resolve
-                  </Button>
+                  <MuiThemeProvider theme={theme}>
+                    <IconButton onClick={this.handleResolve.bind(this, note)} >
+                      <ExitToApp color = 'primary'/>
+                    </IconButton>
+                  </MuiThemeProvider>
                 </ListItemSecondaryAction>
               </ListItem>
             )
           }
-        </List>
+        </List>*/}
       </div>
     )
   }

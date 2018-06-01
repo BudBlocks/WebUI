@@ -12,10 +12,10 @@ const bStyle = {
   fontSize: '20px',
   textAlign: 'center',
   border: '1px solid white',
-  //marginRight: '40px',
-  //marginLeft: '40px',
-  //borderRadius: '10px',
-  marginTop: '20px',
+  // marginRight: '40px',
+  // marginLeft: '40px',
+  // borderRadius: '10px',
+  marginTop: '10px',
   // marginBottom: '30px'
 }
 

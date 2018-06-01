@@ -51,7 +51,7 @@ class DashboardHeader extends Component {
           </Grid>
 
           <Grid item xs={8} style={styles.Balance}>
-            <h1 style={ store.balance < 0 ? {color:'red'} : {color:'green'}}>${formatMoney(store.balance)}</h1>
+            <h1 style={ store.balance < 0 ? {color:'#d64949'} : {color:'#218702'}}>${formatMoney(store.balance)}</h1>
           </Grid>
           <Grid item xs={4} style={styles.Rating}>
             <h4>Rating <br/>{this.state.rating}</h4>

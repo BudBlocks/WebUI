@@ -7,8 +7,7 @@ import store from '../UserStore';
 import { observer } from 'mobx-react';
 import {formatMoney, clampInput, addBalance, removeBalance, inputMoneyFormat } from '../Utils';
 import './Bank.css';
-
-
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 @observer
 class Bank extends Component {
@@ -29,6 +28,8 @@ class Bank extends Component {
         store.balance += Number(e.target.value);
         this.setState({depositShow: ''});
         addBalance(store.username, Number(e.target.value));
+      } else if (e.which == 44) {
+        e.preventDefault();
       }
     }
 
@@ -41,10 +42,12 @@ class Bank extends Component {
     }
 
     handleWithdrawChange(e) {
+      e.target.value = e.target.value.replace(',', '');
       this.setState({withdrawShow: clampInput(e.target.value, 0, store.balance)})
     }
 
     handleDepositChange(e) {
+      e.target.value = e.target.value.replace(',', '');
       this.setState({depositShow: clampInput(e.target.value, 0, 999)})
     }
 
@@ -57,12 +60,25 @@ class Bank extends Component {
         </div>
         <div className = 'deposit'>
           <h3>Deposit</h3>
-          <TextField hintText="Amount" placeholder = 'Deposit Amount' type='text' value = {inputMoneyFormat(this.state.depositShow)} onChange={this.handleDepositChange.bind(this)} onKeyPress={this.depositMoney.bind(this)}/>
+          <TextField
+            hintText="Amount"
+            placeholder = 'Deposit Amount'
+            type='text'
+            value = {inputMoneyFormat(this.state.depositShow)}
+            onChange={this.handleDepositChange.bind(this)}
+            onKeyPress={this.depositMoney.bind(this)}
+            InputProps={{startAdornment: <InputAdornment position="start">$</InputAdornment>,}}/>
         </div>
         <div className = 'withdraw'>
           <h3>Withdraw</h3>
           <div>
-            <TextField placeholder='Withdraw Amount' type='text' value = {inputMoneyFormat(this.state.withdrawShow)} onChange={this.handleWithdrawChange.bind(this)} onKeyPress={this.withdrawMoney.bind(this)}/>
+            <TextField
+            placeholder='Withdraw Amount'
+            type='text'
+            value = {inputMoneyFormat(this.state.withdrawShow)}
+            onChange={this.handleWithdrawChange.bind(this)}
+            onKeyPress={this.withdrawMoney.bind(this)}
+            InputProps={{startAdornment: <InputAdornment position="start">$</InputAdornment>,}}/>
           </div>
         </div>
     </body>
