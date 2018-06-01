@@ -124,12 +124,27 @@ export function removeBalance(username, amount) {
     });
 }
 
+export function acceptNote(noteid) {
+  const data = {
+    $class: 'org.budblocks.acceptNote',
+    note: noteid,
+  }
+
+  axios.post(API_URL + 'acceptNote', data)
+    .then(res => {
+      console.log('Note accepted.')
+    })
+    .catch(error => {
+      printErrors(error);
+    })
+}
+
 export function changeEmail(username, email) {
   const data = {
     email,
   }
 
-  axios.put('https://budblocks.io/api/buddy/' + username, data)
+  axios.put(API_URL + username, data)
     .then(res => {
 
     })
