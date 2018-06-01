@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
+import logo from '../logo.svg';
 import './SULI.css';
 import Button from '@material-ui/core/Button';
 import purple from '@material-ui/core/colors/purple';
@@ -10,7 +10,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import LogIn from './LogIn';
 import SignUp from './SignUp'
-import Background from './Images/bluepic2.jpg';
+import Background from '../Images/bluepic2.jpg';
 
 const theme = createMuiTheme({
   palette: {

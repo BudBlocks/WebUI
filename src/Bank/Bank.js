@@ -2,12 +2,10 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import './SendNotePage.css';
-import LogoHeader from './LogoHeader.js';
-import store from './UserStore';
+import LogoHeader from '../LogoHeader.js';
+import store from '../UserStore';
 import { observer } from 'mobx-react';
-import {inputMoneyFormat} from './Utils';
-import {formatMoney, clampInput, addBalance, removeBalance } from './Utils';
+import {formatMoney, clampInput, addBalance, removeBalance, inputMoneyFormat } from '../Utils';
 
 @observer
 class Bank extends Component {

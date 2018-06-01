@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import Button from '@material-ui/core/Button';
 import NoteToggle from './NoteToggle.js';
-import LogoHeader from './LogoHeader';
-import { sendNote } from './Utils';
+import LogoHeader from '../LogoHeader';
+import { sendNote } from '../Utils';
 import { Redirect } from 'react-router-dom';
-import store from './UserStore';
+import store from '../UserStore';
 
 class NotePageConfirmation extends Component {
   constructor(props) {

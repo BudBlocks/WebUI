@@ -6,9 +6,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import {ArrowDownward, ArrowUpward} from '@material-ui/icons';
 import {IconButton, Icon} from '@material-ui/core';
-import { friends } from './App';
-import { formatMoney } from './Utils';
-import store from './UserStore';
+import { friends } from '../App';
+import { formatMoney } from '../Utils';
+import store from '../UserStore';
 
 let unresolved = []
 

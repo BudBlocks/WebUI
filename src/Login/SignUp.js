@@ -6,9 +6,9 @@ import './SignUp.css'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import {Redirect} from 'react-router-dom';
-import store from './UserStore';
-import { createUser } from './Utils';
-import Logo from './Images/BudblockLogo.png';
+import store from '../UserStore';
+import { createUser } from '../Utils';
+import Logo from '../Images/BudblockLogo.png';
 
 
 const buttonStyle = createMuiTheme({

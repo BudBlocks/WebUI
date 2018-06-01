@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import Directory from './Directory';
-import SULI from './SULI';
-import Dashboard from './Dashboard';
-import NoteToggle from './NoteToggle';
+import SULI from './Login/SULI';
+import Dashboard from './Dashboard/Dashboard';
+import NoteToggle from './SendNote/NoteToggle';
 import HomeFriends from './HomeFriends';
 import './App.css';
 import { Switch, Route } from 'react-router-dom';
-import Bank from './Bank';
+import Bank from './Bank/Bank';
 import store from './UserStore'
 
 const App = () => (

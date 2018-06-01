@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { IconButton, Icon, Grid, Button } from '@material-ui/core';
 import { Add, Delete, AccountBalance } from '@material-ui/icons';
-import { formatMoney } from './Utils';
+import { formatMoney } from '../Utils';
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import store from './UserStore';
+import store from '../UserStore';
 
 const styles = {
   Right: {

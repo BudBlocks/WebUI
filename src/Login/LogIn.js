@@ -5,10 +5,10 @@ import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import './LogIn.css';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import Logo from './Images/BudblockLogo.png';
-import { getAllUsers } from './Utils';
+import Logo from '../Images/BudblockLogo.png';
+import { getAllUsers } from '../Utils';
 import { Redirect } from 'react-router-dom';
-import store from './UserStore';
+import store from '../UserStore';
 
 const buttonStyle = createMuiTheme({
   palette: {

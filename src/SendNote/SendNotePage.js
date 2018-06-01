@@ -5,10 +5,10 @@ import NotePageConfirmation from './NotePageConfirmation.js';
 import NoteToggle from './NoteToggle.js';
 import TextField from '@material-ui/core/TextField';
 import './SendNotePage.css';
-import LogoHeader from './LogoHeader.js';
-import { inputMoneyFormat } from './Utils';
+import LogoHeader from '../LogoHeader.js';
+import { inputMoneyFormat } from '../Utils';
 import { Redirect } from 'react-router-dom';
-import store from './UserStore';
+import store from '../UserStore';
 
 const styles = {
     texts: {
