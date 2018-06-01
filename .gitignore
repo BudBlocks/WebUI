@@ -17,7 +17,7 @@
 .env.test.local
 .env.production.local
 .vs
-
+.ibm-project
 # bna files
 *.bna
 # *.card
