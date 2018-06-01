@@ -8,25 +8,18 @@ import './App.css';
 import { Switch, Route } from 'react-router-dom';
 import Bank from './Bank/Bank';
 import store from './UserStore';
-import NoteModal from './NoteModal';
 
 import { acceptNote } from './Utils';
 
 const App = () => (
   <Switch>
-    <Route exact path='/' component={Test}/>
+    <Route exact path='/' component={Directory}/>
     <Route path='/login' component={SULI}/>
     <Route path='/dashboard' component={Dashboard}/>
     <Route path='/sendnote' component={NoteToggle}/>
     <Route path='/friends' component={HomeFriends}/>
     <Route path='/bank' component={Bank}/>
   </Switch>
-)
-
-const Test = () => (
-  <div>
-    <NoteModal header="Accept Note" note={{sender:"edopp", amount:"58", message:"Here ya go."}}/>
-  </div>
 )
 
 let friends = ['Scott', 'Eric'];
