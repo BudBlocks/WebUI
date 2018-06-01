@@ -1,0 +1,10 @@
+.state-container {
+  flex-direction: column;
+  display: flex;
+  height: 100vh;
+  max-height: 100vh;
+}
+
+.searcher {
+  
+}

@@ -3,6 +3,8 @@ import { IconButton, Icon, Grid, Button } from '@material-ui/core';
 import { Add, Delete, AccountBalance } from '@material-ui/icons';
 import { formatMoney } from './Utils';
 import { Link } from 'react-router-dom';
+import { observer } from 'mobx-react';
+import store from './UserStore';
 
 const styles = {
   Right: {
@@ -21,20 +23,14 @@ const styles = {
   }
 }
 
+@observer
 class DashboardHeader extends Component {
   constructor(props){
     super(props);
 
     this.state = {
-      balance: 65.593408,
       rating: 9.9,
     }
-  }
-
-  removeBalance(amount) {
-    this.setState((prevState) => ({
-      balance: prevState.balance - amount
-    }))
   }
 
   render() {
@@ -48,14 +44,14 @@ class DashboardHeader extends Component {
           </Grid>
           <Grid item xs={6}>
             <div style={styles.Right}>
-              <IconButton>
-                <AccountBalance/>
+              <IconButton component={Link} to='/bank'>
+							  <AccountBalance/>
               </IconButton>
             </div>
           </Grid>
 
           <Grid item xs={8} style={styles.Balance}>
-            <h1 style={ this.state.balance < 0 ? {color:'red'} : {color:'green'}}>${formatMoney(this.state.balance)}</h1>
+            <h1 style={ store.balance < 0 ? {color:'red'} : {color:'green'}}>${formatMoney(store.balance)}</h1>
           </Grid>
           <Grid item xs={4} style={styles.Rating}>
             <h4>Rating <br/>{this.state.rating}</h4>

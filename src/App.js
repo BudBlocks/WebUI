@@ -6,6 +6,8 @@ import NoteToggle from './NoteToggle';
 import HomeFriends from './HomeFriends';
 import './App.css';
 import { Switch, Route } from 'react-router-dom';
+import Bank from './Bank';
+import store from './UserStore'
 
 const App = () => (
   <Switch>
@@ -14,6 +16,7 @@ const App = () => (
     <Route path='/dashboard' component={Dashboard}/>
     <Route path='/sendnote' component={NoteToggle}/>
     <Route path='/friends' component={HomeFriends}/>
+    <Route path='/bank' component={Bank}/>
   </Switch>
 )
 

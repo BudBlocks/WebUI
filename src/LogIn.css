@@ -1,18 +1,34 @@
-.App-logo{
+.App-logo {
   animation-name: App-logo-spin;
-  animation-duration: 2s;
+  animation-duration: 5s;
   animation-iteration-count: infinite;
-  animation-timing-function: linear;
-  width: 150px;
+  animation-timing-function: ease;
+  width: 200px;
   position: absolute;
-  left:0;
+  left: 0;
   right: 0;
-  top:55%
+  top: 17%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-
+#logInButton{
+  padding-top: 30px;
+  position: absolute;
+  left: 0;
+  right:0;
+  margin:0;
+  top: 53%;
+}
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  85% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

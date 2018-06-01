@@ -2,6 +2,10 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import Button from '@material-ui/core/Button';
 import NoteToggle from './NoteToggle.js';
+import LogoHeader from './LogoHeader';
+import { sendNote } from './Utils';
+import { Redirect } from 'react-router-dom';
+import store from './UserStore';
 
 class NotePageConfirmation extends Component {
   constructor(props) {
@@ -11,7 +15,8 @@ class NotePageConfirmation extends Component {
       name: props.name,
       amount: props.amount,
       message: props.message,
-      deadline: props.deadline
+      deadline: props.deadline,
+      toDashboard: false,
     }
 
     this.handleSendNote = this.handleSendNote.bind(this);
@@ -20,7 +25,9 @@ class NotePageConfirmation extends Component {
 
   // CODE THIS TO COMMUNICATE W THE BACKEND
   handleSendNote() {
-    alert('hi');
+    sendNote(store.username, this.state.name, this.state.amount, this.state.deadline, this.state.message);
+
+    this.setState({ toDashboard: true});
   }
 
   getProps() {
@@ -35,7 +42,13 @@ class NotePageConfirmation extends Component {
   }
 
   render() {
-    return (<div>
+    if(this.state.toDashboard) {
+      return <Redirect to='/dashboard' />;
+    }
+    return (
+      <div className = "everythingAgain">
+      <LogoHeader/>
+      <div>
       <div>
         <h3>Confirm Your Note:</h3>
         <ul>
@@ -49,13 +62,15 @@ class NotePageConfirmation extends Component {
       </div>
       <div>
         <Button variant='outlined' color='secondary' onClick={this.handleSendNote}>
-          Submit Note
+          Confirm Note
         </Button>
         <Button variant='outlined' color='primary' onClick={this.getProps}>
           Edit Note
         </Button>
       </div>
-    </div>)
+    </div>
+  </div>
+)
   }
 }
 
