@@ -21,6 +21,8 @@ const bStyle = {
 
 const sStyle = {
   marginRight: '10px',
+  fontWeight: '400',
+  textTransform: 'none',
 }
 
 const theme = createMuiTheme({

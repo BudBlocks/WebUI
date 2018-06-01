@@ -40,6 +40,12 @@ const texttheme = createMuiTheme({
         }
       });
 
+const styles = {
+  GridItem: {
+    paddingTop: '15px',
+  }
+}
+
 for(let i = 0; i < 20; i++) {
   unresolved.push({
     id: i,
@@ -136,14 +142,15 @@ class DashboardFeed extends Component {
         />
         {
           this.state.infoList.map((note) =>
-            <Grid container>
-              <Grid item xs={2}>
+          <div style={{borderBottom:'1px', borderColor:'#00000044', borderBottomStyle:'solid'}}>
+            <Grid container style={{paddingLeft:'20px', verticalAlign:'middle'}}>
+              <Grid item xs={2} style={styles.GridItem}>
                 ${formatMoney(note.amount)}
               </Grid>
-              <Grid item xs={3}>
+              <Grid item xs={3} style={styles.GridItem}>
                 {note.sender}
               </Grid>
-              <Grid item xs={5}>
+              <Grid item xs={5} style={styles.GridItem}>
                 {note.expirationDate.toDateString()}
               </Grid>
               <Grid item xs={2}>
@@ -153,7 +160,8 @@ class DashboardFeed extends Component {
                   </IconButton>
                 </MuiThemeProvider>
               </Grid>
-            </Grid>
+              </Grid>
+            </div>
           )
         }
       {/*<List style={{height:'inherit', overflow:'auto'}}>

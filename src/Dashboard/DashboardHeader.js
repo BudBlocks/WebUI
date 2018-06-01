@@ -15,12 +15,23 @@ const styles = {
   },
   Balance: {
     paddingLeft: 30,
-    color: '#85bb65',
+    color: '#5ACA21',
   },
   Rating: {
-    textAlign: 'center',
+    textAlign: 'right',
     paddingRight: 20,
-  }
+    color: '#ffffff'
+  },
+  Header: {
+    backgroundColor: '#1b3b77'
+  },
+  Icon: {
+    color: '#fff',
+  },
+  IconButton: {
+    margin: '10px',
+    marginBottom: '2px',
+  },
 }
 
 @observer
@@ -35,28 +46,34 @@ class DashboardHeader extends Component {
 
   render() {
     return (
-      <div>
+      <div style={styles.Header}>
         <Grid container>
-          <Grid item xs={6} style={styles.Left}>
-            <IconButton component={Link} to='/friends'>
-              <Add/>
+          <Grid item xs={2} style={styles.Left}>
+            <IconButton style={styles.IconButton} component={Link} to='/friends'>
+              <Add style={styles.Icon}/>
             </IconButton>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={8}>
+            <h1 style={{margin:'0px', padding:'0px', color:'#fff', textAlign:'center', paddingTop:'15px', fontWeight:'400'}}>Dashboard</h1>
+          </Grid>
+          <Grid item xs={2}>
             <div style={styles.Right}>
-              <IconButton component={Link} to='/bank'>
-							  <AccountBalance/>
+              <IconButton style={styles.IconButton} component={Link} to='/bank'>
+							  <AccountBalance style={styles.Icon}/>
               </IconButton>
             </div>
           </Grid>
 
           <Grid item xs={8} style={styles.Balance}>
-            <h1 style={ store.balance < 0 ? {color:'#d64949'} : {color:'#218702'}}>${formatMoney(store.balance)}</h1>
+            <div style={{marginTop:'10px', color:'white'}}>Balance</div>
+            <div style={{fontSize:'28px', color: store.balance < 0 ? '#CB534E' : '#5ACA21'}}>${formatMoney(store.balance)}</div>
           </Grid>
           <Grid item xs={4} style={styles.Rating}>
-            <h4>Rating <br/>{this.state.rating}</h4>
+            <div style={{marginTop:'10px'}}>Rating</div>
+            <div style={{fontSize:'28px'}}>{this.state.rating}</div>
           </Grid>
         </Grid>
+        <br/>
       </div>
     )
   }
