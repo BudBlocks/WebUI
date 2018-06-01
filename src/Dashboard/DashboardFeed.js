@@ -18,6 +18,8 @@ for(let i = 0; i < 20; i++) {
   unresolved.push({
     id: i,
     amount: Math.random() * 50,
+    expirationDate: new Date(),
+    sender: "scooter",
   });
 }
 
@@ -112,7 +114,7 @@ class DashboardFeed extends Component {
               <ListItem key={note.id}>
                 <div styles={{alignItems: 'left'}}>
                   <ListItemText>
-                    ${formatMoney(note.amount)}
+                    ${formatMoney(note.amount) + ' - ' + note.sender + ' - ' + note.expirationDate.toDateString()}
                   </ListItemText>
                 </div>
                 <ListItemSecondaryAction>
