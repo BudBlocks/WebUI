@@ -12,11 +12,14 @@ import { getAllNotes } from '../Utils';
 import store from '../UserStore';
 import NoteModal from '../NoteModal';
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
-import { ExitToApp } from '@material-ui/icons';
+import { ExitToApp, Check } from '@material-ui/icons';
 import './DashboardFeed.css';
 import Typography from '@material-ui/core/Typography';
+import { observer } from 'mobx-react';
+import { observable, action } from 'mobx';
 
 let unresolved = []
+let incoming = []
 
 const theme = createMuiTheme({
     palette: {
@@ -53,8 +56,54 @@ for(let i = 0; i < 20; i++) {
     expirationDate: new Date(),
     sender: "scooter",
   });
+  incoming.push({
+    id: i,
+    amount: Math.random() * 10,
+    expirationDate: new Date(),
+    sender: "mcdaniels",
+  })
 }
 
+class FeedState {
+  @observable incoming = false;
+  @observable outgoing = true;
+  @observable currentList = []
+  @observable incomingList = []
+  @observable outgoingList = []
+
+  @action showIncoming() {
+    this.incoming = true;
+    this.outgoing = false;
+    this.currentList = this.incomingList;
+  }
+
+  @action showOutgoing() {
+    this.incoming = false;
+    this.outgoing = true;
+    this.currentList = this.outgoingList;
+  }
+
+  @action removeIncomingNote(note) {
+    for(let i = 0; i < this.incomingList.length; i++){
+      if(this.incomingList[i].id == note.id) {
+        this.incomingList.splice(i, 1);
+      }
+    }
+  }
+
+  @action removeOutgoingNote(note) {
+    for(let i = 0; i < this.outgoingList.length; i++){
+      if(this.outgoingList[i].id == note.id) {
+        this.outgoingList.splice(i, 1);
+      }
+    }
+  }
+}
+
+var feedState = new FeedState();
+export { feedState };
+
+@observer
 class DashboardFeed extends Component {
 
   constructor(props) {
@@ -96,10 +145,14 @@ class DashboardFeed extends Component {
       notes_owed: [],
       notes_received: [],
       notes_pending: [],
-      infoList: unresolved,
       resolvingNote: false,
+      acceptingNote: false,
       currentNote: {},
     }
+
+    feedState.incomingList = incoming;
+    feedState.outgoingList = unresolved;
+    feedState.showIncoming();
   }
 
   handleResolve(resolveNote) {
@@ -107,18 +160,29 @@ class DashboardFeed extends Component {
       resolvingNote: true,
       currentNote: {
           id: resolveNote.id,
-          sender: "scooter",
+          sender: resolveNote.sender,
           amount: resolveNote.amount,
           message: "default message",
       }
     });
-
-
     // this.setState((prevState) => ({
     //   infoList: prevState.infoList.filter(note => note.id != resolveNote.id)
     // }));
     // store.balance -= resolveNote.amount;
   }
+
+  handleAccept(acceptNote) {
+    this.setState({
+      acceptingNote: true,
+      currentNote: {
+          id: acceptNote.id,
+          sender: acceptNote.sender,
+          amount: acceptNote.amount,
+          message: "default message",
+      }
+    })
+  }
+
 
   render() {
     return (
@@ -130,18 +194,39 @@ class DashboardFeed extends Component {
           confirm="Confirm"
           reject="Cancel"
           onAccept={() => {
-            this.setState((prevState) => ({
-              infoList: prevState.infoList.filter(note => note.id != this.state.currentNote.id),
-              resolvingNote: false
-            }));
+            feedState.removeOutgoingNote(this.state.currentNote);
+            this.setState({ resolvingNote: false })
             store.balance -= this.state.currentNote.amount;
           }}
           onReject={() => {
             this.setState({ resolvingNote: false });
           }}
         />
+        <NoteModal
+          open={this.state.acceptingNote}
+          header="Accept Note"
+          note={this.state.currentNote}
+          confirm="Accept"
+          reject="Reject"
+          onAccept={() => {
+            // accept the note
+            feedState.removeIncomingNote(this.state.currentNote);
+            this.setState({
+              acceptingNote: false
+            })
+          }}
+          onReject={() => {
+            // reject the note
+            this.setState({
+              acceptingNote: false
+            })
+          }}
+        />
+        <div style={{padding:'10px', paddingLeft:'20px', fontSize:'24px', color:'#1b3b77'}}>
+          { feedState.incoming ? 'Incoming' : 'Outgoing' } Notes
+        </div>
         {
-          this.state.infoList.map((note) =>
+          feedState.currentList.map((note) =>
           <div style={{borderBottom:'1px', borderColor:'#00000044', borderBottomStyle:'solid'}}>
             <Grid container style={{paddingLeft:'20px', verticalAlign:'middle'}}>
               <Grid item xs={2} style={styles.GridItem}>
@@ -155,9 +240,16 @@ class DashboardFeed extends Component {
               </Grid>
               <Grid item xs={2}>
                 <MuiThemeProvider theme={theme}>
-                  <IconButton onClick={this.handleResolve.bind(this, note)} >
-                    <ExitToApp color = 'primary'/>
-                  </IconButton>
+                  {
+                    feedState.outgoing ?
+                      <IconButton onClick={this.handleResolve.bind(this, note)} >
+                        <ExitToApp color = 'primary'/>
+                      </IconButton>
+                    :
+                      <IconButton onClick={this.handleAccept.bind(this, note)} >
+                        <Check color = 'primary'/>
+                      </IconButton>
+                  }
                 </MuiThemeProvider>
               </Grid>
               </Grid>
