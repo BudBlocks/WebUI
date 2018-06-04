@@ -9,6 +9,7 @@ import LogoHeader from '../LogoHeader.js';
 import { inputMoneyFormat } from '../Utils';
 import { Redirect } from 'react-router-dom';
 import store from '../UserStore';
+import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 
 const styles = {
     texts: {
@@ -26,6 +27,18 @@ const styles = {
     }
 
 };
+
+const theme = createMuiTheme({
+    palette: {
+      primary: {
+        main: '#1b3b77'
+      },
+     secondary: {
+       main: '#2c81b5'
+     }
+        }
+      });
+
 
 class SendNotePage extends Component {
 
@@ -97,7 +110,7 @@ class SendNotePage extends Component {
   render() {
     return (
     // if sending note, render this:
-    <div className = "everythingAgain">
+    <div>
       <LogoHeader/>
     <div className = "everything">
       <div className='info'>
@@ -118,10 +131,12 @@ class SendNotePage extends Component {
           <TextField className='field' fullWidth type='date' name='deadline' value={this.state.deadline} onChange={this.handleChangeDeadline.bind(this)}/>
           </div>
       </div>
-      <div className = "SNButton">
-        <Button variant='outlined' color='secondary' onClick={this.handleSubmit}>
-          Submit Note
-        </Button>
+      <div className = "SendButtonDesign">
+        <MuiThemeProvider theme = {theme}>
+          <Button variant='outlined' color='secondary' onClick={this.handleSubmit}>
+            Submit Note
+          </Button>
+        </MuiThemeProvider>
       </div>
     </div>
     </div>

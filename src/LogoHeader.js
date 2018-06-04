@@ -6,7 +6,7 @@ class LogoHeader extends Component {
 
   render() {
     return (
-  <div className = 'URMOM'>
+  <div className = 'header-design'>
     <div className = "image">
       <Link to='/dashboard'>
       <img src = {Logo} width = "40px" alt=""></img>

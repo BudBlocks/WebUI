@@ -2,7 +2,7 @@
   padding-top: 50px;
 }
 
-.URMOM {
+.header-design {
   width: 100%;
   height: 70px;
   background-color: #1b3b77;
@@ -16,7 +16,7 @@
 .friendText {
   padding-top: 15px;
   position: absolute;
-  top: 20%;
+  top: 120px;
   left: 0;
   right: 0;
 }
@@ -24,14 +24,14 @@
 .amountText {
   padding-top: 15px;
   position: absolute;
-  top: 30%;
+  top: 205px;
   left: 0;
   right: 0;
 }
 
 .messageField {
   position: absolute;
-  top: 40%;
+  top: 290px;
   left: 0;
   right: 0;
   padding-top: 15px;
@@ -40,14 +40,18 @@
 .date {
   padding-top: 30px;
   position: absolute;
-  top: 50%;
+  top: 375px;
   left: 0;
   right: 0;
 }
 
-.SNButton {
+.SendButtonDesign {
   position: absolute;
-  top: 80%;
+  width: 100%;
+  top: 500px;
   left: 0;
   right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }

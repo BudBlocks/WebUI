@@ -6,6 +6,7 @@ import LogoHeader from '../LogoHeader';
 import { sendNote } from '../Utils';
 import { Redirect } from 'react-router-dom';
 import store from '../UserStore';
+import './NotePageConfirmation.css';
 
 class NotePageConfirmation extends Component {
   constructor(props) {
@@ -46,14 +47,16 @@ class NotePageConfirmation extends Component {
       return <Redirect to='/dashboard' />;
     }
     return (
-      <div className = "everythingAgain">
+      <div>
       <LogoHeader/>
       <div>
       <div>
-        <h3>Confirm Your Note:</h3>
-        <ul>
-          To: {this.state.name}</ul>
-        <ul>
+        <h3 className = 'confirm-header'> <span className = 'BlueSpan'> Confirm Your Note: </span> </h3>
+        <div className='recipient'>
+          <ul>
+            To: {this.state.name}</ul>
+          <ul>
+        </div>
           Amount: ${this.state.amount}</ul>
         <ul>
           Message: {this.state.message}</ul>
