@@ -40,9 +40,6 @@ export function createUser(username, email) {
     "username": username,
     "name": username,
     "email": email,
-    "notes_received": [],
-    "notes_pending": [],
-    "notes_owed": [],
     "time_over": [],
     "amount_over": []
   }
