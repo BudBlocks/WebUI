@@ -100,11 +100,6 @@ class SignUp extends Component {
           </Button>
         </MuiThemeProvider>
       </div>
-
-      <div className="App-logo">
-        <img src={Logo} width="20%"></img>
-      </div>
-
     </div>);
   }
 }

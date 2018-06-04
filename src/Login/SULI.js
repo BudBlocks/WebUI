@@ -11,6 +11,7 @@ import FormControl from '@material-ui/core/FormControl';
 import LogIn from './LogIn';
 import SignUp from './SignUp'
 import Background from '../Images/bluepic2.jpg';
+import Logo from '../Images/BudblockLogo.png';
 
 const theme = createMuiTheme({
   palette: {
@@ -84,7 +85,11 @@ class SULI extends Component {
           <h1>Welcome to
             <span className="color"> Bud</span>Blocks</h1>
         </div>
-
+        <div className="App-logo">
+            <div className='inner'>
+              <img src={Logo} width="20%"></img>
+            </div>
+       </div>
         <div className="buttons">
           <div className="signupbut">
             <Button variant="outlined" color="primary" onClick={this.changePageSignUp}>

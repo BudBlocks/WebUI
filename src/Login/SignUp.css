@@ -4,7 +4,7 @@
   left: 0;
   right:0;
   margin:0;
-  top: 32%;
+  top: 200px;
 }
 .username{
   padding-top: 30px;
@@ -12,7 +12,7 @@
   left: 0;
   right:0;
   margin:0;
-  top: 42%;
+  top: 270px;
 }
 
 .password1{
@@ -21,7 +21,7 @@
   left: 0;
   right:0;
   margin:0;
-  top: 52%;
+  top: 340px;
 }
 
 .password2{
@@ -30,7 +30,7 @@
   left: 0;
   right:0;
   margin:0;
-  top: 62%;
+  top: 410px;
 }
 
 .createAccountButton{
@@ -39,5 +39,5 @@
   left: 0;
   right:0;
   margin:0;
-  top: 72%;
+  top: 500px;
 }
