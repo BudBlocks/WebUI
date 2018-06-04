@@ -164,7 +164,7 @@ class DashboardFeed extends Component {
         for(let i = 0; i < store.notes_owed.length; i++) {
           let URI = store.notes_owed[i];
           if (URI.substring(URI.indexOf('#')+1, URI.length) == number) {
-            new_note = note;
+            let new_note = note;
             new_note.sender = new_note.sender.substring(new_note.sender.indexOf('#')+1, new_note.sender.length);
             new_note.receiver = new_note.receiver.substring(new_note.receiver.indexOf('#')+1, new_note.receiver.length);
             _notes_owed.push(new_note);
@@ -173,7 +173,7 @@ class DashboardFeed extends Component {
         for(let i = 0; i < store.notes_received.length; i++) {
           let URI = store.notes_received[i];
           if (URI.substring(URI.indexOf('#')+1, URI.length) == number) {
-            new_note = note;
+            let new_note = note;
             new_note.sender = new_note.sender.substring(new_note.sender.indexOf('#')+1, new_note.sender.length);
             new_note.receiver = new_note.receiver.substring(new_note.receiver.indexOf('#')+1, new_note.receiver.length);
             _notes_received.push(new_note);
@@ -182,7 +182,7 @@ class DashboardFeed extends Component {
         for(let i = 0; i < store.notes_pending.length; i++) {
           let URI = store.notes_pending[i];
           if (URI.substring(URI.indexOf('#')+1, URI.length) == number) {
-            new_note = note;
+            let new_note = note;
             new_note.sender = new_note.sender.substring(new_note.sender.indexOf('#')+1, new_note.sender.length);
             new_note.receiver = new_note.receiver.substring(new_note.receiver.indexOf('#')+1, new_note.receiver.length);
             _notes_pending.push(new_note);
