@@ -129,13 +129,16 @@ export function acceptNote(noteid) {
     note: noteid,
   }
 
-  axios.post(API_URL + 'acceptNote', data)
-    .then(res => {
-      console.log('Note accepted.')
-    })
-    .catch(error => {
-      printErrors(error);
-    })
+  return axios.post(API_URL + 'acceptNote', data);
+}
+
+export function rejectNote(noteid) {
+  const data = {
+    $class: 'org.budblocks.rejectNote',
+    note: noteid,
+  }
+
+  return axios.post(API_URL + 'rejectNote', data);
 }
 
 export function resolveNote(noteid) {

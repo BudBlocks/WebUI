@@ -29,7 +29,7 @@ class NoteModal extends Component {
         >
           <div style={{textAlign:'center'}}>
             <h2>{this.props.header}</h2>
-            <div>${formatMoney(this.props.note.amount)} from {this.props.note.sender}</div>
+            <div>${formatMoney(this.props.note.amount / 100)} from {this.props.note.sender}</div>
             <p>{this.props.note.message}</p>
             <form>
               <Button color='primary' onClick={() => {this.props.onAccept()}}>{this.props.confirm}</Button>

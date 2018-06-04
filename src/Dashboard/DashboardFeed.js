@@ -7,7 +7,7 @@ import ListItem from '@material-ui/core/ListItem';
 import {ArrowDownward, ArrowUpward} from '@material-ui/icons';
 import {IconButton, Icon, Grid, AppBar, Tabs, Tab} from '@material-ui/core';
 import { friends } from '../App';
-import { formatMoney, updateUserInfo, getAllNotes, getAllUsers, resolveNote } from '../Utils';
+import { formatMoney, updateUserInfo, getAllNotes, getAllUsers, resolveNote, acceptNote, rejectNote } from '../Utils';
 import store from '../UserStore';
 import NoteModal from '../NoteModal';
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
@@ -162,31 +162,37 @@ class DashboardFeed extends Component {
 
       all_notes.forEach((note) => {
         let number = note.number;
-        for(let i = 0; i < store.notes_owed.length; i++) {
-          let URI = store.notes_owed[i];
-          if (URI.substring(URI.indexOf('#')+1, URI.length) == number) {
-            let new_note = note;
-            new_note.sender = new_note.sender.substring(new_note.sender.indexOf('#')+1, new_note.sender.length);
-            new_note.receiver = new_note.receiver.substring(new_note.receiver.indexOf('#')+1, new_note.receiver.length);
-            _notes_owed.push(new_note);
+        if (store.notes_owed) {
+          for(let i = 0; i < store.notes_owed.length; i++) {
+            let URI = store.notes_owed[i];
+            if (URI.substring(URI.indexOf('#')+1, URI.length) == number) {
+              let new_note = note;
+              new_note.sender = new_note.sender.substring(new_note.sender.indexOf('#')+1, new_note.sender.length);
+              new_note.receiver = new_note.receiver.substring(new_note.receiver.indexOf('#')+1, new_note.receiver.length);
+              _notes_owed.push(new_note);
+            }
           }
         }
-        for(let i = 0; i < store.notes_received.length; i++) {
-          let URI = store.notes_received[i];
-          if (URI.substring(URI.indexOf('#')+1, URI.length) == number) {
-            let new_note = note;
-            new_note.sender = new_note.sender.substring(new_note.sender.indexOf('#')+1, new_note.sender.length);
-            new_note.receiver = new_note.receiver.substring(new_note.receiver.indexOf('#')+1, new_note.receiver.length);
-            _notes_received.push(new_note);
+        if (store.notes_received) {
+          for(let i = 0; i < store.notes_received.length; i++) {
+            let URI = store.notes_received[i];
+            if (URI.substring(URI.indexOf('#')+1, URI.length) == number) {
+              let new_note = note;
+              new_note.sender = new_note.sender.substring(new_note.sender.indexOf('#')+1, new_note.sender.length);
+              new_note.receiver = new_note.receiver.substring(new_note.receiver.indexOf('#')+1, new_note.receiver.length);
+              _notes_received.push(new_note);
+            }
           }
         }
-        for(let i = 0; i < store.notes_pending.length; i++) {
-          let URI = store.notes_pending[i];
-          if (URI.substring(URI.indexOf('#')+1, URI.length) == number) {
-            let new_note = note;
-            new_note.sender = new_note.sender.substring(new_note.sender.indexOf('#')+1, new_note.sender.length);
-            new_note.receiver = new_note.receiver.substring(new_note.receiver.indexOf('#')+1, new_note.receiver.length);
-            _notes_pending.push(new_note);
+        if (store.notes_pending) {
+          for(let i = 0; i < store.notes_pending.length; i++) {
+            let URI = store.notes_pending[i];
+            if (URI.substring(URI.indexOf('#')+1, URI.length) == number) {
+              let new_note = note;
+              new_note.sender = new_note.sender.substring(new_note.sender.indexOf('#')+1, new_note.sender.length);
+              new_note.receiver = new_note.receiver.substring(new_note.receiver.indexOf('#')+1, new_note.receiver.length);
+              _notes_pending.push(new_note);
+            }
           }
         }
       });
@@ -227,6 +233,8 @@ class DashboardFeed extends Component {
               .then(() => {
                 this.refresh();
                 this.setState({ resolvingNote: false })
+                // tabvalue needs to be added to feedState
+                feedState.showIncoming()
               });
 
           }}
@@ -241,17 +249,32 @@ class DashboardFeed extends Component {
           confirm="Accept"
           reject="Reject"
           onAccept={() => {
-            // accept the note
-            feedState.removeIncomingNote(this.state.currentNote);
-            this.setState({
-              acceptingNote: false
-            })
+            acceptNote(this.state.currentNote.number)
+              .then(res => {
+                console.log('Note has been accepted.');
+              })
+              .catch(error => {
+                console.log('accept failed.')
+              })
+              .then(() => {
+                this.refresh();
+                this.setState({ acceptingNote: false })
+                feedState.showOutgoing()
+              });
           }}
           onReject={() => {
-            // reject the note
-            this.setState({
-              acceptingNote: false
-            })
+            rejectNote(this.state.currentNote.number)
+              .then(res => {
+                console.log('Note has been rejected.');
+              })
+              .catch(error => {
+                console.log('reject failed.')
+              })
+              .then(() => {
+                this.refresh();
+                this.setState({ acceptingNote: false })
+                feedState.showOutgoing()
+              });
           }}
         />
       {/*
