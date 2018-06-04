@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://composer-rest-server-budblocks-network.mybluemix.net/api/';
+const API_URL = 'https://composer-rest-server-budblocks-network.mybluemix.net/api/';
 
 export function formatMoney(n) {
     let new_n = (Number)(n);
