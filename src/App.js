@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Directory from './Directory';
 import SULI from './Login/SULI';
 import Dashboard from './Dashboard/Dashboard';
@@ -7,9 +7,6 @@ import HomeFriends from './HomeFriends';
 import './App.css';
 import { Switch, Route } from 'react-router-dom';
 import Bank from './Bank/Bank';
-import store from './UserStore';
-
-import { acceptNote } from './Utils';
 
 const App = () => (
   <Switch>
@@ -27,7 +24,5 @@ for(let i = 0; i < 100; i++) {
   friends.push(i);
 }
 export {friends};
-
-acceptNote('u1.0');
 
 export default App;

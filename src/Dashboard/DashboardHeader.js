@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { IconButton, Icon, Grid, Button } from '@material-ui/core';
-import { Add, Delete, AccountBalance } from '@material-ui/icons';
+import { Add, Delete, AccountBalance, ArrowDownward, ArrowUpward } from '@material-ui/icons';
 import { formatMoney } from '../Utils';
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
+import { observable, action } from 'mobx';
 import store from '../UserStore';
+import { feedState } from './DashboardFeed';
 
 const styles = {
   Right: {
@@ -71,6 +73,16 @@ class DashboardHeader extends Component {
           <Grid item xs={4} style={styles.Rating}>
             <div style={{marginTop:'10px'}}>Rating</div>
             <div style={{fontSize:'28px'}}>{this.state.rating}</div>
+          </Grid>
+          <Grid item xs={12}>
+            <div style={{textAlign:'center', marginBottom:'-10px', marginTop:'-40px'}}>
+              <IconButton onClick={event => feedState.showIncoming()}>
+                <ArrowDownward style={styles.Icon}/>
+              </IconButton>
+              <IconButton onClick={event => feedState.showOutgoing()}>
+                <ArrowUpward style={styles.Icon}/>
+              </IconButton>
+            </div>
           </Grid>
         </Grid>
         <br/>

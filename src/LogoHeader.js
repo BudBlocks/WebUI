@@ -9,7 +9,7 @@ class LogoHeader extends Component {
   <div className = 'URMOM'>
     <div className = "image">
       <Link to='/dashboard'>
-      <img src = {Logo} width = "40px"></img>
+      <img src = {Logo} width = "40px" alt=""></img>
       </Link>
     </div>
   </div>

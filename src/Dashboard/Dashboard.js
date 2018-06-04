@@ -17,9 +17,11 @@ class Dashboard extends Component {
           <div className='dashboard-header'>
             <DashboardHeader />
           </div>
-          <div className='dashboard-feed-header'>
+          {/*
+            <div className='dashboard-feed-header'>
             <DashboardFeedHeader />
-          </div>
+            </div>
+          */}
           <div className='dashboard-feed'>
             <DashboardFeed />
           </div>

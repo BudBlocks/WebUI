@@ -1,8 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Button } from '@material-ui/core';
-import SULI from './Login/SULI';
-import Dashboard from './Dashboard/Dashboard';
-import NoteToggle from './SendNote/NoteToggle';
 import { Switch, Route, Link } from 'react-router-dom';
 
 const styles = {
