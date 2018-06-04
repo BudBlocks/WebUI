@@ -5,7 +5,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import {ArrowDownward, ArrowUpward} from '@material-ui/icons';
-import {IconButton, Icon, Grid} from '@material-ui/core';
+import {IconButton, Icon, Grid, AppBar, Tabs, Tab} from '@material-ui/core';
 import { friends } from '../App';
 import { formatMoney } from '../Utils';
 import { getAllNotes } from '../Utils';
@@ -17,6 +17,7 @@ import './DashboardFeed.css';
 import Typography from '@material-ui/core/Typography';
 import { observer } from 'mobx-react';
 import { observable, action } from 'mobx';
+import { withStyles } from '@material-ui/core/styles';
 
 let unresolved = []
 let incoming = []
@@ -117,6 +118,7 @@ class DashboardFeed extends Component {
       acceptingNote: false,
       currentNote: {},
       loading: false,
+      tabValue: 0,
     }
 
     feedState.incomingList = incoming;
@@ -156,6 +158,12 @@ class DashboardFeed extends Component {
           amount: acceptNote.amount,
           message: "default message",
       }
+    })
+  }
+
+  handleChange(event, value) {
+    this.setState({
+      tabValue: value
     })
   }
 
@@ -238,9 +246,13 @@ class DashboardFeed extends Component {
             })
           }}
         />
-        <div style={{padding:'10px', paddingLeft:'20px', fontSize:'24px', color:'#1b3b77'}}>
-          { feedState.incoming ? 'Incoming' : 'Outgoing' } Notes
-        </div>
+      {/*
+          <div style={{padding:'10px', paddingLeft:'20px', fontSize:'24px', color:'#1b3b77'}}>
+              { feedState.incoming ? 'Incoming' : 'Outgoing' } Notes
+            </div>
+        */}
+
+
         {
           feedState.currentList.map((note) =>
           <div style={{borderBottom:'1px', borderColor:'#00000044', borderBottomStyle:'solid'}}>
@@ -302,15 +314,58 @@ class DashboardFeed extends Component {
   }
 }
 
-export const DashboardFeedHeader = () => (
-  <div style={{textAlign:'center'}}>
-    <IconButton onClick={this.showIncoming}>
-      <ArrowDownward/>
-    </IconButton>
-    <IconButton onClick={this.showOutgoing}>
-      <ArrowUpward/>
-    </IconButton>
-  </div>
-)
+const tabStyles = theme => ({
+  indicator:{
+    backgroundColor:'#2c81b5',
+  },
+  tabRoot: {
+    color: '#1b3b77',
+    textTransform: 'none',
+  },
+});
 
+class Comp extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      tabValue: 0
+    }
+  }
+
+  handleChange(event, value) {
+    this.setState({ tabValue: value });
+
+    // Pending
+    if(value === 0) {
+      feedState.showIncoming();
+    }
+    else if(value === 1) {
+      feedState.showOutgoing();
+    }
+  }
+
+  render() {
+    const { classes } = this.props;
+
+    return (
+      <MuiThemeProvider theme={theme}>
+        <AppBar position='static' style={{backgroundColor:'white'}}>
+          <Tabs
+            value={this.state.tabValue}
+            onChange={this.handleChange.bind(this)}
+            classes={{indicator: classes.indicator}}
+            fullWidth
+            >
+            <Tab label='Pending' classes={{root: classes.tabRoot}}/>
+            <Tab label='Owed' classes={{root: classes.tabRoot}}/>
+          </Tabs>
+        </AppBar>
+      </MuiThemeProvider>
+    );
+  }
+}
+const DashboardFeedHeader = withStyles(tabStyles)(Comp);
+export { DashboardFeedHeader };
 export default DashboardFeed;

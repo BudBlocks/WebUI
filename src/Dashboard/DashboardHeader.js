@@ -74,16 +74,6 @@ class DashboardHeader extends Component {
             <div style={{marginTop:'10px'}}>Rating</div>
             <div style={{fontSize:'28px'}}>{this.state.rating}</div>
           </Grid>
-          <Grid item xs={12}>
-            <div style={{textAlign:'center', marginBottom:'-10px', marginTop:'-40px'}}>
-              <IconButton onClick={event => feedState.showIncoming()}>
-                <ArrowDownward style={styles.Icon}/>
-              </IconButton>
-              <IconButton onClick={event => feedState.showOutgoing()}>
-                <ArrowUpward style={styles.Icon}/>
-              </IconButton>
-            </div>
-          </Grid>
         </Grid>
         <br/>
       </div>

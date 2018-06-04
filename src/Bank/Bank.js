@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import Button from '@material-ui/core/Button';
+import { IconButton, Icon, Grid } from '@material-ui/core';
+import { ArrowBack } from '@material-ui/icons';
 import TextField from '@material-ui/core/TextField';
 import LogoHeader from '../LogoHeader.js';
 import store from '../UserStore';
@@ -8,6 +10,17 @@ import { observer } from 'mobx-react';
 import {formatMoney, clampInput, addBalance, removeBalance, inputMoneyFormat } from '../Utils';
 import './Bank.css';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import { Link } from 'react-router-dom';
+
+const styles = {
+  Icon: {
+    color: '#fff',
+  },
+  IconButton: {
+    margin: '10px',
+    marginBottom: '2px',
+  },
+}
 
 @observer
 class Bank extends Component {
@@ -54,7 +67,12 @@ class Bank extends Component {
   render() {
     return (
     <body>
-      <LogoHeader/>
+      <div style={{backgroundColor: '#1b3b77'}}>
+        <IconButton style={styles.IconButton} component={Link} to='/dashboard'>
+          <ArrowBack style={styles.Icon}/>
+        </IconButton>
+        <h1 style={{margin:'0px', padding:'15px', color:'#fff', textAlign:'center', fontWeight:'400', marginTop: '-60px'}}>Bank</h1>
+      </div>
         <div className = 'balanceHeader'>
           <h2> Balance: ${formatMoney(store.balance)} </h2>
         </div>
