@@ -7,7 +7,7 @@ import ListItem from '@material-ui/core/ListItem';
 import {ArrowDownward, ArrowUpward} from '@material-ui/icons';
 import {IconButton, Icon, Grid, AppBar, Tabs, Tab} from '@material-ui/core';
 import { friends } from '../App';
-import { formatMoney, updateUserInfo, getAllNotes } from '../Utils';
+import { formatMoney, updateUserInfo, getAllNotes, getAllUsers, resolveNote } from '../Utils';
 import store from '../UserStore';
 import NoteModal from '../NoteModal';
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
@@ -152,6 +152,7 @@ class DashboardFeed extends Component {
   }
 
   async refresh() {
+    this.setState({loading:true});
     await updateUserInfo();
     let allUsers = await getAllUsers();
     getAllNotes().then((all_notes) => {
@@ -213,9 +214,21 @@ class DashboardFeed extends Component {
           confirm="Confirm"
           reject="Cancel"
           onAccept={() => {
-            feedState.removeOutgoingNote(this.state.currentNote);
-            this.setState({ resolvingNote: false })
-            store.balance -= this.state.currentNote.amount;
+            // API CALL
+            resolveNote(this.state.currentNote.number)
+              .then(res => {
+                console.log('Note has been resolved.');
+                feedState.removeOutgoingNote(this.state.currentNote);
+                store.balance -= this.state.currentNote.amount / 100;
+              })
+              .catch(error => {
+                console.log('Resolve failed.')
+              })
+              .then(() => {
+                this.refresh();
+                this.setState({ resolvingNote: false })
+              });
+
           }}
           onReject={() => {
             this.setState({ resolvingNote: false });
@@ -256,7 +269,7 @@ class DashboardFeed extends Component {
                 ${formatMoney(note.amount / 100)}
               </Grid>
               <Grid item xs={3} style={styles.GridItem}>
-                {note.sender}
+                {note.receiver}
               </Grid>
               <Grid item xs={5} style={styles.GridItem}>
                 {note.expiration_date}

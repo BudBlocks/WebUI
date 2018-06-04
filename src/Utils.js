@@ -103,6 +103,7 @@ export function addBalance(username, amount) {
     })
     .catch(error => {
       console.log('Transaction failed.');
+      printErrors(error);
     });
 }
 
@@ -135,6 +136,15 @@ export function acceptNote(noteid) {
     .catch(error => {
       printErrors(error);
     })
+}
+
+export function resolveNote(noteid) {
+  const data = {
+    $class: 'org.budblocks.resolveNote',
+    note: noteid,
+  }
+
+  return axios.post(API_URL + 'resolveNote', data);
 }
 
 export function changeEmail(username, email) {

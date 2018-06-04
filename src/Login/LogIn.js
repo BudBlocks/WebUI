@@ -46,7 +46,7 @@ class LogIn extends Component {
       return;
     }
 
-    store.username = this.state.email;
+    store.username = this.state.username;
     store.password = this.state.password;
 
     this.setState({ toDashboard: true });
