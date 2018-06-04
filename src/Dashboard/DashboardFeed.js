@@ -107,8 +107,59 @@ export { feedState };
 class DashboardFeed extends Component {
 
   constructor(props) {
-    super(props)
+    super(props);
 
+    this.state = {
+      notes_owed: [],
+      notes_received: [],
+      notes_pending: [],
+      resolvingNote: false,
+      acceptingNote: false,
+      currentNote: {},
+      loading: false,
+    }
+
+    feedState.incomingList = incoming;
+    feedState.outgoingList = unresolved;
+    feedState.showIncoming();
+
+    this.refresh = this.refresh.bind(this);
+  }
+
+  handleResolve(resolveNote) {
+    this.setState({
+      resolvingNote: true,
+      currentNote: {
+          id: resolveNote.id,
+          sender: resolveNote.sender,
+          amount: resolveNote.amount,
+          message: "default message",
+      }
+    });
+    // this.setState((prevState) => ({
+    //   infoList: prevState.infoList.filter(note => note.id != resolveNote.id)
+    // }));
+    // store.balance -= resolveNote.amount;
+  }
+
+  componentDidMount() {
+    this.setState({loading:true});
+    this.refresh();
+  }
+
+  handleAccept(acceptNote) {
+    this.setState({
+      acceptingNote: true,
+      currentNote: {
+          id: acceptNote.id,
+          sender: acceptNote.sender,
+          amount: acceptNote.amount,
+          message: "default message",
+      }
+    })
+  }
+
+  refresh() {
     getAllNotes().then((all_notes) => {
       let _notes_owed = []
       let _notes_received = []
@@ -139,52 +190,17 @@ class DashboardFeed extends Component {
         notes_owed: _notes_owed,
         notes_received: _notes_received,
         notes_pending: _notes_pending,
+        loading: false
       });
     });
-    this.state = {
-      notes_owed: [],
-      notes_received: [],
-      notes_pending: [],
-      resolvingNote: false,
-      acceptingNote: false,
-      currentNote: {},
-    }
-
-    feedState.incomingList = incoming;
-    feedState.outgoingList = unresolved;
-    feedState.showIncoming();
   }
-
-  handleResolve(resolveNote) {
-    this.setState({
-      resolvingNote: true,
-      currentNote: {
-          id: resolveNote.id,
-          sender: resolveNote.sender,
-          amount: resolveNote.amount,
-          message: "default message",
-      }
-    });
-    // this.setState((prevState) => ({
-    //   infoList: prevState.infoList.filter(note => note.id != resolveNote.id)
-    // }));
-    // store.balance -= resolveNote.amount;
-  }
-
-  handleAccept(acceptNote) {
-    this.setState({
-      acceptingNote: true,
-      currentNote: {
-          id: acceptNote.id,
-          sender: acceptNote.sender,
-          amount: acceptNote.amount,
-          message: "default message",
-      }
-    })
-  }
-
 
   render() {
+    if(this.state.loading) {
+      return (
+        <div className='loader'></div>
+      );
+    }
     return (
       <div>
         <NoteModal
