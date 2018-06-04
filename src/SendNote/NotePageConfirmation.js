@@ -53,15 +53,18 @@ class NotePageConfirmation extends Component {
       <div>
         <h3 className = 'confirm-header'> <span className = 'BlueSpan'> Confirm Your Note: </span> </h3>
         <div className='recipient'>
-          <ul>
-            To: {this.state.name}</ul>
-          <ul>
+        To: {this.state.name}
         </div>
-          Amount: ${this.state.amount}</ul>
-        <ul>
-          Message: {this.state.message}</ul>
-        <ul>
-          Deadline: {this.state.deadline}</ul>
+        <div>
+        Amount: ${this.state.amount}
+        </div>
+        <div>
+        Message: {this.state.message}
+        </div>
+        <div>
+        Deadline: {this.state.deadline}
+        </div>
+        </div>
       </div>
       <div>
         <Button variant='outlined' color='secondary' onClick={this.handleSendNote}>
@@ -72,7 +75,6 @@ class NotePageConfirmation extends Component {
         </Button>
       </div>
     </div>
-  </div>
 )
   }
 }
