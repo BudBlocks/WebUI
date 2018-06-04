@@ -6,7 +6,7 @@ import './LogIn.css';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Logo from '../Images/BudblockLogo.png';
-import { getAllUsers } from '../Utils';
+import { updateUserInfo } from '../Utils';
 import { Redirect } from 'react-router-dom';
 import store from '../UserStore';
 
@@ -28,42 +28,26 @@ class LogIn extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      email: '',
+      username: '',
       password: '',
       toDashboard: false
     }
   }
 
   updateEmail(e) {
-    this.setState({email: e.target.value})
+    this.setState({username: e.target.value})
   }
 
   async confirmPassword() {
-    let users = await getAllUsers();
-    console.log(users);
-    let found = false;
-    let foundUser = undefined;
+    let success = await updateUserInfo(this.state.username);
 
-    for(let i = 0; i < users.length; i++){
-      let user = users[i];
-      if(user.email == this.state.email) {
-        found = true;
-        foundUser = user;
-        break;
-      }
-    }
-
-    if(!found) {
+    if(!success) {
       console.log("Error! No user created with this email: " + this.state.email);
       return;
     }
 
-    store.username = foundUser.username;
+    store.username = this.state.email;
     store.password = this.state.password;
-    store.balance = foundUser.balance / 100;
-    store.notes_owed = foundUser.notes_owed;
-    store.notes_received = foundUser.notes_received;
-    store.notes_pending = foundUser.notes_pending;
 
     this.setState({ toDashboard: true });
   }
@@ -75,7 +59,7 @@ class LogIn extends Component {
     return (<div>
 
       <div class="email">
-        <TextField label="Email" placeholder="example@email.com" onChange={this.updateEmail.bind(this)}/>
+        <TextField label="Username" placeholder="example@email.com" onChange={this.updateEmail.bind(this)}/>
         <br/>
       </div>
 

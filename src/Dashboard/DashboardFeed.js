@@ -7,8 +7,7 @@ import ListItem from '@material-ui/core/ListItem';
 import {ArrowDownward, ArrowUpward} from '@material-ui/icons';
 import {IconButton, Icon, Grid, AppBar, Tabs, Tab} from '@material-ui/core';
 import { friends } from '../App';
-import { formatMoney } from '../Utils';
-import { getAllNotes } from '../Utils';
+import { formatMoney, updateUserInfo, getAllNotes } from '../Utils';
 import store from '../UserStore';
 import NoteModal from '../NoteModal';
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
@@ -19,8 +18,8 @@ import { observer } from 'mobx-react';
 import { observable, action } from 'mobx';
 import { withStyles } from '@material-ui/core/styles';
 
-let unresolved = []
-let incoming = []
+//let unresolved = []
+//let incoming = []
 
 const theme = createMuiTheme({
     palette: {
@@ -50,20 +49,20 @@ const styles = {
   }
 }
 
-for(let i = 0; i < 20; i++) {
-  unresolved.push({
-    id: i,
-    amount: Math.random() * 50,
-    expirationDate: new Date(),
-    sender: "scooter",
-  });
-  incoming.push({
-    id: i,
-    amount: Math.random() * 10,
-    expirationDate: new Date(),
-    sender: "mcdaniels",
-  })
-}
+// for(let i = 0; i < 20; i++) {
+//   unresolved.push({
+//     id: i,
+//     amount: Math.random() * 50,
+//     expirationDate: new Date(),
+//     sender: "scooter",
+//   });
+//   incoming.push({
+//     id: i,
+//     amount: Math.random() * 10,
+//     expirationDate: new Date(),
+//     sender: "mcdaniels",
+//   })
+// }
 
 class FeedState {
   @observable incoming = false;
@@ -86,7 +85,7 @@ class FeedState {
 
   @action removeIncomingNote(note) {
     for(let i = 0; i < this.incomingList.length; i++){
-      if(this.incomingList[i].id == note.id) {
+      if(this.incomingList[i].number == note.number) {
         this.incomingList.splice(i, 1);
       }
     }
@@ -94,7 +93,7 @@ class FeedState {
 
   @action removeOutgoingNote(note) {
     for(let i = 0; i < this.outgoingList.length; i++){
-      if(this.outgoingList[i].id == note.id) {
+      if(this.outgoingList[i].number == note.number) {
         this.outgoingList.splice(i, 1);
       }
     }
@@ -120,23 +119,13 @@ class DashboardFeed extends Component {
       loading: false,
       tabValue: 0,
     }
-
-    feedState.incomingList = incoming;
-    feedState.outgoingList = unresolved;
-    feedState.showIncoming();
-
     this.refresh = this.refresh.bind(this);
   }
 
   handleResolve(resolveNote) {
     this.setState({
       resolvingNote: true,
-      currentNote: {
-          id: resolveNote.id,
-          sender: resolveNote.sender,
-          amount: resolveNote.amount,
-          message: "default message",
-      }
+      currentNote: resolveNote,
     });
     // this.setState((prevState) => ({
     //   infoList: prevState.infoList.filter(note => note.id != resolveNote.id)
@@ -152,12 +141,7 @@ class DashboardFeed extends Component {
   handleAccept(acceptNote) {
     this.setState({
       acceptingNote: true,
-      currentNote: {
-          id: acceptNote.id,
-          sender: acceptNote.sender,
-          amount: acceptNote.amount,
-          message: "default message",
-      }
+      currentNote: acceptNote,
     })
   }
 
@@ -167,7 +151,8 @@ class DashboardFeed extends Component {
     })
   }
 
-  refresh() {
+  async refresh() {
+    await updateUserInfo();
     getAllNotes().then((all_notes) => {
       let _notes_owed = []
       let _notes_received = []
@@ -194,10 +179,10 @@ class DashboardFeed extends Component {
           }
         }
       });
+      feedState.incomingList = _notes_pending;
+      feedState.outgoingList = _notes_owed;
+      feedState.showIncoming();
       this.setState({
-        notes_owed: _notes_owed,
-        notes_received: _notes_received,
-        notes_pending: _notes_pending,
         loading: false
       });
     });
@@ -258,13 +243,13 @@ class DashboardFeed extends Component {
           <div style={{borderBottom:'1px', borderColor:'#00000044', borderBottomStyle:'solid'}}>
             <Grid container style={{paddingLeft:'20px', verticalAlign:'middle'}}>
               <Grid item xs={2} style={styles.GridItem}>
-                ${formatMoney(note.amount)}
+                ${formatMoney(note.amount / 100)}
               </Grid>
               <Grid item xs={3} style={styles.GridItem}>
                 {note.sender}
               </Grid>
               <Grid item xs={5} style={styles.GridItem}>
-                {note.expirationDate.toDateString()}
+                {note.expiration_date}
               </Grid>
               <Grid item xs={2}>
                 <MuiThemeProvider theme={theme}>

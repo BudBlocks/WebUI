@@ -1,4 +1,5 @@
 import axios from 'axios';
+import store from './UserStore';
 
 const API_URL = 'https://composer-rest-server-budblocks-network.mybluemix.net/api/';
 
@@ -145,6 +146,29 @@ export function changeEmail(username, email) {
     .then(res => {
 
     })
+}
+
+export async function updateUserInfo(username) {
+  let users = await getAllUsers();
+  let found = false;
+  let foundUser = undefined;
+
+  for(let i = 0; i < users.length; i++){
+    let user = users[i];
+    if(user.username == username) {
+      found = true;
+      foundUser = user;
+      break;
+    }
+  }
+
+  if(!found) return false;
+
+  store.balance = foundUser.balance / 100;
+  store.notes_owed = foundUser.notes_owed;
+  store.notes_received = foundUser.notes_received;
+  store.notes_pending = foundUser.notes_pending;
+  return true;
 }
 
 function printErrors(error) {
