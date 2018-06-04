@@ -7,6 +7,38 @@ import { sendNote } from '../Utils';
 import { Redirect } from 'react-router-dom';
 import store from '../UserStore';
 import './NotePageConfirmation.css';
+import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
+import {Check} from '@material-ui/icons';
+
+
+const bStyle = {
+  fontSize: '20px',
+  textAlign: 'center',
+  border: '1px solid white',
+  // marginRight: '40px',
+  // marginLeft: '40px',
+  // borderRadius: '10px',
+  marginTop: '10px',
+  // marginBottom: '30px'
+}
+
+const sStyle = {
+  marginRight: '10px',
+  fontWeight: '400',
+  textTransform: 'none',
+}
+
+const theme = createMuiTheme({
+    palette: {
+      primary: {
+        main: '#1b3b77'
+      },
+     secondary: {
+       main: '#d64949'
+     }
+        }
+      });
 
 class NotePageConfirmation extends Component {
   constructor(props) {
@@ -47,34 +79,37 @@ class NotePageConfirmation extends Component {
       return <Redirect to='/dashboard' />;
     }
     return (
-      <div>
+      <div className='parentDiv'>
       <LogoHeader/>
-      <div>
-      <div>
-        <h3 className = 'confirm-header'> <span className = 'BlueSpan'> Confirm Your Note: </span> </h3>
-        <div className='recipient'>
+      <div className='noteHeader'>
+        <h3 className = 'confirmHeader'> <span className = 'blueSpan'> Confirm Your Note: </span> </h3>
+        <div className='recipientDiv'>
         To: {this.state.name}
         </div>
-        <div>
+        <div className='amountDiv'>
         Amount: ${this.state.amount}
         </div>
-        <div>
+        <div className='messageDiv'>
         Message: {this.state.message}
         </div>
-        <div>
+        <div className='deadlineDiv'>
         Deadline: {this.state.deadline}
         </div>
-        </div>
       </div>
-      <div>
-        <Button variant='outlined' color='secondary' onClick={this.handleSendNote}>
-          Confirm Note
-        </Button>
+      <div className='editButton'>
         <Button variant='outlined' color='primary' onClick={this.getProps}>
           Edit Note
         </Button>
       </div>
-    </div>
+        <MuiThemeProvider theme={theme}>
+          <div className="confirmButton" style={{textAlign:'center'}}>
+            <Button style = {bStyle} variant = 'raised' color='primary' component={Link} to='/dashboard' fullWidth>
+              <span style = {sStyle}> Confirm Note </span>
+              <Check/>
+            </Button>
+          </div>
+        </MuiThemeProvider>
+      </div>
 )
   }
 }

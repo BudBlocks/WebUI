@@ -55,7 +55,7 @@ class DashboardFooter extends Component {
       <MuiThemeProvider theme={theme}>
         <div style={{textAlign:'center'}}>
           <Button style = {bStyle} variant = 'raised' color='primary' component={Link} to='/sendnote' fullWidth>
-            <span style = {sStyle}> Send Note </span>
+            <span style = {sStyle}> Request Money </span>
             <Send/>
           </Button>
         </div>

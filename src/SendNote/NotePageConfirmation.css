@@ -1,11 +1,16 @@
-.BlueSpan {
+.parentDiv{
+  height: 100vh;
+  max-height: 100vh;
+}
+
+.blueSpan {
   top: 0px;
   left: 0px;
   right: 0px;
   color: #2c81b5;
 }
 
-.confirm-header {
+.confirmHeader {
   top: 0px;
   text-align: center;
   margin-left: auto;
@@ -14,6 +19,46 @@
   right: 0px;
 }
 
-.recipient {
+.recipientDiv {
+ margin-left: 60px;
+ margin-top: 50px;
+ margin-bottom: 20px;
+}
 
+.amountDiv {
+  margin-left: 60px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.messageDiv {
+  margin-left: 60px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.deadlineDiv {
+  margin-left: 60px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+
+.editButton {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  left: 0px;
+  right: 0px;
+  text-align: center;
+}
+
+.confirmButton {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    left: 0px;
+    right: 0px;
+    text-align: center;
+    bottom: 0px;
 }
