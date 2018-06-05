@@ -58,12 +58,12 @@ class LogIn extends Component {
     }
     return (<div>
 
-      <div class="email">
+      <div className="email">
         <TextField label="Username" placeholder="example@email.com" onChange={this.updateEmail.bind(this)}/>
         <br/>
       </div>
 
-      <div class="username">
+      <div className="username">
         <TextField label="Password" placeholder="password"/>
       </div>
 

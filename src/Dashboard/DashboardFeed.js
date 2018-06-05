@@ -85,6 +85,10 @@ class FeedState {
     this.currentList = this.outgoingList;
   }
 
+  @action updateCurrentList() {
+    this.currentList = this.incoming ? this.incomingList : this.outgoingList;
+  }
+
   @action removeIncomingNote(note) {
     for(let i = 0; i < this.incomingList.length; i++){
       if(this.incomingList[i].number == note.number) {
@@ -103,7 +107,7 @@ class FeedState {
 
   @action async handleRefresh() {
     this.loading = true;
-    await updateUserInfo();
+    await updateUserInfo(store.username);
     let allUsers = await getAllUsers();
     getAllNotes().then((all_notes) => {
       let _notes_owed = []
@@ -148,7 +152,7 @@ class FeedState {
       });
       this.incomingList = _notes_pending;
       this.outgoingList = _notes_owed;
-      this.showIncoming();
+      this.updateCurrentList();
       this.loading = false;
     });
   }
