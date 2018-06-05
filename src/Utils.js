@@ -102,14 +102,7 @@ export function addBalance(username, amount) {
     amount: amount * 100
   }
 
-  axios.post(API_URL + 'addBalance', data)
-    .then(res => {
-      console.log('Transaction went through.');
-    })
-    .catch(error => {
-      console.log('Transaction failed.');
-      printErrors(error);
-    });
+  return axios.post(API_URL + 'addBalance', data);
 }
 
 export function removeBalance(username, amount) {
@@ -119,13 +112,7 @@ export function removeBalance(username, amount) {
     amount: amount * 100
   }
 
-  axios.post(API_URL + 'removeBalance', data)
-    .then(res => {
-      console.log('Transaction went through.');
-    })
-    .catch(error => {
-      console.log('Transaction failed.');
-    });
+  return axios.post(API_URL + 'removeBalance', data);
 }
 
 export function acceptNote(noteid) {

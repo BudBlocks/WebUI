@@ -183,6 +183,7 @@ class DashboardFeed extends Component {
       acceptingNote: false,
       currentNote: {},
     }
+    this.formatDate = this.formatDate.bind(this);
   }
 
   handleResolve(resolveNote) {
@@ -205,6 +206,12 @@ class DashboardFeed extends Component {
       acceptingNote: true,
       currentNote: acceptNote,
     })
+  }
+
+  formatDate(expiration_date) {
+    let diff = new Date(expiration_date).getTime() - new Date().getTime();
+
+    return Math.floor(diff / (24 * 60 * 60 * 1000)) + ' days'; // 30-Dec-2011
   }
 
   render() {
@@ -299,7 +306,9 @@ class DashboardFeed extends Component {
                 {note.receiver}
               </Grid>
               <Grid item xs={5} style={styles.GridItem}>
-                {note.expiration_date}
+                {
+                  this.formatDate(note.expiration_date)
+                }
               </Grid>
               <Grid item xs={2}>
                 <MuiThemeProvider theme={theme}>

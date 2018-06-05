@@ -7,7 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import LogoHeader from '../LogoHeader.js';
 import store from '../UserStore';
 import { observer } from 'mobx-react';
-import {formatMoney, clampInput, addBalance, removeBalance, inputMoneyFormat } from '../Utils';
+import { formatMoney, clampInput, addBalance, removeBalance, inputMoneyFormat, updateUserInfo } from '../Utils';
 import './Bank.css';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { Link } from 'react-router-dom';
@@ -36,11 +36,23 @@ class Bank extends Component {
     }
   }
 
+  componentDidMount() {
+    updateUserInfo(store.username);
+  }
+
     depositMoney(e) {
       if (e.which === 13) {
-        store.balance += Number(e.target.value);
         this.setState({depositShow: ''});
-        addBalance(store.username, Number(e.target.value));
+        addBalance(store.username, Number(e.target.value))
+          .then(res => {
+            console.log('Transaction went through.');
+          })
+          .catch(error => {
+            console.log('Transaction failed.');
+          })
+          .then(() => {
+            updateUserInfo(store.username);
+          })
       } else if (e.which == 44) {
         e.preventDefault();
       }
@@ -48,9 +60,17 @@ class Bank extends Component {
 
     withdrawMoney(e) {
       if (e.which === 13) {
-        store.balance -= Number(e.target.value);
         this.setState({withdrawShow: ''});
-        removeBalance(store.username, Number(e.target.value));
+        removeBalance(store.username, Number(e.target.value))
+            .then(res => {
+              console.log('Transaction went through.');
+            })
+            .catch(error => {
+              console.log('Transaction failed.');
+            })
+            .then(() => {
+              updateUserInfo(store.username);
+            })
       }
     }
 
