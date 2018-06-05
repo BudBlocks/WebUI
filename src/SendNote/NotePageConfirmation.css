@@ -1,6 +1,10 @@
 .parentDiv{
   height: 100vh;
   max-height: 100vh;
+  flex-direction: column;
+  display: flex;
+  height: 100vh;
+  max-height: 100vh;
 }
 
 .blueSpan {
@@ -17,30 +21,45 @@
   margin-right: auto;
   left: 0px;
   right: 0px;
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: auto;
 }
 
 .recipientDiv {
  margin-left: 60px;
  margin-top: 50px;
  margin-bottom: 20px;
+ flex-grow: 0;
+ flex-shrink: 1;
+ flex-basis: auto;
 }
 
 .amountDiv {
   margin-left: 60px;
   margin-top: 20px;
   margin-bottom: 20px;
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: auto;
 }
 
 .messageDiv {
   margin-left: 60px;
   margin-top: 20px;
   margin-bottom: 20px;
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: auto;
 }
 
 .deadlineDiv {
   margin-left: 60px;
   margin-top: 20px;
   margin-bottom: 20px;
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: auto;
 }
 
 
@@ -51,6 +70,15 @@
   left: 0px;
   right: 0px;
   text-align: center;
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: auto;
+}
+
+.whitespaceDiv {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto;
 }
 
 .confirmButton {
@@ -61,4 +89,7 @@
     right: 0px;
     text-align: center;
     bottom: 0px;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: auto;
 }
