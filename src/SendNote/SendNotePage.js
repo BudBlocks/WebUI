@@ -88,7 +88,9 @@ class SendNotePage extends Component {
   }
 
   handleChangeMessage(e) {
+    if (this.state.message.length < 30) {
     this.setState({message: e.target.value})
+  }
   }
 
   handleChangeDeadline(e) {
@@ -116,19 +118,45 @@ class SendNotePage extends Component {
       <div className='info'>
 
           <div className = "friendText">
-            <TextField label = 'Username of Friend'  fullWidth className = 'field' type='text'  value= {this.state.name} onChange={this.handleChangeName.bind(this)}/>
+            <TextField
+              label='To'
+              fullWidth
+              className='field'
+              type='text'
+              value= {this.state.name}
+              onChange={this.handleChangeName.bind(this)}/>
           </div>
 
           <div className = "amountText">
-            <TextField  className='field' fullWidth label = "Amount" style = {styles.texts} type='Number' step='.01' name='amount' value={inputMoneyFormat(this.state.amount)} onChange={this.handleChangeAmount.bind(this)}/>
+            <TextField
+              fullWidth
+              label = "Amount"
+              style = {styles.texts}
+              type='Number'
+              step='.01'
+              name='amount'
+              value={inputMoneyFormat(this.state.amount)}
+              onChange={this.handleChangeAmount.bind(this)}/>
           </div>
 
           <div className = "messageField">
-            <TextField className='field' fullWidth label = "Message" type='text' name='message' value={this.state.message} onChange={this.handleChangeMessage.bind(this)}/>
+            <TextField
+              fullWidth
+              label = "Message"
+              type='text'
+              name='message'
+              value={this.state.message}
+              onChange={this.handleChangeMessage.bind(this)}/>
           </div>
 
           <div className = "date">
-          <TextField className='field' fullWidth type='date' name='deadline' value={this.state.deadline} onChange={this.handleChangeDeadline.bind(this)}/>
+          <TextField
+            label="Date"
+            fullWidth
+            type='date'
+            name='deadline'
+            value={this.state.deadline}
+            onChange={this.handleChangeDeadline.bind(this)}/>
           </div>
       </div>
       <div className = "SendButtonDesign">
