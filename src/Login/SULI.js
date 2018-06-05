@@ -1,116 +1,210 @@
 import React, {Component} from 'react';
-import logo from '../logo.svg';
-import './SULI.css';
-import Button from '@material-ui/core/Button';
-import purple from '@material-ui/core/colors/purple';
-import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
+import { AppBar, Tab, Tabs } from '@material-ui/core'
 import InputLabel from '@material-ui/core/InputLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import LogIn from './LogIn';
-import SignUp from './SignUp'
-import Background from '../Images/bluepic2.jpg';
+import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
+import './SULI.css';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 import Logo from '../Images/BudblockLogo.png';
+import { updateUserInfo, createUser } from '../Utils';
+import { Redirect } from 'react-router-dom';
+import store from '../UserStore';
+import { withStyles } from '@material-ui/core/styles';
 
-const theme = createMuiTheme({
+const buttonStyle = createMuiTheme({
   palette: {
     primary: {
       main: '#1b3b77'
-    }, // Purple and green play nicely together.
+    },
     secondary: {
-      main: '#ffffff'
-    }, // This is just green.A700 as hex.
+      main: '#d64949'
+    }
   }
 });
 
-var h = window.innerHeight;
-var w = window.innerWidth;
+// const bStyle = {
+//   borderRadius: '5px',
+//   color: '#1b3b77',
+//   backgroundColor: '#fff'
+// };
 
-const backGround = {
-  backgroundImage: "url(" + (
-  Background) + ")",
-  width: "100%",
-  height: "100%",
-  margin: "0",
-  padding: "0",
-  backgroundRepeat: "no-repeat",
-  backgroundAttachment: "inherit"
-};
+const bStyle = {
+  fontSize: '20px',
+  textAlign: 'center',
+  border: '1px solid white',
+  paddingTop: '40px',
+  paddingBottom: '40px',
+  // marginRight: '40px',
+  // marginLeft: '40px',
+  // borderRadius: '10px',
+  marginTop: '10px',
+  // marginBottom: '30px'
+}
 
-const buttonColor = {
-  white: "#ffffff"
+const sStyle = {
+  marginRight: '10px',
+  fontWeight: '400',
+  textTransform: 'none',
+  fontSize: '40px'
+}
 
-};
+const tabStyles = theme => ({
+  indicator:{
+    backgroundColor:'#2c81b5',
+  },
+  tabRoot: {
+    color: '#1b3b77',
+    textTransform: 'none',
+  },
+});
 
-const logIn = <LogIn/>;
-const signUp = <SignUp/>;
-
-class SULI extends Component {
+class SULI_nostyles extends Component {
   constructor(props) {
     super(props)
-
     this.state = {
-      currentForm: logIn
+      username: '',
+      password: '',
+      confirm: '',
+      email: '',
+      toDashboard: false,
+      firstTimeUser: 0
     }
-
-    this.changePageLogIn = this.changePageLogIn.bind(this);
-    this.changePageSignUp = this.changePageSignUp.bind(this);
+    this.updateUsername = this.updateUsername.bind(this);
+    this.updateEmail = this.updateEmail.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.submitLogin = this.submitLogin.bind(this);
   }
+  handleChange(e, value) {
+    this.setState({firstTimeUser: value});
+  }
+  updateUsername(e) {
+    this.setState({username: e.target.value})
+  }
+  updateEmail(e){
+    this.setState({email: e.target.value})
+  }
+  async submitLogin(e) {
+    if (this.state.firstTimeUser === 0 && this.state.password === this.state.confirm) {
+      await createUser(this.state.username, this.state.email);
+    }
+    let success = await updateUserInfo(this.state.username);
 
-  changePageLogIn() {
-    if (this.state.currentForm == logIn) {
+    if (!success) {
+      console.log("User with username " + this.state.username + " does not exist.");
       return;
     }
-    this.setState((state) => {
-      return {currentForm: logIn};
-    });
 
+    store.username = this.state.username;
+    store.password = this.state.password;
+
+    this.setState({toDashboard: true});
   }
 
-  changePageSignUp() {
-    if (this.state.currentForm == signUp) {
-      return;
-    }
-    this.setState((state) => {
-      return {currentForm: signUp};
-    });
-  }
+  // async submitNewUser(e) {
+  //
+  // }
 
   render() {
-    return (<MuiThemeProvider theme={theme}>
-      <body style={backGround}>
+    if (this.state.toDashboard) {
+      return <Redirect to='/dashboard'/>
+    }
+    const { classes } = this.props;
+    // first one is for login
+    if (this.state.firstTimeUser === 0) {
+      return (
+        <div className="parentDiv">
+          <div className="header">
+            Welcome to BudBlocks
+          </div>
 
-        <div className="SULI-header">
-          <h1>Welcome to
-            <span className="color"> Bud</span>Blocks</h1>
-        </div>
-        <div className="App-logo">
-            <div className='inner'>
-              <img src={Logo} width="20%"></img>
+          <div className="appBar">
+            <AppBar position='static' style={{backgroundColor: 'white'}}>
+              <Tabs value={this.state.firstTimeUser}
+                onChange={this.handleChange}
+                classes={{indicator: classes.indicator}}
+                fullWidth>
+                <Tab label='Sign Up' classes={{root: classes.tabRoot}}/>
+                <Tab label='Login' classes={{root:classes.tabRoot}}/>
+              </Tabs>
+            </AppBar>
+          </div>
+
+          <div className="signUp">
+            <div className="textfield">
+              <TextField label="email" placeholder="user@name.me" onChange={this.updateEmail}/>
             </div>
-       </div>
-        <div className="buttons">
-          <div className="signupbut">
-            <Button variant="outlined" color="primary" onClick={this.changePageSignUp}>
-              Sign Up
-            </Button>
+            <div className="textfield">
+              <TextField label="username" placeholder="username" onChange={this.updateUsername}/>
+            </div>
+            <div className="textfield">
+              <TextField label="password" placeholder="password"/>
+            </div>
+            <div className="textfield">
+              <TextField label="confirm password" placeholder="confirm"/>
+            </div>
           </div>
-          <div className="loginbut">
-            <Button variant="outlined" color="secondary" onClick={this.changePageLogIn}>
-              Log In
-            </Button>
+
+          <div className="whitespaceDiv"></div>
+
+          <div className="submitButton">
+            <MuiThemeProvider theme={buttonStyle}>
+              <div style={{textAlign:'center'}}>
+                <Button style={bStyle} variant='raised' color='primary' onClick={this.submitLogin} fullWidth>
+                  <span style={sStyle}> Create Account </span>
+                </Button>
+              </div>
+            </MuiThemeProvider>
           </div>
         </div>
+      )
+    }
+    else {
+      return (
+        <div className="parentDiv">
+          <div className="header">
+            Welcome to BudBlocks
+          </div>
 
-        <div className="thePage">
-          {this.state.currentForm}
+          <div className="appBar">
+            <AppBar position='static' style={{backgroundColor: 'white'}}>
+              <Tabs value={this.state.firstTimeUser}
+                onChange={this.handleChange}
+                classes={{indicator: classes.indicator}}
+                fullWidth>
+                <Tab label='Sign Up' classes={{root: classes.tabRoot}}/>
+                <Tab label='Login' classes={{root:classes.tabRoot}}/>
+              </Tabs>
+            </AppBar>
+          </div>
+
+          <div className="signUp">
+            <div style={{paddingTop:'30px'}}></div>
+            <div className="textfield">
+              <TextField label="username" placeholder="username" onChange={this.updateUsername}/>
+            </div>
+            <div className="textfield">
+              <TextField label="password" placeholder="pass word"/>
+            </div>
+          </div>
+
+          <div className="whitespaceDiv"></div>
+
+          <div className="submitButton">
+            <MuiThemeProvider theme={buttonStyle}>
+              <div style={{textAlign:'center'}}>
+                <Button style={bStyle} variant='raised' color='primary' onClick={this.submitLogin} fullWidth>
+                  <span style={sStyle}> Log In </span>
+                </Button>
+              </div>
+            </MuiThemeProvider>
+          </div>
         </div>
-
-      </body>
-    </MuiThemeProvider>);
+      )
+    }
   }
-
 }
+
+const SULI = withStyles(tabStyles)(SULI_nostyles);
 
 export default SULI;

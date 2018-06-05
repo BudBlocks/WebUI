@@ -47,12 +47,7 @@ export function createUser(username, email) {
 
   console.log(data);
 
-  axios.post(API_URL + 'buddy', data)
-    .then(res => {
-    })
-    .catch((error) => {
-      printErrors(error);
-    });
+  return axios.post(API_URL + 'buddy', data);
 }
 
 export function clampInput(value, min, max){
