@@ -10,7 +10,7 @@ import './NotePageConfirmation.css';
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import {Check} from '@material-ui/icons';
-
+import { formatMoney } from '../Utils';
 
 const bStyle = {
   fontSize: '20px',
@@ -35,7 +35,7 @@ const theme = createMuiTheme({
         main: '#1b3b77'
       },
      secondary: {
-       main: '#d64949'
+       main: '#2c81b5'
      }
         }
       });
@@ -88,34 +88,34 @@ class NotePageConfirmation extends Component {
         <div className='noteHeader'>
           <h3 className = 'confirmHeader'> <span className = 'blueSpan'> Confirm Your Note: </span> </h3>
           <div className='recipientDiv'>
-            To: {this.state.name}
+            <span className='formatLabel'>To:&emsp;</span>  <span className='formatInput'>{this.state.name}</span>
           </div>
           <div className='amountDiv'>
-            Amount: ${this.state.amount}
+            <span className='formatLabel'>Amount:&emsp;</span>  <span className='formatInput'>${formatMoney(this.state.amount)}</span>
           </div>
           <div className='messageDiv'>
-            Message: {this.state.message}
+            <span className='formatLabel'>Message:&emsp;</span>  <span className='formatInput'>{this.state.message}</span>
           </div>
           <div className='deadlineDiv'>
-            Deadline: {this.state.deadline}
+            <span className='formatLabel'>Deadline:&emsp;</span>  <span className='formatInput'>{this.state.deadline}</span>
           </div>
         </div>
-        <div className='editButton'>
-          <Button color='primary' onClick={this.getProps}>
-            Edit Note
-          </Button>
-        </div>
-        <div className='whitespaceDiv'></div>
         <MuiThemeProvider theme={theme}>
-          <div className="confirmButton" style={{textAlign:'center'}}>
-            <Button style = {bStyle} variant = 'raised' color='primary' onClick={this.handleSendNote} fullWidth>
-              <span style = {sStyle}> Confirm </span>
-              <Check/>
+          <div className='editButton'>
+            <Button color='secondary' onClick={this.getProps}>
+              Edit Note
             </Button>
           </div>
+          <div className='whitespaceDiv'> </div>
+            <div className="confirmButton" style={{textAlign:'center'}}>
+              <Button style = {bStyle} variant = 'raised' color='primary' onClick={this.handleSendNote} fullWidth>
+                <span style = {sStyle}> Confirm </span>
+                <Check/>
+              </Button>
+            </div>
         </MuiThemeProvider>
       </div>
-)
+        )
   }
 }
 
