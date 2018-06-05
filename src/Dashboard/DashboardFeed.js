@@ -70,6 +70,7 @@ class FeedState {
   @observable currentList = []
   @observable incomingList = []
   @observable outgoingList = []
+  @observable tabValue = 0
 
   @action showIncoming() {
     this.incoming = true;
@@ -117,7 +118,6 @@ class DashboardFeed extends Component {
       acceptingNote: false,
       currentNote: {},
       loading: false,
-      tabValue: 0,
     }
     this.refresh = this.refresh.bind(this);
   }
@@ -145,11 +145,9 @@ class DashboardFeed extends Component {
     })
   }
 
-  handleChange(event, value) {
-    this.setState({
-      tabValue: value
-    })
-  }
+  // handleChange(event, value) {
+  //   feedState.tabValue = value
+  // }
 
   async refresh() {
     this.setState({loading:true});
@@ -231,10 +229,10 @@ class DashboardFeed extends Component {
                 console.log('Resolve failed.')
               })
               .then(() => {
-                this.refresh();
-                this.setState({ resolvingNote: false })
-                // tabvalue needs to be added to feedState
-                feedState.showIncoming()
+                this.refresh().then(() => {
+                  this.setState({ resolvingNote: false })
+                  feedState.showIncoming()
+                });
               });
 
           }}
@@ -257,9 +255,10 @@ class DashboardFeed extends Component {
                 console.log('accept failed.')
               })
               .then(() => {
-                this.refresh();
-                this.setState({ acceptingNote: false })
-                feedState.showOutgoing()
+                this.refresh().then(() => {
+                  this.setState({ acceptingNote: false })
+                  feedState.showOutgoing()
+                });
               });
           }}
           onReject={() => {
@@ -271,9 +270,10 @@ class DashboardFeed extends Component {
                 console.log('reject failed.')
               })
               .then(() => {
-                this.refresh();
-                this.setState({ acceptingNote: false })
-                feedState.showOutgoing()
+                this.refresh().then(() => {
+                  this.setState({ acceptingNote: false })
+                  feedState.showOutgoing()
+                });
               });
           }}
         />
@@ -355,18 +355,17 @@ const tabStyles = theme => ({
   },
 });
 
+@observer
 class Comp extends Component {
 
   constructor(props) {
     super(props);
 
-    this.state = {
-      tabValue: 0
-    }
+    feedState.tabValue = 0
   }
 
   handleChange(event, value) {
-    this.setState({ tabValue: value });
+    feedState.tabValue = value;
 
     // Pending
     if(value === 0) {
@@ -384,7 +383,7 @@ class Comp extends Component {
       <MuiThemeProvider theme={theme}>
         <AppBar position='static' style={{backgroundColor:'white'}}>
           <Tabs
-            value={this.state.tabValue}
+            value={feedState.tabValue}
             onChange={this.handleChange.bind(this)}
             classes={{indicator: classes.indicator}}
             fullWidth

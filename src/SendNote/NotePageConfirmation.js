@@ -103,7 +103,7 @@ class NotePageConfirmation extends Component {
       </div>
         <MuiThemeProvider theme={theme}>
           <div className="confirmButton" style={{textAlign:'center'}}>
-            <Button style = {bStyle} variant = 'raised' color='primary' component={Link} to='/dashboard' fullWidth>
+            <Button style = {bStyle} variant = 'raised' color='primary' onClick={this.handleSendNote} fullWidth>
               <span style = {sStyle}> Confirm Note </span>
               <Check/>
             </Button>
