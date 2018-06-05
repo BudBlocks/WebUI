@@ -85,7 +85,15 @@ class FeedState {
     this.currentList = this.outgoingList;
   }
 
-  @action updateCurrentList() {
+  @action update() {
+    switch(this.tabValue) {
+      case 0:
+        this.showIncoming();
+        break;
+      case 1:
+        this.showOutgoing();
+        break;
+    }
     this.currentList = this.incoming ? this.incomingList : this.outgoingList;
   }
 
@@ -152,7 +160,7 @@ class FeedState {
       });
       this.incomingList = _notes_pending;
       this.outgoingList = _notes_owed;
-      this.updateCurrentList();
+      this.update();
       this.loading = false;
     });
   }

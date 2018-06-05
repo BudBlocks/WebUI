@@ -56,7 +56,12 @@ class DashboardHeader extends Component {
             </IconButton>
           </Grid>
           <Grid item xs={8}>
-            <h1 style={{margin:'0px', padding:'0px', color:'#fff', textAlign:'center', paddingTop:'15px', fontWeight:'400'}}>Dashboard</h1>
+              <h1
+                onClick={() => { feedState.handleRefresh() }}
+                style={{margin:'0px', padding:'0px', color:'#fff', textAlign:'center', paddingTop:'15px', fontWeight:'400'}}
+                >
+                Dashboard
+              </h1>
           </Grid>
           <Grid item xs={2}>
             <div style={styles.Right}>
@@ -74,14 +79,15 @@ class DashboardHeader extends Component {
             <div style={{marginTop:'10px'}}>Rating</div>
             <div style={{fontSize:'28px'}}>{this.state.rating}</div>
           </Grid>
-          <div style={{width: '100%', textAlign:'center'}}>
+          {/*<div style={{width: '100%', textAlign:'center'}}>
             <IconButton style={styles.IconButton, {marginTop:'-50px'}} onClick={() => {
                 feedState.handleRefresh();
               }}>
               <Refresh style={styles.Icon}/>
             </IconButton>
-          </div>
+          </div>*/}
         </Grid>
+        <br/>
       </div>
     )
   }
