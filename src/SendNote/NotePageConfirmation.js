@@ -80,27 +80,28 @@ class NotePageConfirmation extends Component {
     }
     return (
       <div className='parentDiv'>
-      <LogoHeader/>
-      <div className='noteHeader'>
-        <h3 className = 'confirmHeader'> <span className = 'blueSpan'> Confirm Your Note: </span> </h3>
-        <div className='recipientDiv'>
-        To: {this.state.name}
+        <LogoHeader/>
+        <div className='noteHeader'>
+          <h3 className = 'confirmHeader'> <span className = 'blueSpan'> Confirm Your Note: </span> </h3>
+          <div className='recipientDiv'>
+            To: {this.state.name}
+          </div>
+          <div className='amountDiv'>
+            Amount: ${this.state.amount}
+          </div>
+          <div className='messageDiv'>
+            Message: {this.state.message}
+          </div>
+          <div className='deadlineDiv'>
+            Deadline: {this.state.deadline}
+          </div>
         </div>
-        <div className='amountDiv'>
-        Amount: ${this.state.amount}
+        <div className='editButton'>
+          <Button variant='outlined' color='primary' onClick={this.getProps}>
+            Edit Note
+          </Button>
         </div>
-        <div className='messageDiv'>
-        Message: {this.state.message}
-        </div>
-        <div className='deadlineDiv'>
-        Deadline: {this.state.deadline}
-        </div>
-      </div>
-      <div className='editButton'>
-        <Button variant='outlined' color='primary' onClick={this.getProps}>
-          Edit Note
-        </Button>
-      </div>
+        <div className='whitespaceDiv'></div>
         <MuiThemeProvider theme={theme}>
           <div className="confirmButton" style={{textAlign:'center'}}>
             <Button style = {bStyle} variant = 'raised' color='primary' onClick={this.handleSendNote} fullWidth>
