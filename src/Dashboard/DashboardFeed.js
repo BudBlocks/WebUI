@@ -21,6 +21,11 @@ import { withStyles } from '@material-ui/core/styles';
 //let unresolved = []
 //let incoming = []
 
+const MONEY_COLS = 3;
+const USER_COLS = 3;
+const DATE_COLS = 4;
+const ICON_COLS = 2;
+
 const theme = createMuiTheme({
     palette: {
       primary: {
@@ -70,8 +75,12 @@ class FeedState {
   @observable currentList = []
   @observable incomingList = []
   @observable outgoingList = []
+  @observable receivedList = []
   @observable tabValue = 0
   @observable loading = false
+  @observable acceptingNote = false
+  @observable resolvingNote = false
+  @observable currentNote = {}
 
   @action showIncoming() {
     this.incoming = true;
@@ -160,6 +169,7 @@ class FeedState {
       });
       this.incomingList = _notes_pending;
       this.outgoingList = _notes_owed;
+      this.receivedList = _notes_received;
       this.update();
       this.loading = false;
     });
@@ -168,6 +178,12 @@ class FeedState {
 
 var feedState = new FeedState();
 export { feedState };
+
+function formatDate(expiration_date) {
+  let diff = new Date(expiration_date).getTime() - new Date().getTime();
+
+  return Math.floor(diff / (24 * 60 * 60 * 1000)) + ' days'; // 30-Dec-2011
+}
 
 @observer
 class DashboardFeed extends Component {
@@ -183,7 +199,6 @@ class DashboardFeed extends Component {
       acceptingNote: false,
       currentNote: {},
     }
-    this.formatDate = this.formatDate.bind(this);
   }
 
   handleResolve(resolveNote) {
@@ -201,18 +216,7 @@ class DashboardFeed extends Component {
     feedState.handleRefresh();
   }
 
-  handleAccept(acceptNote) {
-    this.setState({
-      acceptingNote: true,
-      currentNote: acceptNote,
-    })
-  }
 
-  formatDate(expiration_date) {
-    let diff = new Date(expiration_date).getTime() - new Date().getTime();
-
-    return Math.floor(diff / (24 * 60 * 60 * 1000)) + ' days'; // 30-Dec-2011
-  }
 
   render() {
     if(feedState.loading) {
@@ -223,46 +227,46 @@ class DashboardFeed extends Component {
     return (
       <div>
         <NoteModal
-          open={this.state.resolvingNote}
+          open={feedState.resolvingNote}
           header="Resolve Note"
-          note={this.state.currentNote}
+          note={feedState.currentNote}
           confirm="Confirm"
           reject="Cancel"
           useTo={true}
-          onCancel={() => { this.setState({resolvingNote: false})}}
+          onCancel={() => { feedState.resolvingNote = false; }}
           onAccept={() => {
             // API CALL
-            resolveNote(this.state.currentNote.number)
+            resolveNote(feedState.currentNote.number)
               .then(res => {
                 console.log('Note has been resolved.');
-                feedState.removeOutgoingNote(this.state.currentNote);
-                store.balance -= this.state.currentNote.amount / 100;
+                feedState.removeOutgoingNote(feedState.currentNote);
+                store.balance -= feedState.currentNote.amount / 100;
               })
               .catch(error => {
                 console.log('Resolve failed.')
               })
               .then(() => {
                 feedState.handleRefresh().then(() => {
-                  this.setState({ resolvingNote: false })
+                  feedState.resolvingNote = false;
                   feedState.showIncoming()
                 });
               });
 
           }}
           onReject={() => {
-            this.setState({ resolvingNote: false });
+            feedState.resolvingNote = false;
           }}
         />
         <NoteModal
-          open={this.state.acceptingNote}
+          open={feedState.acceptingNote}
           header="Accept Note"
-          note={this.state.currentNote}
+          note={feedState.currentNote}
           useTo={false}
           confirm="Accept"
           reject="Reject"
-          onCancel={() => { this.setState({acceptingNote: false})}}
+          onCancel={() => { feedState.acceptingNote = false; }}
           onAccept={() => {
-            acceptNote(this.state.currentNote.number)
+            acceptNote(feedState.currentNote.number)
               .then(res => {
                 console.log('Note has been accepted.');
               })
@@ -271,13 +275,13 @@ class DashboardFeed extends Component {
               })
               .then(() => {
                 feedState.handleRefresh().then(() => {
-                  this.setState({ acceptingNote: false })
+                  feedState.acceptingNote = false;
                   feedState.showOutgoing()
                 });
               });
           }}
           onReject={() => {
-            rejectNote(this.state.currentNote.number)
+            rejectNote(feedState.currentNote.number)
               .then(res => {
                 console.log('Note has been rejected.');
               })
@@ -286,7 +290,7 @@ class DashboardFeed extends Component {
               })
               .then(() => {
                 feedState.handleRefresh().then(() => {
-                  this.setState({ acceptingNote: false })
+                  feedState.acceptingNote = false;
                   feedState.showOutgoing()
                 });
               });
@@ -301,36 +305,22 @@ class DashboardFeed extends Component {
 
         {
           feedState.currentList.map((note) =>
-          <div style={{borderBottom:'1px', borderColor:'#00000044', borderBottomStyle:'solid'}}>
-            <Grid container style={{paddingLeft:'20px', verticalAlign:'middle'}}>
-              <Grid item xs={2} style={styles.GridItem}>
-                ${formatMoney(note.amount / 100)}
-              </Grid>
-              <Grid item xs={3} style={styles.GridItem}>
-                { feedState.incoming ? note.sender : note.receiver }
-              </Grid>
-              <Grid item xs={5} style={styles.GridItem}>
-                {
-                  this.formatDate(note.expiration_date)
-                }
-              </Grid>
-              <Grid item xs={2}>
-                <MuiThemeProvider theme={theme}>
-                  {
-                    feedState.outgoing ?
-                      <IconButton onClick={this.handleResolve.bind(this, note)} >
-                        <ExitToApp color = 'primary'/>
-                      </IconButton>
-                    :
-                      <IconButton onClick={this.handleAccept.bind(this, note)} >
-                        <Check color = 'primary'/>
-                      </IconButton>
-                  }
-                </MuiThemeProvider>
-              </Grid>
-              </Grid>
+            <div style={{borderBottom:'1px', borderColor:'#00000044', borderBottomStyle:'solid'}}>
+              {
+                feedState.incoming ?
+                <AcceptNoteRow note={note}/> :
+                <ResolveNoteRow note={note}/>
+              }
             </div>
           )
+        }
+        {
+          feedState.incoming ?
+          feedState.receivedList.map((note) =>
+            <div style={{borderBottom:'1px', borderColor:'#00000044', borderBottomStyle:'solid'}}>
+              <ReceivedNoteRow note={note}/>
+            </div>
+          ) : null
         }
       {/*<List style={{height:'inherit', overflow:'auto'}}>
           {
@@ -413,6 +403,99 @@ class Comp extends Component {
     );
   }
 }
+
+class AcceptNoteRow extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  handleAccept(acceptNote) {
+    feedState.acceptingNote = true;
+    feedState.currentNote = acceptNote;
+  }
+
+  render() {
+    return (
+      <Grid container style={{paddingLeft:'20px', verticalAlign:'middle'}}>
+        <Grid item xs={MONEY_COLS} style={styles.GridItem}>
+          ${formatMoney(this.props.note.amount / 100)}
+        </Grid>
+        <Grid item xs={USER_COLS} style={styles.GridItem}>
+          { this.props.note.sender }
+        </Grid>
+        <Grid item xs={DATE_COLS} style={styles.GridItem}>
+          {
+            formatDate(this.props.note.expiration_date)
+          }
+        </Grid>
+        <Grid item xs={ICON_COLS}>
+          <MuiThemeProvider theme={theme}>
+            <IconButton onClick={this.handleAccept.bind(this, this.props.note)} >
+              <Check color = 'primary'/>
+            </IconButton>
+          </MuiThemeProvider>
+        </Grid>
+      </Grid>
+    );
+  }
+}
+
+class ResolveNoteRow extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  handleResolve(resolveNote) {
+    feedState.resolvingNote = true;
+    feedState.currentNote = resolveNote;
+  }
+
+  render() {
+    return (
+      <Grid container style={{paddingLeft:'20px', verticalAlign:'middle'}}>
+        <Grid item xs={MONEY_COLS} style={styles.GridItem}>
+          ${formatMoney(this.props.note.amount / 100)}
+        </Grid>
+        <Grid item xs={USER_COLS} style={styles.GridItem}>
+          {this.props.note.receiver}
+        </Grid>
+        <Grid item xs={DATE_COLS} style={styles.GridItem}>
+          {
+            formatDate(this.props.note.expiration_date)
+          }
+        </Grid>
+        <Grid item xs={ICON_COLS}>
+          <MuiThemeProvider theme={theme}>
+              <IconButton onClick={this.handleResolve.bind(this, this.props.note)} >
+                <ExitToApp color = 'primary'/>
+              </IconButton>
+          </MuiThemeProvider>
+        </Grid>
+      </Grid>
+    );
+  }
+}
+
+const ReceivedNoteRow = props => (
+  <Grid container style={{paddingLeft:'20px', paddingBottom:'15px', verticalAlign:'middle'}}>
+    <Grid item xs={MONEY_COLS} style={styles.GridItem}>
+      ${formatMoney(props.note.amount / 100)}
+    </Grid>
+    <Grid item xs={USER_COLS} style={styles.GridItem}>
+      {props.note.sender}
+    </Grid>
+    <Grid item xs={DATE_COLS - 1} style={styles.GridItem}>
+      {
+        formatDate(props.note.expiration_date)
+      }
+    </Grid>
+    <Grid item xs={ICON_COLS + 1} style={styles.GridItem}>
+      Waiting..
+    </Grid>
+  </Grid>
+)
+
+
 const DashboardFeedHeader = withStyles(tabStyles)(Comp);
 export { DashboardFeedHeader };
 export default DashboardFeed;
