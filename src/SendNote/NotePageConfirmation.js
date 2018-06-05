@@ -101,7 +101,7 @@ class NotePageConfirmation extends Component {
           </div>
         </div>
         <div className='editButton'>
-          <Button variant='outlined' color='primary' onClick={this.getProps}>
+          <Button color='primary' onClick={this.getProps}>
             Edit Note
           </Button>
         </div>
