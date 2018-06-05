@@ -228,6 +228,8 @@ class DashboardFeed extends Component {
           note={this.state.currentNote}
           confirm="Confirm"
           reject="Cancel"
+          useTo={true}
+          onCancel={() => { this.setState({resolvingNote: false})}}
           onAccept={() => {
             // API CALL
             resolveNote(this.state.currentNote.number)
@@ -255,8 +257,10 @@ class DashboardFeed extends Component {
           open={this.state.acceptingNote}
           header="Accept Note"
           note={this.state.currentNote}
+          useTo={false}
           confirm="Accept"
           reject="Reject"
+          onCancel={() => { this.setState({acceptingNote: false})}}
           onAccept={() => {
             acceptNote(this.state.currentNote.number)
               .then(res => {
@@ -303,7 +307,7 @@ class DashboardFeed extends Component {
                 ${formatMoney(note.amount / 100)}
               </Grid>
               <Grid item xs={3} style={styles.GridItem}>
-                {note.receiver}
+                { feedState.incoming ? note.sender : note.receiver }
               </Grid>
               <Grid item xs={5} style={styles.GridItem}>
                 {

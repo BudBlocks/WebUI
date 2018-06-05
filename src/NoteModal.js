@@ -25,11 +25,11 @@ class NoteModal extends Component {
           isOpen={this.props.open}
           style={customStyles}
           contentLabel="Example Modal"
-          shouldCloseOnOverlayClick={false}
+          onRequestClose={this.props.onCancel}
         >
           <div style={{textAlign:'center'}}>
             <h2>{this.props.header}</h2>
-            <div>${formatMoney(this.props.note.amount / 100)} from {this.props.note.sender}</div>
+            <div>${formatMoney(this.props.note.amount / 100)} {this.props.useTo ? 'to' : 'from'} {this.props.useTo ? this.props.note.receiver : this.props.note.sender}</div>
             <p>{this.props.note.message}</p>
             <form>
               <Button color='primary' onClick={() => {this.props.onAccept()}}>{this.props.confirm}</Button>
