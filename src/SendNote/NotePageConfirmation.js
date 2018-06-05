@@ -58,7 +58,11 @@ class NotePageConfirmation extends Component {
 
   // CODE THIS TO COMMUNICATE W THE BACKEND
   handleSendNote() {
-    sendNote(store.username, this.state.name, this.state.amount, this.state.deadline, this.state.message);
+    let d = new Date(this.state.deadline);
+    console.log(d);
+    d = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 2);
+    console.log(d);
+    sendNote(store.username, this.state.name, this.state.amount, d, this.state.message);
 
     this.setState({ toDashboard: true});
   }
