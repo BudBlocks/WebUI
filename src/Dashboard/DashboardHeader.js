@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { IconButton, Icon, Grid, Button } from '@material-ui/core';
-import { Add, Delete, AccountBalance, ArrowDownward, ArrowUpward } from '@material-ui/icons';
+import { Add, Delete, AccountBalance, ArrowDownward, ArrowUpward, Refresh } from '@material-ui/icons';
 import { formatMoney } from '../Utils';
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
@@ -74,8 +74,14 @@ class DashboardHeader extends Component {
             <div style={{marginTop:'10px'}}>Rating</div>
             <div style={{fontSize:'28px'}}>{this.state.rating}</div>
           </Grid>
+          <div style={{width: '100%', textAlign:'center'}}>
+            <IconButton style={styles.IconButton, {marginTop:'-50px'}} onClick={() => {
+                feedState.handleRefresh();
+              }}>
+              <Refresh style={styles.Icon}/>
+            </IconButton>
+          </div>
         </Grid>
-        <br/>
       </div>
     )
   }

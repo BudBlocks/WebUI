@@ -11,7 +11,7 @@ import { formatMoney, updateUserInfo, getAllNotes, getAllUsers, resolveNote, acc
 import store from '../UserStore';
 import NoteModal from '../NoteModal';
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
-import { ExitToApp, Check } from '@material-ui/icons';
+import { ExitToApp, Check  } from '@material-ui/icons';
 import './DashboardFeed.css';
 import Typography from '@material-ui/core/Typography';
 import { observer } from 'mobx-react';
@@ -71,6 +71,7 @@ class FeedState {
   @observable incomingList = []
   @observable outgoingList = []
   @observable tabValue = 0
+  @observable loading = false
 
   @action showIncoming() {
     this.incoming = true;
@@ -99,58 +100,9 @@ class FeedState {
       }
     }
   }
-}
 
-var feedState = new FeedState();
-export { feedState };
-
-@observer
-class DashboardFeed extends Component {
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      notes_owed: [],
-      notes_received: [],
-      notes_pending: [],
-      resolvingNote: false,
-      acceptingNote: false,
-      currentNote: {},
-      loading: false,
-    }
-    this.refresh = this.refresh.bind(this);
-  }
-
-  handleResolve(resolveNote) {
-    this.setState({
-      resolvingNote: true,
-      currentNote: resolveNote,
-    });
-    // this.setState((prevState) => ({
-    //   infoList: prevState.infoList.filter(note => note.id != resolveNote.id)
-    // }));
-    // store.balance -= resolveNote.amount;
-  }
-
-  componentDidMount() {
-    this.setState({loading:true});
-    this.refresh();
-  }
-
-  handleAccept(acceptNote) {
-    this.setState({
-      acceptingNote: true,
-      currentNote: acceptNote,
-    })
-  }
-
-  // handleChange(event, value) {
-  //   feedState.tabValue = value
-  // }
-
-  async refresh() {
-    this.setState({loading:true});
+  @action async handleRefresh() {
+    this.loading = true;
     await updateUserInfo();
     let allUsers = await getAllUsers();
     getAllNotes().then((all_notes) => {
@@ -194,17 +146,57 @@ class DashboardFeed extends Component {
           }
         }
       });
-      feedState.incomingList = _notes_pending;
-      feedState.outgoingList = _notes_owed;
-      feedState.showIncoming();
-      this.setState({
-        loading: false
-      });
+      this.incomingList = _notes_pending;
+      this.outgoingList = _notes_owed;
+      this.showIncoming();
+      this.loading = false;
     });
+  }
+}
+
+var feedState = new FeedState();
+export { feedState };
+
+@observer
+class DashboardFeed extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      notes_owed: [],
+      notes_received: [],
+      notes_pending: [],
+      resolvingNote: false,
+      acceptingNote: false,
+      currentNote: {},
+    }
+  }
+
+  handleResolve(resolveNote) {
+    this.setState({
+      resolvingNote: true,
+      currentNote: resolveNote,
+    });
+    // this.setState((prevState) => ({
+    //   infoList: prevState.infoList.filter(note => note.id != resolveNote.id)
+    // }));
+    // store.balance -= resolveNote.amount;
+  }
+
+  componentDidMount() {
+    feedState.handleRefresh();
+  }
+
+  handleAccept(acceptNote) {
+    this.setState({
+      acceptingNote: true,
+      currentNote: acceptNote,
+    })
   }
 
   render() {
-    if(this.state.loading) {
+    if(feedState.loading) {
       return (
         <div className='loader'></div>
       );
@@ -229,7 +221,7 @@ class DashboardFeed extends Component {
                 console.log('Resolve failed.')
               })
               .then(() => {
-                this.refresh().then(() => {
+                feedState.handleRefresh().then(() => {
                   this.setState({ resolvingNote: false })
                   feedState.showIncoming()
                 });
@@ -255,7 +247,7 @@ class DashboardFeed extends Component {
                 console.log('accept failed.')
               })
               .then(() => {
-                this.refresh().then(() => {
+                feedState.handleRefresh().then(() => {
                   this.setState({ acceptingNote: false })
                   feedState.showOutgoing()
                 });
@@ -270,7 +262,7 @@ class DashboardFeed extends Component {
                 console.log('reject failed.')
               })
               .then(() => {
-                this.refresh().then(() => {
+                feedState.handleRefresh().then(() => {
                   this.setState({ acceptingNote: false })
                   feedState.showOutgoing()
                 });

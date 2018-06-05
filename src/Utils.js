@@ -71,6 +71,11 @@ export async function getAllNotes() {
   return response.data;
 }
 
+export async function getUser(username) {
+  let response = await axios.get(API_URL + 'buddy/' + username)
+  return response.data;
+}
+
 export function sendNote(sender, receiver, amount, expirationDate, message) {
   const data = {
     $class: 'org.budblocks.sendNote',
