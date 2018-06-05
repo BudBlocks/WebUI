@@ -17,23 +17,23 @@
   padding-top: 15px;
   position: absolute;
   top: 120px;
-  left: 0;
-  right: 0;
+  left: 50px;
+  right: 50px;
 }
 
 .amountText {
   padding-top: 15px;
   position: absolute;
   top: 205px;
-  left: 0;
-  right: 0;
+  left: 50px;
+  right: 50px;
 }
 
 .messageField {
   position: absolute;
   top: 290px;
-  left: 0;
-  right: 0;
+  left: 50px;
+  right: 50px;
   padding-top: 15px;
 }
 
@@ -41,8 +41,8 @@
   padding-top: 30px;
   position: absolute;
   top: 375px;
-  left: 0;
-  right: 0;
+  left: 50px;
+  right: 50px;
 }
 
 .SendButtonDesign {
