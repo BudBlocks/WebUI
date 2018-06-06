@@ -9,7 +9,6 @@ class LogoHeader extends Component {
   <div className = 'header-design'>
     <div className = "image">
       <img src = {Logo} width = "40px" alt=""></img>
-      </Link>
     </div>
   </div>
   )
