@@ -176,6 +176,7 @@ export async function updateUserInfo(username) {
   store.notes_owed = foundUser.notes_owed;
   store.notes_received = foundUser.notes_received;
   store.notes_pending = foundUser.notes_pending;
+  store.notes_waiting = foundUser.notes_waiting;
   return true;
 }
 

@@ -130,6 +130,7 @@ class FeedState {
       let _notes_owed = []
       let _notes_received = []
       let _notes_pending = []
+      let _notes_waiting = []
 
       all_notes.forEach((note) => {
         let number = note.number;
@@ -166,10 +167,22 @@ class FeedState {
             }
           }
         }
+        if (store.notes_waiting) {
+          for(let i = 0; i < store.notes_waiting.length; i++) {
+            let URI = store.notes_waiting[i];
+            if (URI.substring(URI.indexOf('#')+1, URI.length) == number) {
+              let new_note = note;
+              new_note.sender = new_note.sender.substring(new_note.sender.indexOf('#')+1, new_note.sender.length);
+              new_note.receiver = new_note.receiver.substring(new_note.receiver.indexOf('#')+1, new_note.receiver.length);
+              _notes_waiting.push(new_note);
+            }
+          }
+        }
       });
       this.incomingList = _notes_pending;
       this.outgoingList = _notes_owed;
       this.receivedList = _notes_received;
+      this.waitingList = _notes_waiting;
       this.update();
       this.loading = false;
     });

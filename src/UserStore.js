@@ -9,6 +9,7 @@ class UserStore {
   @observable notes_owed = [];
   @observable notes_received = [];
   @observable notes_pending = [];
+  @observable notes_waiting = [];
 }
 
 var store = window.store = new UserStore();
