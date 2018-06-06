@@ -92,7 +92,7 @@ class SendNotePage extends Component {
 
   handleChangeAmount(e) {
     this.setState({
-      amount: (String)(clampInput(e.target.value, 0, 100.00))
+      amount: inputMoneyFormat((String)(clampInput(e.target.value, 0, 100.00)))
     })
   }
 
@@ -145,11 +145,10 @@ class SendNotePage extends Component {
               fullWidth
               label = "Amount"
               style = {styles.texts}
-              type='Number'
-              step='.01'
+              type='text'
               name='amount'
-              value={inputMoneyFormat(this.state.amount)}
-              onChange={this.handleChangeAmount.bind(this)}/>
+              value={this.state.amount}
+              onChange={this.handleChangeAmount}/>
           </div>
 
           <div className = "messageField">

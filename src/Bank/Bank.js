@@ -95,8 +95,6 @@ class Bank extends Component {
   }
 
     withdrawMoney(e) {
-      console.log(this.state.amountShow);
-      console.log(store.balance);
       if (Number(this.state.amountShow) > store.balance) {
         this.setState({showError: true});
         return;
@@ -145,7 +143,7 @@ class Bank extends Component {
               InputProps={{startAdornment: <InputAdornment position="start">$</InputAdornment>,}}/>
           </div>
           <div className="errorMessage" style={{color: this.state.showError ? "#bf2a2a" : "#ffffff"}}>
-            Balance too low
+            <b> Balance too low </b>
           </div>
           <div className='whitespaceDiv'></div>
           <div className='bottom'>

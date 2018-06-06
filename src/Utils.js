@@ -12,20 +12,28 @@ export function formatMoney(n) {
 }
 
 export function inputMoneyFormat(n) {
-    let new_n = (Number)(n);
-    if (isNaN(new_n)) {
-      return n;
-    }
-    else if (new_n === 0) {
-      return ''
-    }
-    new_n = new_n.toFixed(2);
-    if (new_n.length < n.length) {
-      return new_n;
-    } else {
-      return n;
-    }
+  let last_char = n.substring(n.length - 1, n.length);
+  if(isNaN((Number)(last_char)) && last_char !== '.') {
+    return n.substring(0, n.length - 1);
   }
+  if(n.indexOf('.') !== n.lastIndexOf('.')) {
+    console.log('two decimal points');
+    return n.substring(0, n.length - 1);
+  }
+  let new_n = (Number)(n);
+  if (isNaN(new_n)) {
+    return n;
+  }
+  else if (new_n === 0) {
+    return ''
+  }
+  new_n = new_n.toFixed(2);
+  if (new_n.length < n.length) {
+    return new_n;
+  } else {
+    return n;
+  }
+}
 
 // {
 //   "$class": "org.budblocks.Buddy",
