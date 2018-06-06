@@ -128,13 +128,13 @@ class FeedState {
     this.loading = true;
     await updateUserInfo(store.username);
     let allUsers = await getAllUsers();
+    let _notes_to_be_rejected = []
     getAllNotes().then((all_notes) => {
       let _notes_owed = []
       let _notes_received = []
       let _notes_pending = []
       let _notes_waiting = []
       this.someNoteOverdue = false;
-
       all_notes.forEach((note) => {
         let number = note.number;
         if (store.notes_owed) {
@@ -169,7 +169,12 @@ class FeedState {
               let new_note = note;
               new_note.sender = new_note.sender.substring(new_note.sender.indexOf('#')+1, new_note.sender.length);
               new_note.receiver = new_note.receiver.substring(new_note.receiver.indexOf('#')+1, new_note.receiver.length);
-              _notes_pending.push(new_note);
+              if (isTooOld(new_note.date_sent)) {
+                _notes_to_be_rejected.push(new_note);
+              }
+              else {
+                _notes_pending.push(new_note);
+              }
             }
           }
         }
@@ -180,7 +185,9 @@ class FeedState {
               let new_note = note;
               new_note.sender = new_note.sender.substring(new_note.sender.indexOf('#')+1, new_note.sender.length);
               new_note.receiver = new_note.receiver.substring(new_note.receiver.indexOf('#')+1, new_note.receiver.length);
-              _notes_waiting.push(new_note);
+              if (!isTooOld(new_note.date_sent)) {
+                _notes_waiting.push(new_note);
+              }
             }
           }
         }
@@ -191,6 +198,17 @@ class FeedState {
       this.waitingList = _notes_waiting;
       this.update();
       this.loading = false;
+    })
+    .then(() => {
+      for (let i = 0; i < _notes_to_be_rejected.length; i++) {
+        rejectNote(_notes_to_be_rejected[i].number)
+          .then(res => {
+            console.log('Note has been rejected.');
+          })
+          .catch(error => {
+            console.log('reject failed.')
+          });
+      }
     });
   }
 }
@@ -204,6 +222,11 @@ function formatDate(expiration_date) {
 
   if(days < 0) return 'Overdue';
   return Math.floor(days) + ' days'; // 30-Dec-2011
+}
+function isTooOld(date_sent) {
+  let diff = new Date().getTime() - new Date(date_sent).getTime();
+
+  return diff > (24 * 60 * 60 * 1000);
 }
 
 @observer

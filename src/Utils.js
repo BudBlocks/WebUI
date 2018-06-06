@@ -124,7 +124,7 @@ export function rejectNote(noteid) {
     $class: 'org.budblocks.rejectNote',
     note: noteid,
   }
-
+  
   return axios.post(API_URL + 'rejectNote', data);
 }
 
