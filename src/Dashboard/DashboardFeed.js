@@ -220,7 +220,7 @@ class FeedState {
         x_sum += Math.log(store.time_over[i] / (24 * 60 * 60 * 1000)) / Math.exp((new Date().getTime() - new Date(store.date_over[i]).getTime()) / (20 * 24 * 60 * 60 * 1000));
       }
       let k = 2.5;
-      this.rating = inputMoneyFormat(10 * (1 - (1 / (1 + Math.exp(k - x_sum)))) / (1 - (1 / (1 + Math.exp(k)))));
+      this.rating = inputMoneyFormat((10 * (1 - (1 / (1 + Math.exp(k - x_sum)))) / (1 - (1 / (1 + Math.exp(k))))).toString());
     });
   }
 }

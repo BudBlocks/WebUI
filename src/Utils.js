@@ -8,9 +8,6 @@ export function formatMoney(n) {
     if (isNaN(new_n)) {
       return n;
     }
-    else if (new_n === 0) {
-      return ''
-    }
     return new_n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
 }
 
@@ -18,6 +15,9 @@ export function inputMoneyFormat(n) {
     let new_n = (Number)(n);
     if (isNaN(new_n)) {
       return n;
+    }
+    else if (new_n === 0) {
+      return ''
     }
     new_n = new_n.toFixed(2);
     if (new_n.length < n.length) {
