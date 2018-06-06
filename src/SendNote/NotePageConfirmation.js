@@ -32,13 +32,24 @@ const sStyle = {
 const theme = createMuiTheme({
     palette: {
       primary: {
-        main: '#1b3b77'
+        main: '#d64949'
       },
      secondary: {
        main: '#2c81b5'
      }
         }
       });
+
+const themeConfirm = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#1b3b77'
+    },
+   secondary: {
+     main: '#d64949'
+   }
+      }
+    });
 
 class NotePageConfirmation extends Component {
   constructor(props) {
@@ -88,7 +99,7 @@ class NotePageConfirmation extends Component {
         <div className='noteHeader'>
           <h3 className = 'confirmHeader'> <span className = 'blueSpan'> Confirm Your Note: </span> </h3>
           <div className='recipientDiv'>
-            <span className='formatLabel'>To:&emsp;</span>  <span className='formatInput'>{this.state.name}</span>
+            <span className='formatLabel'>From:&emsp;</span>  <span className='formatInput'>{this.state.name}</span>
           </div>
           <div className='amountDiv'>
             <span className='formatLabel'>Amount:&emsp;</span>  <span className='formatInput'>${formatMoney(this.state.amount)}</span>
@@ -103,9 +114,16 @@ class NotePageConfirmation extends Component {
         <MuiThemeProvider theme={theme}>
           <div className='editButton'>
             <Button color='secondary' onClick={this.getProps}>
-              Edit Note
+              Edit Request
+            </Button>
+            <div className='whitespaceDiv'> </div>
+            <Button color='primary' component={Link} to='/dashboard'>
+              Cancel Request
             </Button>
           </div>
+        </MuiThemeProvider>
+        <MuiThemeProvider theme={themeConfirm}>
+          <div className='whitespaceDiv'> </div>
           <div className='whitespaceDiv'> </div>
             <div className="confirmButton" style={{textAlign:'center'}}>
               <Button style = {bStyle} variant = 'raised' color='primary' onClick={this.handleSendNote} fullWidth>

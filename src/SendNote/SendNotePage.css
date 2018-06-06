@@ -16,7 +16,7 @@
 .friendText {
   padding-top: 15px;
   position: absolute;
-  top: 120px;
+  top: 110px;
   left: 50px;
   right: 50px;
 }
@@ -24,14 +24,14 @@
 .amountText {
   padding-top: 15px;
   position: absolute;
-  top: 205px;
+  top: 195px;
   left: 50px;
   right: 50px;
 }
 
 .messageField {
   position: absolute;
-  top: 290px;
+  top: 280px;
   left: 50px;
   right: 50px;
   padding-top: 15px;
@@ -40,7 +40,7 @@
 .date {
   padding-top: 30px;
   position: absolute;
-  top: 375px;
+  top: 365px;
   left: 50px;
   right: 50px;
 }

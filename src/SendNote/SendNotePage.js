@@ -10,6 +10,9 @@ import { inputMoneyFormat } from '../Utils';
 import { Redirect } from 'react-router-dom';
 import store from '../UserStore';
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
+import { ArrowBack } from '@material-ui/icons';
+import {IconButton} from '@material-ui/core';
 
 const styles = {
     texts: {
@@ -24,8 +27,14 @@ const styles = {
     },
     spacing: {
       paddingTop: '30%',
-    }
-
+    },
+    Icon: {
+        color: '#fff',
+      },
+    IconButton: {
+        margin: '10px',
+        marginBottom: '2px',
+      }
 };
 
 const theme = createMuiTheme({
@@ -88,9 +97,9 @@ class SendNotePage extends Component {
   }
 
   handleChangeMessage(e) {
-    if (this.state.message.length < 30) {
-    this.setState({message: e.target.value})
-  }
+    if (e.target.value.length < 30) {
+      this.setState({message: e.target.value})
+    }
   }
 
   handleChangeDeadline(e) {
@@ -108,18 +117,22 @@ class SendNotePage extends Component {
 
     this.props.stateChange(info);
   }
-
   render() {
     return (
     // if sending note, render this:
     <div>
-      <LogoHeader/>
+      <div style={{backgroundColor: '#1b3b77'}}>
+        <IconButton style={styles.IconButton} component={Link} to='/dashboard'>
+          <ArrowBack style={styles.Icon}/>
+        </IconButton>
+        <h1 style={{margin:'0px', padding:'15px', color:'#fff', textAlign:'center', fontWeight:'300', marginTop: '-60px'}}>Request Money</h1>
+      </div>
     <div className = "everything">
       <div className='info'>
 
           <div className = "friendText">
             <TextField
-              label='To'
+              label='From'
               fullWidth
               className='field'
               type='text'
@@ -151,7 +164,7 @@ class SendNotePage extends Component {
 
           <div className = "date">
           <TextField
-            label="Date"
+            label="Deadline"
             fullWidth
             type='date'
             name='deadline'
@@ -162,7 +175,7 @@ class SendNotePage extends Component {
       <div className = "SendButtonDesign">
         <MuiThemeProvider theme = {theme}>
           <Button variant='outlined' color='secondary' onClick={this.handleSubmit}>
-            Submit Note
+            Submit Request
           </Button>
         </MuiThemeProvider>
       </div>
