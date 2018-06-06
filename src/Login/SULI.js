@@ -67,11 +67,13 @@ class SULI_nostyles extends Component {
       password: '',
       confirm: '',
       email: '',
+      name: '',
       toDashboard: false,
       firstTimeUser: 0
     }
     this.updateUsername = this.updateUsername.bind(this);
     this.updateEmail = this.updateEmail.bind(this);
+    this.updateName = this.updateName.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.submitLogin = this.submitLogin.bind(this);
   }
@@ -84,9 +86,12 @@ class SULI_nostyles extends Component {
   updateEmail(e){
     this.setState({email: e.target.value})
   }
+  updateName(e) {
+    this.setState({name: e.target.value})
+  }
   async submitLogin(e) {
     if (this.state.firstTimeUser === 0 && this.state.password === this.state.confirm) {
-      await createUser(this.state.username, this.state.email);
+      await createUser(this.state.username, this.state.email, this.state.name);
     }
     let success = await updateUserInfo(this.state.username);
 
@@ -97,6 +102,8 @@ class SULI_nostyles extends Component {
 
     store.username = this.state.username;
     store.password = this.state.password;
+    store.email = this.state.email;
+    store.name = this.state.name;
 
     this.setState({toDashboard: true});
   }
@@ -116,7 +123,7 @@ class SULI_nostyles extends Component {
         <div className="parentDiv">
           <div className="header">
             <p className="headerText">Welcome to BudBlocks!</p>
-            <p className="headerSubtext">Please sign up or login.</p>
+            <p className="headerSubtext">Please sign up or login</p>
           </div>
 
 
@@ -135,6 +142,9 @@ class SULI_nostyles extends Component {
           <div className="signUp">
             <div className="textfield">
               <TextField label="Email" placeholder="user@name.me" onChange={this.updateEmail}/>
+            </div>
+            <div className="textfield">
+              <TextField label="Name" placeholder="User Name" onChange={this.updateName}/>
             </div>
             <div className="textfield">
               <TextField label="Username" placeholder="Username" onChange={this.updateUsername}/>
@@ -166,7 +176,7 @@ class SULI_nostyles extends Component {
         <div className="parentDiv">
           <div className="header">
             <p className="headerText">Welcome to BudBlocks!</p>
-            <p className="headerSubtext">Please sign up or login.</p>
+            <p className="headerSubtext">Please sign up or login</p>
           </div>
 
           <div className="appBar">

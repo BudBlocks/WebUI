@@ -35,11 +35,11 @@ export function inputMoneyFormat(n) {
 //   "time_over": [],
 //   "amount_over": []
 // }
-export function createUser(username, email) {
+export function createUser(username, email, name) {
   const data = {
     "$class": 'org.budblocks.Buddy',
     "username": username,
-    "name": username,
+    "name": name,
     "email": email,
     "time_over": [],
     "amount_over": []
@@ -164,6 +164,8 @@ export async function updateUserInfo(username) {
 
   if(!found) return false;
 
+  store.email = foundUser.email;
+  store.name = foundUser.name.substring(0, foundUser.name.indexOf(' '));
   store.balance = foundUser.balance / 100;
   store.notes_owed = foundUser.notes_owed;
   store.notes_received = foundUser.notes_received;
