@@ -482,7 +482,7 @@ class ResolveNoteRow extends Component {
         <Grid item xs={USER_COLS} style={styles.GridItem}>
           {this.props.note.receiver}
         </Grid>
-        <Grid item xs={DATE_COLS} style={styles.GridItem, { color: formatDate(props.note.expiration_date) === 'Overdue' ? 'red' : 'black', paddingTop:'15px'}}}>
+        <Grid item xs={DATE_COLS} style={styles.GridItem, { color: formatDate(this.props.note.expiration_date) === 'Overdue' ? 'red' : 'black', paddingTop:'15px'}}>
           {
             formatDate(this.props.note.expiration_date)
           }
