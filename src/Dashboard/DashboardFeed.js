@@ -83,9 +83,6 @@ class FeedState {
   @observable resolvingNote = false
   @observable currentNote = {}
   @observable someNoteOverdue = false
-  @observable time_over = []
-  @observable amount_over = []
-  @observable date_over = []
   @observable rating = 0
 
   @action showIncoming() {
@@ -215,36 +212,15 @@ class FeedState {
       }
     })
     .then(() => {
-      this.time_over = store.time_over;
-      this.amount_over = store.amount_over;
-      this.date_over = store.date_over;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      // rating code here
-
-
-
-
-
-
-
-
-
-
-
-
+      let x_sum = 0;
+      for(let i = this.time_over.length; i++) {
+        if (new Date().getTime() - this.date_over[i].getTime() > (20*24*60*60*1000)) {
+          continue;
+        }
+        x_sum += Math.log(this.time_over[i]) / Math.exp((new Date().getTime() - this.date_over.getTime()) / (20 * 24 * 60 * 60 * 1000));
+      }
+      let k = 2.5;
+      this.rating = 1 - (1 / (1 + exp(k - x_sum)));
     });
   }
 }
