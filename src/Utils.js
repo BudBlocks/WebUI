@@ -8,6 +8,9 @@ export function formatMoney(n) {
     if (isNaN(new_n)) {
       return n;
     }
+    else if (new_n === 0) {
+      return ''
+    }
     return new_n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
 }
 

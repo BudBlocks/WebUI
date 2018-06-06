@@ -214,10 +214,10 @@ class FeedState {
     .then(() => {
       let x_sum = 0;
       for(let i = 0; i <store.time_over.length; i++) {
-        if (new Date().getTime() - store.date_over[i].getTime() > (20*24*60*60*1000)) {
+        if (new Date().getTime() - new Date(store.date_over[i]).getTime() > (20*24*60*60*1000)) {
           continue;
         }
-        x_sum += Math.log(store.time_over[i]) / Math.exp((new Date().getTime() - store.date_over.getTime()) / (20 * 24 * 60 * 60 * 1000));
+        x_sum += Math.log(store.time_over[i] / (24 * 60 * 60 * 1000)) / Math.exp((new Date().getTime() - store.date_over.getTime()) / (20 * 24 * 60 * 60 * 1000));
       }
       let k = 2.5;
       this.rating = 10 * (1 - (1 / (1 + Math.exp(k - x_sum)))) / (1 - (1 / (1 + Math.exp(k))));
