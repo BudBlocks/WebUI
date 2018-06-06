@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import { observer } from 'mobx-react';
 import store from '../UserStore';
+import { feedState } from './DashboardFeed'
 
 const bStyle = {
   fontSize: '20px',
@@ -39,7 +40,7 @@ const theme = createMuiTheme({
 @observer
 class DashboardFooter extends Component {
   render() {
-      if (store.balance < 0) {
+      if (feedState.someNoteOverdue) {
         return (
         <MuiThemeProvider theme={theme}>
         <div style={{textAlign:'center'}}>
@@ -55,7 +56,7 @@ class DashboardFooter extends Component {
       <MuiThemeProvider theme={theme}>
         <div style={{textAlign:'center'}}>
           <Button style = {bStyle} variant = 'raised' color='primary' component={Link} to='/sendnote' fullWidth>
-            <span style = {sStyle}> Request Money </span>
+            <span style = {sStyle}> Borrow Money </span>
             <Send/>
           </Button>
         </div>

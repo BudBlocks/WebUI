@@ -82,6 +82,7 @@ class FeedState {
   @observable acceptingNote = false
   @observable resolvingNote = false
   @observable currentNote = {}
+  @observable someNoteOverdue = false
 
   @action showIncoming() {
     this.incoming = true;
@@ -143,6 +144,9 @@ class FeedState {
               new_note.sender = new_note.sender.substring(new_note.sender.indexOf('#')+1, new_note.sender.length);
               new_note.receiver = new_note.receiver.substring(new_note.receiver.indexOf('#')+1, new_note.receiver.length);
               _notes_owed.push(new_note);
+              if (formatDate(new_note.expiration_date) === 'Overdue') {
+                this.someNoteOverdue = true;
+              }
             }
           }
         }
@@ -418,8 +422,8 @@ class Comp extends Component {
             classes={{indicator: classes.indicator}}
             fullWidth
             >
-            <Tab label='Received' classes={{root: classes.tabRoot}}/>
-            <Tab label='Owed' classes={{root: classes.tabRoot}}/>
+            <Tab label='Lent' classes={{root: classes.tabRoot}}/>
+            <Tab label='Borrowed' classes={{root: classes.tabRoot}}/>
           </Tabs>
         </AppBar>
       </MuiThemeProvider>
