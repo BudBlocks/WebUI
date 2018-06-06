@@ -67,6 +67,7 @@ class Bank extends Component {
 
     this.state = {
       amountShow: ''
+      showError: false
     }
     this.depositMoney = this.depositMoney.bind(this);
     this.withdrawMoney = this.withdrawMoney.bind(this);
@@ -79,7 +80,7 @@ class Bank extends Component {
   depositMoney(e) {
     addBalance(store.username, Number(this.state.amountShow))
       .then(() => {
-        this.setState({amountShow: ''});
+        this.setState({showError: false, amountShow: ''});
       })
       .then(res => {
         console.log('Transaction went through.');
@@ -93,24 +94,28 @@ class Bank extends Component {
   }
 
     withdrawMoney(e) {
-        removeBalance(store.username, Number(this.state.amountShow))
-          .then(() => {
-            this.setState({amountShow: ''});
-          })
-          .then(res => {
-            console.log('Transaction went through.');
-          })
-          .catch(error => {
-            console.log('Transaction failed.');
-          })
-          .then(() => {
-            updateUserInfo(store.username);
-          });
+      if (this.state.amountShow > store.balance) {
+        this.setState({showError: true});
+        return;
+      }
+      removeBalance(store.username, Number(this.state.amountShow))
+        .then(() => {
+          this.setState({showError: false, amountShow: ''});
+        })
+        .then(res => {
+          console.log('Transaction went through.');
+        })
+        .catch(error => {
+          console.log('Transaction failed.');
+        })
+        .then(() => {
+          updateUserInfo(store.username);
+        });
     }
 
     handleAmountChange(e) {
       e.target.value = e.target.value.replace(',', '');
-      this.setState({amountShow: e.target.value})
+      this.setState({showError: false, amountShow: e.target.value})
     }
 
   render() {
@@ -135,6 +140,9 @@ class Bank extends Component {
               value = {inputMoneyFormat(this.state.amountShow)}
               onChange={this.handleAmountChange.bind(this)}
               InputProps={{startAdornment: <InputAdornment position="start">$</InputAdornment>,}}/>
+          </div>
+          <div className="errorMessage" style={{color: this.state.showError ? "#bf2a2a" : "#ffffff"}}>
+            Balance too low
           </div>
           <div className='whitespaceDiv'></div>
           <div className='bottom'>
