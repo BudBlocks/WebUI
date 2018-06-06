@@ -6,13 +6,13 @@ import NoteToggle from './NoteToggle.js';
 import TextField from '@material-ui/core/TextField';
 import './SendNotePage.css';
 import LogoHeader from '../LogoHeader.js';
-import { inputMoneyFormat } from '../Utils';
 import { Redirect } from 'react-router-dom';
 import store from '../UserStore';
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { ArrowBack } from '@material-ui/icons';
 import {IconButton} from '@material-ui/core';
+import {clampInput, inputMoneyFormat} from '../Utils';
 
 const styles = {
     texts: {
@@ -92,7 +92,7 @@ class SendNotePage extends Component {
 
   handleChangeAmount(e) {
     this.setState({
-      amount: (String)(e.target.value)
+      amount: (String)(clampInput(e.target.value, 0, 100.00))
     })
   }
 

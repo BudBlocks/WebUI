@@ -108,7 +108,8 @@ class NotePageConfirmation extends Component {
             <span className='formatLabel'>Message:&emsp;</span>  <span className='formatInput'>{this.state.message}</span>
           </div>
           <div className='deadlineDiv'>
-            <span className='formatLabel'>Deadline:&emsp;</span>  <span className='formatInput'>{this.state.deadline}</span>
+            <span className='formatLabel'>Deadline:&emsp;</span>
+             <span className='formatInput'>{formatDate(this.state.deadline)} </span>
           </div>
         </div>
         <MuiThemeProvider theme={theme}>
@@ -135,6 +136,15 @@ class NotePageConfirmation extends Component {
       </div>
         )
   }
+}
+
+function formatDate(date) {
+  let stringDate = String(date);
+  let month = stringDate.substring(5,7);
+  let day = stringDate.substring(8);
+  let year = stringDate.substring(0,4);
+
+  return (month + '/' + day + '/' + year);
 }
 
 export default NotePageConfirmation;
