@@ -221,7 +221,7 @@ class FeedState {
       }
       let k = 2.5;
       let rating_value = 10 * (1 - (1 / (1 + Math.exp(k - x_sum)))) / (1 - (1 / (1 + Math.exp(k))));
-      console.log(rating_value.toString());
+      console.log(rating_value);
       this.rating = inputMoneyFormat(rating_value.toString());
     });
   }

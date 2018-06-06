@@ -66,7 +66,7 @@ class Bank extends Component {
     super(props)
 
     this.state = {
-      amountShow: ''
+      amountShow: '',
       showError: false
     }
     this.depositMoney = this.depositMoney.bind(this);
@@ -97,7 +97,7 @@ class Bank extends Component {
     withdrawMoney(e) {
       console.log(this.state.amountShow);
       console.log(store.balance);
-      if (this.state.amountShow > store.balance) {
+      if (Number(this.state.amountShow) > store.balance) {
         this.setState({showError: true});
         return;
       }
