@@ -107,7 +107,7 @@ class SULI_nostyles extends Component {
     };
 
   handleChange(e, value) {
-    this.setState({firstTimeUser: value, unsucessful: false});
+    this.setState({firstTimeUser: value, unsucessful: false, username: '', name: '', password: '', confirm: '', email: ''});
   }
 
   updateUsername(e) {
