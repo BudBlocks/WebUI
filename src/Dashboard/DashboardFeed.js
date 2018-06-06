@@ -133,6 +133,7 @@ class FeedState {
       let _notes_received = []
       let _notes_pending = []
       let _notes_waiting = []
+      this.someNoteOverdue = false;
 
       all_notes.forEach((note) => {
         let number = note.number;
