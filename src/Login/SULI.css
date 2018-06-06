@@ -26,6 +26,15 @@
   padding-bottom: 15px;
 }
 
+.header p {
+    margin: 10px;
+}
+
+.headerSubtext {
+  font-size: 18px;
+  margin-top: 10px !important;
+}
+
 .appBar {
   elevation: 0;
 }

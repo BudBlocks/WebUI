@@ -33,8 +33,8 @@ const bStyle = {
   fontSize: '20px',
   textAlign: 'center',
   border: '1px solid white',
-  paddingTop: '40px',
-  paddingBottom: '40px',
+  paddingTop: '10px',
+  paddingBottom: '10px',
   // marginRight: '40px',
   // marginLeft: '40px',
   // borderRadius: '10px',
@@ -46,7 +46,7 @@ const sStyle = {
   marginRight: '10px',
   fontWeight: '400',
   textTransform: 'none',
-  fontSize: '40px'
+  fontSize: '20px'
 }
 
 const tabStyles = theme => ({
@@ -115,8 +115,10 @@ class SULI_nostyles extends Component {
       return (
         <div className="parentDiv">
           <div className="header">
-            Welcome to BudBlocks
+            <p className="headerText">Welcome to BudBlocks!</p>
+            <p className="headerSubtext">Please sign up or login.</p>
           </div>
+
 
           <div className="appBar">
             <AppBar position='static' style={{backgroundColor: 'white'}}>
@@ -132,16 +134,16 @@ class SULI_nostyles extends Component {
 
           <div className="signUp">
             <div className="textfield">
-              <TextField label="email" placeholder="user@name.me" onChange={this.updateEmail}/>
+              <TextField label="Email" placeholder="user@name.me" onChange={this.updateEmail}/>
             </div>
             <div className="textfield">
-              <TextField label="username" placeholder="username" onChange={this.updateUsername}/>
+              <TextField label="Username" placeholder="Username" onChange={this.updateUsername}/>
             </div>
             <div className="textfield">
-              <TextField label="password" placeholder="password"/>
+              <TextField type="password" label="Password" placeholder="Password"/>
             </div>
             <div className="textfield">
-              <TextField label="confirm password" placeholder="confirm"/>
+              <TextField type="password" label="Confirm Password" placeholder="Password"/>
             </div>
           </div>
 
@@ -163,7 +165,8 @@ class SULI_nostyles extends Component {
       return (
         <div className="parentDiv">
           <div className="header">
-            Welcome to BudBlocks
+            <p className="headerText">Welcome to BudBlocks!</p>
+            <p className="headerSubtext">Please sign up or login.</p>
           </div>
 
           <div className="appBar">
@@ -181,10 +184,10 @@ class SULI_nostyles extends Component {
           <div className="signUp">
             <div style={{paddingTop:'30px'}}></div>
             <div className="textfield">
-              <TextField label="username" placeholder="username" onChange={this.updateUsername}/>
+              <TextField label="Username" placeholder="Username" onChange={this.updateUsername}/>
             </div>
             <div className="textfield">
-              <TextField label="password" placeholder="pass word"/>
+              <TextField type="password" label="Password" placeholder="Password"/>
             </div>
           </div>
 
