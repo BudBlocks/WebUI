@@ -7,7 +7,7 @@ import ListItem from '@material-ui/core/ListItem';
 import {ArrowDownward, ArrowUpward} from '@material-ui/icons';
 import {IconButton, Icon, Grid, AppBar, Tabs, Tab} from '@material-ui/core';
 import { friends } from '../App';
-import { formatMoney, updateUserInfo, getAllNotes, getAllUsers, resolveNote, acceptNote, rejectNote } from '../Utils';
+import { formatMoney, updateUserInfo, getAllNotes, getAllUsers, resolveNote, acceptNote, rejectNote, inputMoneyFormat } from '../Utils';
 import store from '../UserStore';
 import NoteModal from '../NoteModal';
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
