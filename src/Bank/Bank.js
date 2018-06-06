@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import Button from '@material-ui/core/Button';
 import { IconButton, Icon, Grid } from '@material-ui/core';
+import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import { ArrowBack } from '@material-ui/icons';
 import TextField from '@material-ui/core/TextField';
 import LogoHeader from '../LogoHeader.js';
@@ -11,6 +12,42 @@ import { formatMoney, clampInput, addBalance, removeBalance, inputMoneyFormat, u
 import './Bank.css';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { Link } from 'react-router-dom';
+const buttonStyle = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#bf2a2a'
+    },
+    secondary: {
+      main: '#239620'
+    }
+  }
+});
+
+// const bStyle = {
+//   borderRadius: '5px',
+//   color: '#1b3b77',
+//   backgroundColor: '#fff'
+// };
+
+const bStyle = {
+  fontSize: '20px',
+  textAlign: 'center',
+  border: '1px solid white',
+  paddingTop: '10px',
+  paddingBottom: '10px',
+  // marginRight: '40px',
+  // marginLeft: '40px',
+  // borderRadius: '10px',
+  marginTop: '10px',
+  // marginBottom: '30px'
+}
+
+const sStyle = {
+  marginRight: '10px',
+  fontWeight: '400',
+  textTransform: 'none',
+  fontSize: '20px'
+}
 
 const styles = {
   Icon: {
@@ -29,21 +66,37 @@ class Bank extends Component {
     super(props)
 
     this.state = {
-      showDeposit: false,
-      showWithdraw: false,
-      withdrawShow: '',
-      depositShow: ''
+      amountShow: ''
     }
+    this.depositMoney = this.depositMoney.bind(this);
+    this.withdrawMoney = this.withdrawMoney.bind(this);
   }
 
   componentDidMount() {
     updateUserInfo(store.username);
   }
 
-    depositMoney(e) {
-      if (e.which === 13) {
-        this.setState({depositShow: ''});
-        addBalance(store.username, Number(e.target.value))
+  depositMoney(e) {
+    addBalance(store.username, Number(this.state.amountShow))
+      .then(() => {
+        this.setState({amountShow: ''});
+      })
+      .then(res => {
+        console.log('Transaction went through.');
+      })
+      .catch(error => {
+        console.log('Transaction failed.');
+      })
+      .then(() => {
+        updateUserInfo(store.username);
+      });
+  }
+
+    withdrawMoney(e) {
+        removeBalance(store.username, Number(this.state.amountShow))
+          .then(() => {
+            this.setState({amountShow: ''});
+          })
           .then(res => {
             console.log('Transaction went through.');
           })
@@ -52,76 +105,64 @@ class Bank extends Component {
           })
           .then(() => {
             updateUserInfo(store.username);
-          })
-      } else if (e.which == 44) {
-        e.preventDefault();
-      }
+          });
     }
 
-    withdrawMoney(e) {
-      if (e.which === 13) {
-        this.setState({withdrawShow: ''});
-        removeBalance(store.username, Number(e.target.value))
-            .then(res => {
-              console.log('Transaction went through.');
-            })
-            .catch(error => {
-              console.log('Transaction failed.');
-            })
-            .then(() => {
-              updateUserInfo(store.username);
-            })
-      }
-    }
-
-    handleWithdrawChange(e) {
+    handleAmountChange(e) {
       e.target.value = e.target.value.replace(',', '');
-      this.setState({withdrawShow: clampInput(e.target.value, 0, store.balance)})
-    }
-
-    handleDepositChange(e) {
-      e.target.value = e.target.value.replace(',', '');
-      this.setState({depositShow: clampInput(e.target.value, 0, 999)})
+      this.setState({amountShow: clampInput(e.target.value, 0, store.balance)})
     }
 
   render() {
     return (
-    <body>
-      <div style={{backgroundColor: '#1b3b77'}}>
-        <IconButton style={styles.IconButton} component={Link} to='/dashboard'>
-          <ArrowBack style={styles.Icon}/>
-        </IconButton>
-        <h1 style={{margin:'0px', padding:'15px', color:'#fff', textAlign:'center', fontWeight:'400', marginTop: '-60px'}}>Bank</h1>
-      </div>
-        <div className = 'balanceHeader'>
-          <h2> Balance: ${formatMoney(store.balance)} </h2>
-        </div>
-        <div className = 'deposit'>
-          <h3>Deposit</h3>
-          <TextField
-            hintText="Amount"
-            placeholder = 'Deposit Amount'
-            type='text'
-            value = {inputMoneyFormat(this.state.depositShow)}
-            onChange={this.handleDepositChange.bind(this)}
-            onKeyPress={this.depositMoney.bind(this)}
-            InputProps={{startAdornment: <InputAdornment position="start">$</InputAdornment>,}}/>
-        </div>
-        <div className = 'withdraw'>
-          <h3>Withdraw</h3>
-          <div>
+      <body>
+        <div className='parentDiv'>
+          <div style={{backgroundColor: '#1b3b77'}}>
+            <IconButton style={styles.IconButton} component={Link} to='/dashboard'>
+              <ArrowBack style={styles.Icon}/>
+            </IconButton>
+            <h1 style={{margin:'0px', padding:'15px', color:'#fff', textAlign:'center', fontWeight:'400', marginTop: '-60px'}}>Bank</h1>
+          </div>
+          <div className = 'balanceHeader'>
+            <h2> Balance: ${formatMoney(store.balance)} </h2>
+          </div>
+          <div className = 'amount'>
+            <h3>Amount</h3>
             <TextField
-            placeholder='Withdraw Amount'
-            type='text'
-            value = {inputMoneyFormat(this.state.withdrawShow)}
-            onChange={this.handleWithdrawChange.bind(this)}
-            onKeyPress={this.withdrawMoney.bind(this)}
-            InputProps={{startAdornment: <InputAdornment position="start">$</InputAdornment>,}}/>
+              hintText=""
+              placeholder = ''
+              type='text'
+              value = {inputMoneyFormat(this.state.amountShow)}
+              onChange={this.handleAmountChange.bind(this)}
+              InputProps={{startAdornment: <InputAdornment position="start">$</InputAdornment>,}}/>
+          </div>
+          <div className='whitespaceDiv'></div>
+          <div className='bottom'>
+            <div className="submitButton">
+              <MuiThemeProvider theme={buttonStyle}>
+                <Grid container>
+                  <Grid item xs={6}>
+                    <div style={{textAlign:'center'}}>
+                      <Button style={bStyle} variant='raised' color='secondary' onClick={this.withdrawMoney} fullWidth>
+                        <span style={sStyle}> Withdraw </span>
+                      </Button>
+                    </div>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <div style={{textAlign:'center'}}>
+                      <Button style={bStyle} variant='raised' color='primary' onClick={this.depositMoney} fullWidth>
+                        <span style={sStyle}> Deposit </span>
+                      </Button>
+                    </div>
+                  </Grid>
+                </Grid>
+              </MuiThemeProvider>
+            </div>
           </div>
         </div>
-    </body>
-  )
-}
+      </body>
+    )
+  }
 }
 
 export default Bank;

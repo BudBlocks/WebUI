@@ -1,3 +1,10 @@
+.parentDiv {
+  flex-direction: column;
+  display: flex;
+  height: 100vh;
+  max-height: 100vh;
+}
+
 .balanceHeader {
   text-align: center;
   position: relative;
@@ -9,27 +16,22 @@
   right: 0;
 }
 
-.deposit {
+.amount {
   text-align: center;
-  position: relative;
-  margin-top: 0;
-  top: 15px;
+  padding-top: 80px;
+  /* top: 100px; */
   color: #2c81b5;
   margin: 0px;
   margin-left: auto;
   margin-right: auto;
 }
 
-.withdraw {
-  text-align: center;
-  position: relative;
-  margin-top: 0;
-  top: 40px;
-  color: #2c81b5;
-  margin: 0px;
-  margin-left: auto;
-  margin-right: auto;
+.whitespaceDiv {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto;
 }
+
 body {
   height: 100%
 }
