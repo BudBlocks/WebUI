@@ -165,7 +165,13 @@ export async function updateUserInfo(username) {
   if(!found) return false;
 
   store.email = foundUser.email;
-  store.name = foundUser.name.substring(0, foundUser.name.indexOf(' '));
+  let i = foundUser.name.indexOf(' ');
+  if (i < 0) {
+    store.name = foundUser.name;
+  }
+  else {
+    store.name = foundUser.name.substring(0, i);
+  }
   store.balance = foundUser.balance / 100;
   store.notes_owed = foundUser.notes_owed;
   store.notes_received = foundUser.notes_received;
