@@ -70,7 +70,7 @@ class SULI_nostyles extends Component {
       name: '',
       toDashboard: false,
       firstTimeUser: 0,
-      subtitle: '',
+      subtitle: this.getSubtitle(),
     }
     this.updateUsername = this.updateUsername.bind(this);
     this.updateEmail = this.updateEmail.bind(this);
@@ -86,12 +86,12 @@ class SULI_nostyles extends Component {
         "Not Powered by PhoneGap",
         "Patent Pending?",
         "Fast, Easy, Trusted",
-        "Secure Since 2018",
+        "Secure Since 2019",
         "Still in Alpha",
         "A hand shake is not on the BlockChain",
         "Managed by Spender",
         "This is a real Spender Bender",
-        "Brought to You by the flock",
+        "Brought to you by The Flock",
         "Even we don't really know what's going on",
         "Better than an uncooked Panini",
         "We're quiting College to develop this",
@@ -110,7 +110,7 @@ class SULI_nostyles extends Component {
   }
 
   updateUsername(e) {
-    this.setStateb({username: e.target.value})
+    this.setState({username: e.target.value})
   }
   updateEmail(e){
     this.setState({email: e.target.value})
@@ -143,7 +143,7 @@ class SULI_nostyles extends Component {
   // }
 
   render() {
-    let subtitle = this.getSubtitle();
+    let subtitle = this.state.subtitle;
     if (this.state.toDashboard) {
       return <Redirect to='/dashboard'/>
     }
