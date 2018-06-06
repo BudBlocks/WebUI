@@ -124,7 +124,7 @@ export function rejectNote(noteid) {
     $class: 'org.budblocks.rejectNote',
     note: noteid,
   }
-  
+
   return axios.post(API_URL + 'rejectNote', data);
 }
 
@@ -177,6 +177,9 @@ export async function updateUserInfo(username) {
   store.notes_received = foundUser.notes_received;
   store.notes_pending = foundUser.notes_pending;
   store.notes_waiting = foundUser.notes_waiting;
+  store.time_over = foundUser.time_over;
+  store.amount_over = foundUser.amount_over;
+  store.date_over = foundUser.date_over;
   return true;
 }
 

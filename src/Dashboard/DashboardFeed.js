@@ -83,6 +83,10 @@ class FeedState {
   @observable resolvingNote = false
   @observable currentNote = {}
   @observable someNoteOverdue = false
+  @observable time_over = []
+  @observable amount_over = []
+  @observable date_over = []
+  @observable rating = 0
 
   @action showIncoming() {
     this.incoming = true;
@@ -127,7 +131,7 @@ class FeedState {
   @action async handleRefresh() {
     this.loading = true;
     await updateUserInfo(store.username);
-    let allUsers = await getAllUsers();
+    // let allUsers = await getAllUsers();
     let _notes_to_be_rejected = []
     getAllNotes().then((all_notes) => {
       let _notes_owed = []
@@ -209,6 +213,38 @@ class FeedState {
             console.log('reject failed.')
           });
       }
+    })
+    .then(() => {
+      this.time_over = store.time_over;
+      this.amount_over = store.amount_over;
+      this.date_over = store.date_over;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      // rating code here
+
+
+
+
+
+
+
+
+
+
+
+
     });
   }
 }

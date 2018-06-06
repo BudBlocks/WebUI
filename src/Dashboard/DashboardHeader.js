@@ -38,14 +38,6 @@ const styles = {
 
 @observer
 class DashboardHeader extends Component {
-  constructor(props){
-    super(props);
-
-    this.state = {
-      rating: 9.9,
-    }
-  }
-
   render() {
     return (
       <div style={styles.Header}>
@@ -79,7 +71,7 @@ class DashboardHeader extends Component {
           </Grid>
           <Grid item xs={4} style={styles.Rating}>
             <div style={{marginTop:'10px'}}>Rating</div>
-            <div style={{fontSize:'28px'}}>{this.state.rating}</div>
+            <div style={{fontSize:'28px'}}>{feedState.rating}</div>
           </Grid>
           {/*<div style={{width: '100%', textAlign:'center'}}>
             <IconButton style={styles.IconButton, {marginTop:'-50px'}} onClick={() => {

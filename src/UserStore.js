@@ -10,6 +10,9 @@ class UserStore {
   @observable notes_received = [];
   @observable notes_pending = [];
   @observable notes_waiting = [];
+  @observable time_over = [];
+  @observable amount_over = [];
+  @observable date_over = [];
 }
 
 var store = window.store = new UserStore();
