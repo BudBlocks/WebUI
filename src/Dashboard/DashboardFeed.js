@@ -196,7 +196,7 @@ export { feedState };
 function formatDate(expiration_date) {
   let diff = new Date(expiration_date).getTime() - new Date().getTime();
   let days = diff / (24 * 60 * 60 * 1000);
-  
+
   if(days < 0) return 'Overdue';
   return Math.floor(days) + ' days'; // 30-Dec-2011
 }
@@ -482,7 +482,7 @@ class ResolveNoteRow extends Component {
         <Grid item xs={USER_COLS} style={styles.GridItem}>
           {this.props.note.receiver}
         </Grid>
-        <Grid item xs={DATE_COLS} style={styles.GridItem}>
+        <Grid item xs={DATE_COLS} style={styles.GridItem, { color: formatDate(props.note.expiration_date) === 'Overdue' ? 'red' : 'black', paddingTop:'15px'}}}>
           {
             formatDate(this.props.note.expiration_date)
           }
