@@ -174,19 +174,19 @@ class SULI_nostyles extends Component {
 
           <div className="signUp">
             <div className="textfield">
-              <TextField label="Email" placeholder="user@name.me" onChange={this.updateEmail}/>
+              <TextField label="Email" placeholder="user@name.me" defaultValue={this.state.email} onChange={this.updateEmail}/>
             </div>
             <div className="textfield">
-              <TextField label="Name" placeholder="User Name" onChange={this.updateName}/>
+              <TextField label="Name" placeholder="User Name" defaultValue={this.state.name} onChange={this.updateName}/>
             </div>
             <div className="textfield">
-              <TextField label="Username" placeholder="Username" onChange={this.updateUsername}/>
+              <TextField label="Username" placeholder="Username" defaultValue={this.state.username} onChange={this.updateUsername}/>
             </div>
             <div className="textfield">
-              <TextField type="password" label="Password" placeholder="Password"/>
+              <TextField type="password" label="Password" defaultValue={this.state.password} placeholder="Password"/>
             </div>
             <div className="textfield">
-              <TextField type="password" label="Confirm Password" placeholder="Password"/>
+              <TextField type="password" label="Confirm Password" defaultValue={this.state.confirm} placeholder="Password"/>
             </div>
             <div className="errorMessage" style={{color: this.state.unsucessful ? "#bf2a2a" : "#ffffff"}}>
               Account with username {this.state.username} already exists
@@ -230,10 +230,10 @@ class SULI_nostyles extends Component {
           <div className="signUp">
             <div style={{paddingTop:'30px'}}></div>
             <div className="textfield">
-              <TextField label="Username" placeholder="Username" onChange={this.updateUsername}/>
+              <TextField label="Username" placeholder="Username" defaultValue={this.state.username} onChange={this.updateUsername}/>
             </div>
             <div className="textfield">
-              <TextField type="password" label="Password" placeholder="Password"/>
+              <TextField type="password" label="Password" defaultValue={this.state.password} placeholder="Password"/>
             </div>
             <div className="errorMessage" style={{color: this.state.unsucessful ? "#bf2a2a" : "#ffffff"}}>
               Account with username {this.state.username} does not exist
