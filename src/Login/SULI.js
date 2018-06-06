@@ -69,7 +69,8 @@ class SULI_nostyles extends Component {
       email: '',
       name: '',
       toDashboard: false,
-      firstTimeUser: 0
+      firstTimeUser: 0,
+      subtitle: '',
     }
     this.updateUsername = this.updateUsername.bind(this);
     this.updateEmail = this.updateEmail.bind(this);
@@ -77,11 +78,39 @@ class SULI_nostyles extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.submitLogin = this.submitLogin.bind(this);
   }
+
+  getSubtitle() {
+      const subtitles = [
+        "Powered by Watson",
+        "We should have used Xamarin",
+        "Not Powered by PhoneGap",
+        "Patent Pending?",
+        "Fast, Easy, Trusted",
+        "Secure Since 2018",
+        "Still in Alpha",
+        "A hand shake is not on the BlockChain",
+        "Managed by Spender",
+        "This is a real Spender Bender",
+        "Brought to You by the flock",
+        "Even we don't really know what's going on",
+        "Better than an uncooked Panini",
+        "We're quiting College to develop this",
+        "Hi Mom",
+        "The Blockchain runs on Alien Technology",
+        "R.I.P. StarBlocks"
+
+      ];
+      let i = Math.round(Math.random() * (subtitles.length - 1));
+      console.log(subtitles[i] + "  " + i);
+      return subtitles[i];
+    };
+
   handleChange(e, value) {
     this.setState({firstTimeUser: value});
   }
+
   updateUsername(e) {
-    this.setState({username: e.target.value})
+    this.setStateb({username: e.target.value})
   }
   updateEmail(e){
     this.setState({email: e.target.value})
@@ -108,11 +137,13 @@ class SULI_nostyles extends Component {
     this.setState({toDashboard: true});
   }
 
+
   // async submitNewUser(e) {
   //
   // }
 
   render() {
+    let subtitle = this.getSubtitle();
     if (this.state.toDashboard) {
       return <Redirect to='/dashboard'/>
     }
@@ -123,7 +154,7 @@ class SULI_nostyles extends Component {
         <div className="parentDiv">
           <div className="header">
             <p className="headerText">Welcome to BudBlocks!</p>
-            <p className="headerSubtext">Please sign up or login</p>
+            <p className="headerSubtext" >{subtitle}</p>
           </div>
 
 
@@ -176,7 +207,7 @@ class SULI_nostyles extends Component {
         <div className="parentDiv">
           <div className="header">
             <p className="headerText">Welcome to BudBlocks!</p>
-            <p className="headerSubtext">Please sign up or login</p>
+            <p className="headerSubtext">{subtitle}</p>
           </div>
 
           <div className="appBar">
@@ -217,6 +248,7 @@ class SULI_nostyles extends Component {
     }
   }
 }
+
 
 const SULI = withStyles(tabStyles)(SULI_nostyles);
 
