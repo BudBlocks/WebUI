@@ -110,7 +110,7 @@ class Bank extends Component {
 
     handleAmountChange(e) {
       e.target.value = e.target.value.replace(',', '');
-      this.setState({amountShow: clampInput(e.target.value, 0, store.balance)})
+      this.setState({amountShow: e.target.value})
     }
 
   render() {
