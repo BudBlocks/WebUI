@@ -35,7 +35,7 @@ export function inputMoneyFormat(n) {
 //   "time_over": [],
 //   "amount_over": []
 // }
-export function createUser(username, email, name) {
+export async function createUser(username, email, name) {
   const data = {
     "$class": 'org.budblocks.Buddy',
     "username": username,
@@ -46,6 +46,21 @@ export function createUser(username, email, name) {
   }
 
   console.log(data);
+
+  let users = await getAllUsers();
+  let found = false;
+  let foundUser = undefined;
+
+  for(let i = 0; i < users.length; i++){
+    let user = users[i];
+    if(user.username == username) {
+      found = true;
+      foundUser = user;
+      break;
+    }
+  }
+
+  if (found) return false;
 
   return axios.post(API_URL + 'buddy', data);
 }

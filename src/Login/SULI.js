@@ -71,11 +71,13 @@ class SULI_nostyles extends Component {
       toDashboard: false,
       firstTimeUser: 0,
       subtitle: this.getSubtitle(),
-      unsucessful: false
+      unsuccessful: false
     }
     this.updateUsername = this.updateUsername.bind(this);
     this.updateEmail = this.updateEmail.bind(this);
     this.updateName = this.updateName.bind(this);
+    this.updatePassword = this.updatePassword.bind(this);
+    this.updateConfirm = this.updateConfirm.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.submitLogin = this.submitLogin.bind(this);
   }
@@ -107,27 +109,38 @@ class SULI_nostyles extends Component {
     };
 
   handleChange(e, value) {
-    this.setState({firstTimeUser: value, unsucessful: false, username: '', name: '', password: '', confirm: '', email: ''});
+    this.setState({firstTimeUser: value, unsuccessful: false, username: '', name: '', password: '', confirm: '', email: ''});
   }
 
   updateUsername(e) {
-    this.setState({username: e.target.value, unsucessful: false})
+    this.setState({username: e.target.value, unsuccessful: false})
   }
   updateEmail(e){
-    this.setState({email: e.target.value, unsucessful: false})
+    this.setState({email: e.target.value, unsuccessful: false})
   }
   updateName(e) {
-    this.setState({name: e.target.value, unsucessful: false})
+    this.setState({name: e.target.value, unsuccessful: false})
+  }
+  updatePassword(e) {
+    this.setState({password: e.target.value, unsuccessful: false})
+  }
+  updateConfirm(e) {
+    this.setState({confirm: e.target.value, unsuccessful: false})
   }
   async submitLogin(e) {
     if (this.state.firstTimeUser === 0 && this.state.password === this.state.confirm) {
-      await createUser(this.state.username, this.state.email, this.state.name);
+      let success = await createUser(this.state.username, this.state.email, this.state.name);
+      if (!success) {
+        console.log("User with username " + this.state.username + " already exists.");
+        this.setState({unsuccessful: true})
+        return;
+      }
     }
     let success = await updateUserInfo(this.state.username);
 
     if (!success) {
       console.log("User with username " + this.state.username + " does not exist.");
-      this.setState({unsucessful: true})
+      this.setState({unsuccessful: true})
       return;
     }
 
@@ -174,21 +187,21 @@ class SULI_nostyles extends Component {
 
           <div className="signUp">
             <div className="textfield">
-              <TextField label="Email" placeholder="user@name.me" defaultValue={this.state.email} onChange={this.updateEmail}/>
+              <TextField label="Email" placeholder="user@name.me" value={this.state.email} onChange={this.updateEmail}/>
             </div>
             <div className="textfield">
-              <TextField label="Name" placeholder="User Name" defaultValue={this.state.name} onChange={this.updateName}/>
+              <TextField label="Name" placeholder="User Name" value={this.state.name} onChange={this.updateName}/>
             </div>
             <div className="textfield">
-              <TextField label="Username" placeholder="Username" defaultValue={this.state.username} onChange={this.updateUsername}/>
+              <TextField label="Username" placeholder="Username" value={this.state.username} onChange={this.updateUsername}/>
             </div>
             <div className="textfield">
-              <TextField type="password" label="Password" defaultValue={this.state.password} placeholder="Password"/>
+              <TextField type="password" label="Password" placeholder="Password" value={this.state.password} onChange={this.updatePassword}/>
             </div>
             <div className="textfield">
-              <TextField type="password" label="Confirm Password" defaultValue={this.state.confirm} placeholder="Password"/>
+              <TextField type="password" label="Confirm Password" placeholder="Password" value={this.state.confirm} onChange={this.updateConfirm}/>
             </div>
-            <div className="errorMessage" style={{color: this.state.unsucessful ? "#bf2a2a" : "#ffffff"}}>
+            <div className="errorMessage" style={{color: this.state.unsuccessful ? "#bf2a2a" : "#ffffff"}}>
               Account with username {this.state.username} already exists
             </div>
           </div>
@@ -230,12 +243,12 @@ class SULI_nostyles extends Component {
           <div className="signUp">
             <div style={{paddingTop:'30px'}}></div>
             <div className="textfield">
-              <TextField label="Username" placeholder="Username" defaultValue={this.state.username} onChange={this.updateUsername}/>
+              <TextField label="Username" placeholder="Username" value={this.state.username} onChange={this.updateUsername}/>
             </div>
             <div className="textfield">
-              <TextField type="password" label="Password" defaultValue={this.state.password} placeholder="Password"/>
+              <TextField type="password" label="Password" placeholder="Password" value={this.state.password} onChange={this.updatePassword}/>
             </div>
-            <div className="errorMessage" style={{color: this.state.unsucessful ? "#bf2a2a" : "#ffffff"}}>
+            <div className="errorMessage" style={{color: this.state.unsuccessful ? "#bf2a2a" : "#ffffff"}}>
               Account with username {this.state.username} does not exist
             </div>
           </div>
