@@ -71,6 +71,7 @@ class Bank extends Component {
     }
     this.depositMoney = this.depositMoney.bind(this);
     this.withdrawMoney = this.withdrawMoney.bind(this);
+    this.handleAmountChange = this.handleAmountChange.bind(this);
   }
 
   componentDidMount() {
@@ -94,6 +95,8 @@ class Bank extends Component {
   }
 
     withdrawMoney(e) {
+      console.log(this.state.amountShow);
+      console.log(store.balance);
       if (this.state.amountShow > store.balance) {
         this.setState({showError: true});
         return;
@@ -138,7 +141,7 @@ class Bank extends Component {
               placeholder = ''
               type='text'
               value = {inputMoneyFormat(this.state.amountShow)}
-              onChange={this.handleAmountChange.bind(this)}
+              onChange={this.handleAmountChange}
               InputProps={{startAdornment: <InputAdornment position="start">$</InputAdornment>,}}/>
           </div>
           <div className="errorMessage" style={{color: this.state.showError ? "#bf2a2a" : "#ffffff"}}>
