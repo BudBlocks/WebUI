@@ -76,6 +76,7 @@ class FeedState {
   @observable incomingList = []
   @observable outgoingList = []
   @observable receivedList = []
+  @observable waitingList = []
   @observable tabValue = 0
   @observable loading = false
   @observable acceptingNote = false
@@ -194,8 +195,10 @@ export { feedState };
 
 function formatDate(expiration_date) {
   let diff = new Date(expiration_date).getTime() - new Date().getTime();
-
-  return Math.floor(diff / (24 * 60 * 60 * 1000)) + ' days'; // 30-Dec-2011
+  let days = diff / (24 * 60 * 60 * 1000);
+  
+  if(days < 0) return 'Overdue';
+  return Math.floor(days) + ' days'; // 30-Dec-2011
 }
 
 @observer
@@ -315,7 +318,14 @@ class DashboardFeed extends Component {
             </div>
         */}
 
-
+        {
+          feedState.outgoing ?
+          feedState.waitingList.map((note) =>
+            <div style={{borderBottom:'1px', borderColor:'#00000044', borderBottomStyle:'solid'}}>
+              <WaitingNoteRow note={note}/>
+            </div>
+          ) : null
+        }
         {
           feedState.currentList.map((note) =>
             <div style={{borderBottom:'1px', borderColor:'#00000044', borderBottomStyle:'solid'}}>
@@ -408,7 +418,7 @@ class Comp extends Component {
             classes={{indicator: classes.indicator}}
             fullWidth
             >
-            <Tab label='Pending' classes={{root: classes.tabRoot}}/>
+            <Tab label='Received' classes={{root: classes.tabRoot}}/>
             <Tab label='Owed' classes={{root: classes.tabRoot}}/>
           </Tabs>
         </AppBar>
@@ -497,13 +507,32 @@ const ReceivedNoteRow = props => (
     <Grid item xs={USER_COLS} style={styles.GridItem}>
       {props.note.sender}
     </Grid>
+    <Grid item xs={DATE_COLS - 1} style={styles.GridItem, { color: formatDate(props.note.expiration_date) === 'Overdue' ? 'red' : 'black', paddingTop:'15px'}}>
+      {
+        formatDate(props.note.expiration_date)
+      }
+    </Grid>
+    <Grid item xs={ICON_COLS + 1} style={styles.GridItem}>
+      Waiting
+    </Grid>
+  </Grid>
+)
+
+const WaitingNoteRow = props => (
+  <Grid container style={{paddingLeft:'20px', paddingBottom:'15px', verticalAlign:'middle'}}>
+    <Grid item xs={MONEY_COLS} style={styles.GridItem}>
+      ${formatMoney(props.note.amount / 100)}
+    </Grid>
+    <Grid item xs={USER_COLS} style={styles.GridItem}>
+      {props.note.receiver}
+    </Grid>
     <Grid item xs={DATE_COLS - 1} style={styles.GridItem}>
       {
         formatDate(props.note.expiration_date)
       }
     </Grid>
     <Grid item xs={ICON_COLS + 1} style={styles.GridItem}>
-      Waiting..
+      Pending
     </Grid>
   </Grid>
 )
