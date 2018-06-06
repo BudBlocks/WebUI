@@ -71,6 +71,7 @@ class SULI_nostyles extends Component {
       toDashboard: false,
       firstTimeUser: 0,
       subtitle: this.getSubtitle(),
+      unsucessful: false
     }
     this.updateUsername = this.updateUsername.bind(this);
     this.updateEmail = this.updateEmail.bind(this);
@@ -106,17 +107,17 @@ class SULI_nostyles extends Component {
     };
 
   handleChange(e, value) {
-    this.setState({firstTimeUser: value});
+    this.setState({firstTimeUser: value, unsucessful: false});
   }
 
   updateUsername(e) {
-    this.setState({username: e.target.value})
+    this.setState({username: e.target.value, unsucessful: false})
   }
   updateEmail(e){
-    this.setState({email: e.target.value})
+    this.setState({email: e.target.value, unsucessful: false})
   }
   updateName(e) {
-    this.setState({name: e.target.value})
+    this.setState({name: e.target.value, unsucessful: false})
   }
   async submitLogin(e) {
     if (this.state.firstTimeUser === 0 && this.state.password === this.state.confirm) {
@@ -126,6 +127,7 @@ class SULI_nostyles extends Component {
 
     if (!success) {
       console.log("User with username " + this.state.username + " does not exist.");
+      this.setState({unsucessful: true})
       return;
     }
 
@@ -186,6 +188,9 @@ class SULI_nostyles extends Component {
             <div className="textfield">
               <TextField type="password" label="Confirm Password" placeholder="Password"/>
             </div>
+            <div className="errorMessage" style={{color: this.state.unsucessful ? "#bf2a2a" : "#ffffff"}}>
+              Account with username {this.state.username} already exists
+            </div>
           </div>
 
           <div className="whitespaceDiv"></div>
@@ -229,6 +234,9 @@ class SULI_nostyles extends Component {
             </div>
             <div className="textfield">
               <TextField type="password" label="Password" placeholder="Password"/>
+            </div>
+            <div className="errorMessage" style={{color: this.state.unsucessful ? "#bf2a2a" : "#ffffff"}}>
+              Account with username {this.state.username} does not exist
             </div>
           </div>
 
