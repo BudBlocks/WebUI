@@ -98,6 +98,9 @@ export async function getUser(username) {
 }
 
 export function sendNote(sender, receiver, amount, expirationDate, message) {
+  if (message === '') {
+    message = " ";
+  }
   const data = {
     $class: 'org.budblocks.sendNote',
     sender: sender,
@@ -107,12 +110,14 @@ export function sendNote(sender, receiver, amount, expirationDate, message) {
     expiration_date: expirationDate
   }
 
-  axios.post(API_URL + 'sendNote', data)
+  return axios.post(API_URL + 'sendNote', data)
     .then(res => {
       console.log('Transaction went through.');
+      return true;
     })
     .catch(error => {
       printErrors(error);
+      return false;
     });
 }
 

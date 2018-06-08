@@ -61,6 +61,7 @@ class NotePageConfirmation extends Component {
       message: props.message,
       deadline: props.deadline,
       toDashboard: false,
+      showError: false
     }
 
     this.handleSendNote = this.handleSendNote.bind(this);
@@ -68,14 +69,19 @@ class NotePageConfirmation extends Component {
   }
 
   // CODE THIS TO COMMUNICATE W THE BACKEND
-  handleSendNote() {
+  async handleSendNote() {
     let d = new Date(this.state.deadline);
     console.log(d);
     d = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 2);
     console.log(d);
-    sendNote(store.username, this.state.name, this.state.amount, d, this.state.message);
+    let success = await sendNote(store.username, this.state.name, this.state.amount, d, this.state.message);
 
-    this.setState({ toDashboard: true});
+    if (!success) {
+      this.setState({ showError: true });
+    }
+    else {
+      this.setState({ toDashboard: true});
+    }
   }
 
   getProps() {
@@ -83,7 +89,7 @@ class NotePageConfirmation extends Component {
       name: this.state.name,
       message: this.state.message,
       amount: this.state.amount,
-      deadline: this.state.deadline
+      deadline: this.state.deadline,
     }
 
     this.props.stateChange(info);
@@ -97,7 +103,7 @@ class NotePageConfirmation extends Component {
       <div className='parentDiv'>
         <LogoHeader/>
         <div className='noteHeader'>
-          <h3 className = 'confirmHeader'> <span className = 'blueSpan'> Confirm Your Note: </span> </h3>
+          <h3 className = 'confirmHeader'> <span className = 'blueSpan'> Confirm Your Request: </span> </h3>
           <div className='recipientDiv'>
             <span className='formatLabel'>From:&emsp;</span>  <span className='formatInput'>{this.state.name}</span>
           </div>
@@ -123,6 +129,9 @@ class NotePageConfirmation extends Component {
             </Button>
           </div>
         </MuiThemeProvider>
+        <div className='errorMessage' style={{color: this.state.showError ? "#bf2a2a" : "#ffffff"}}>
+          Request Invalid. Check that user {this.state.name} exists.
+        </div>
         <MuiThemeProvider theme={themeConfirm}>
           <div className='whitespaceDiv'> </div>
           <div className='whitespaceDiv'> </div>

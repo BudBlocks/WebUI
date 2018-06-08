@@ -109,3 +109,9 @@
     flex-shrink: 1;
     flex-basis: auto;
 }
+
+.errorMessage {
+  padding-top: 30px;
+  font-style: oblique;
+  text-align: center;
+}
