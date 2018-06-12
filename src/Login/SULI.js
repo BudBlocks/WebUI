@@ -92,15 +92,16 @@ class SULI_nostyles extends Component {
         "Secure Since 2019",
         "Still in Alpha",
         "A hand shake is not on the BlockChain",
-        "Managed by Spender",
-        "This is a real Spender Bender",
-        "Brought to you by The Flock",
-        "Even we don't really know what's going on",
-        "Better than an uncooked Panini",
-        "We're quiting College to develop this",
+       // "Managed by Spender",
+       // "This is a real Spender Bender",
+      //  "Brought to you by The Flock",
+       // "Even we don't really know what's going on",
+       // "Better than an uncooked Panini",
+        "College or Budblocks?",
         "Hi Mom",
         "The Blockchain runs on Alien Technology",
-        "R.I.P. StarBlocks"
+        "Like Any Good Startup, it started in the Garage",
+        //"R.I.P. StarBlocks"
 
       ];
       let i = Math.round(Math.random() * (subtitles.length - 1));
